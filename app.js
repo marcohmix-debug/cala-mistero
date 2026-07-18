@@ -141,7 +141,10 @@ function roomLabelCells(L) {
 function renderGame() {
   S.view = "game";
   const L = S.level;
-  const cs = Math.min(76, Math.floor(Math.min(640, window.innerWidth - 540) / L.size)) || 64;
+  const mobile = window.innerWidth <= 980;
+  const avail = mobile ? Math.min(window.innerWidth, 560) - 36
+                       : Math.min(640, window.innerWidth - 540);
+  const cs = Math.max(34, Math.min(76, Math.floor(avail / L.size)));
 
   // suspect cards
   const cards = L.suspects.map((sp, i) => {
@@ -324,5 +327,11 @@ function modal(title, body, buttons) {
   });
   document.body.appendChild(bg);
 }
+
+let _rsz;
+window.addEventListener("resize", () => {
+  clearTimeout(_rsz);
+  _rsz = setTimeout(() => { if (S.view === "game") renderGame(); }, 150);
+});
 
 boot();
