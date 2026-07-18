@@ -11,7 +11,7 @@ const ASSETS = {
   lanterna:   { emoji: "🏮", cat: "block",   it: "una lanterna",  en: "a lantern" },
   timone:     { emoji: "☸️", cat: "block",   it: "un timone",     en: "a helm" },
   sedia:      { emoji: "🪑", cat: "sit",     it: "una sedia",     en: "a chair" },
-  rete:       { emoji: "🕸️", cat: "overlay", it: "una rete",      en: "a net" },
+  rete:       { emoji: "🥅", cat: "overlay", it: "una rete",      en: "a net" },
   corda:      { emoji: "🪢", cat: "overlay", it: "una corda",     en: "a rope coil" },
   pozza:      { emoji: "💧", cat: "overlay", it: "una pozza",     en: "a puddle" },
 };

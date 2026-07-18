@@ -2,7 +2,8 @@
 
 const I18N = {
   it: {
-    suspects: "Sospettati", howto: "clicca per selezionare, poi clicca sulla griglia",
+    suspects: "Sospettati",
+    howto: "clicca una carta e poi la griglia per piazzare; clicca la griglia senza selezione per segnare ✕",
     submit: "RISOLVI", submitSub: "(piazza tutti prima)", hint: "💡 Aiuto",
     undo: "ANNULLA", clear: "🧹 Svuota", back: "← Livelli",
     zone: "Zona 1 — Il Porto", pick: "Scegli un caso",
@@ -12,7 +13,8 @@ const I18N = {
     victim: "LA VITTIMA",
   },
   en: {
-    suspects: "Suspects", howto: "click to select, then click the grid",
+    suspects: "Suspects",
+    howto: "click a card then the grid to place; click the grid with no selection to mark ✕",
     submit: "SUBMIT", submitSub: "(place all first)", hint: "💡 Hint",
     undo: "UNDO", clear: "🧹 Clear", back: "← Levels",
     zone: "Zone 1 — The Harbor", pick: "Pick a case",
@@ -29,6 +31,7 @@ const S = {
   index: null,
   level: null,
   placements: {},      // suspectId -> [r,c]
+  marks: new Set(),    // "r,c" celle escluse dal giocatore
   selected: null,
   history: [],
   wrong: new Set(),
@@ -98,6 +101,7 @@ async function openLevel(id) {
   const meta = S.index.levels.find((l) => l.id === id);
   S.level = await (await fetch("levels/" + meta.file)).json();
   S.placements = {};
+  S.marks = new Set();
   S.selected = null;
   S.history = [];
   S.wrong = new Set();
@@ -183,6 +187,8 @@ function renderGame() {
         inner += `<span class="pawn ${S.wrong.has(sid) ? "wrong" : ""}"
           style="background:${AVATAR_COLORS[sid % AVATAR_COLORS.length]}">${sp.name[0]}</span>`;
       }
+      if (sid === null && S.marks.has(r + "," + c))
+        inner += `<span class="xmark">✕</span>`;
       const lbl = Object.entries(labels).find(([zz, p]) => +zz === z && p[0] === r && p[1] === c);
       if (lbl) inner += `<span class="room-label">${S.lang === "it" ? def.it : def.en}</span>`;
       const blocked = f && ASSETS[f.asset].cat === "block";
@@ -231,8 +237,9 @@ function renderGame() {
     el.onclick = () => cellClick(+el.dataset.r, +el.dataset.c));
   $("#backBtn").onclick = renderHome;
   $("#clearBtn").onclick = () => {
-    S.history.push({ type: "bulk", prev: { ...S.placements } });
-    S.placements = {}; S.wrong.clear(); renderGame();
+    S.history.push({ type: "bulk", prev: { ...S.placements },
+                     prevMarks: new Set(S.marks) });
+    S.placements = {}; S.marks.clear(); S.wrong.clear(); renderGame();
   };
   $("#undoBtn").onclick = undo;
   $("#hintBtn").onclick = hint;
@@ -250,10 +257,18 @@ function cellClick(r, c) {
     renderGame();
     return;
   }
-  if (S.selected === null) return;
   if (f && ASSETS[f.asset].cat === "block") return;
+  if (S.selected === null) {
+    // nessun sospettato selezionato: segna/dissegna la cella come esclusa
+    const k = r + "," + c;
+    S.marks.has(k) ? S.marks.delete(k) : S.marks.add(k);
+    S.history.push({ type: "mark", cell: k });
+    renderGame();
+    return;
+  }
   const prev = S.placements[S.selected] || null;
   S.history.push({ type: "place", id: S.selected, prev });
+  S.marks.delete(r + "," + c);
   S.placements[S.selected] = [r, c];
   // auto-seleziona il prossimo non piazzato
   const nxt = S.level.suspects.findIndex((_, i) => !S.placements[i]);
@@ -271,6 +286,9 @@ function undo() {
     S.placements[h.id] = h.cell;
   } else if (h.type === "bulk") {
     S.placements = h.prev;
+    if (h.prevMarks) S.marks = h.prevMarks;
+  } else if (h.type === "mark") {
+    S.marks.has(h.cell) ? S.marks.delete(h.cell) : S.marks.add(h.cell);
   }
   renderGame();
 }
