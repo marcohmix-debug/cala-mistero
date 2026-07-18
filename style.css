@@ -130,7 +130,17 @@ header select, header button {
   user-select: none;
 }
 .cell .furn { pointer-events: none; }
-.cell .furn.overlay { opacity: .8; }
+.cell .furn.overlay {
+  opacity: .95;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,.35));
+}
+.cell .xmark {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: calc(var(--cs, 72px) * .42);
+  font-weight: 800; color: rgba(16,20,32,.45);
+  pointer-events: none;
+}
 .cell .room-label {
   position: absolute; left: 3px; bottom: 2px;
   font-size: 11px; font-weight: 800; color: #fff;
