@@ -86,12 +86,14 @@ header select, header button {
   padding: 2px 8px;
   margin-right: 8px;
 }
-.tutbar.flash { animation: tutshake .3s; }
-.tutbar .tut-err { margin-top: 6px; color: #b33; font-weight: 700; }
-@keyframes tutshake {
-  0%,100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
+.tutbar .tut-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 6px;
+}
+.tutbar .tut-head button {
+  font: inherit; font-size: 12px; font-weight: 700;
+  padding: 4px 10px; border-radius: 8px;
+  border: 2px solid #c9cdde; background: #fff; cursor: pointer;
 }
 .level-card.tut { background: #fff8e1; }
 
