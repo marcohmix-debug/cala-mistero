@@ -11,6 +11,7 @@ const I18N = {
     loseTitle: "Non ci siamo…", loseBody: (k) => `${k} sospettati sono nel posto sbagliato.`,
     next: "Prossimo caso", home: "Livelli", retry: "Riprova",
     victim: "LA VITTIMA",
+    tutorial: "TUTORIAL", tutWrong: "Non ancora — rileggi il suggerimento qui sopra.",
   },
   en: {
     suspects: "Suspects",
@@ -22,6 +23,7 @@ const I18N = {
     loseTitle: "Not quite…", loseBody: (k) => `${k} suspects are in the wrong place.`,
     next: "Next case", home: "Levels", retry: "Retry",
     victim: "THE VICTIM",
+    tutorial: "TUTORIAL", tutWrong: "Not yet — reread the hint above.",
   },
 };
 
@@ -35,6 +37,7 @@ const S = {
   selected: null,
   history: [],
   wrong: new Set(),
+  tutStep: 0, tutFlash: false,
   t0: null, timerInt: null,
 };
 
@@ -53,6 +56,11 @@ function markDone(id) {
 
 async function boot() {
   S.index = await (await fetch("levels/index.json")).json();
+  if (!S.index.levels.some((l) => l.id === 0)) {
+    S.index.levels.unshift({ id: 0, file: "tutorial.json", size: 6,
+      name_it: "Tutorial — La Prima Indagine",
+      name_en: "Tutorial — Your First Case" });
+  }
   renderHome();
 }
 
@@ -83,8 +91,8 @@ function renderHome() {
   stopTimer();
   const d = doneMap();
   const cards = S.index.levels.map((l) => `
-    <div class="level-card ${d[l.id] ? "done" : ""}" data-id="${l.id}">
-      <div class="num">#${String(l.id).padStart(2, "0")}</div>
+    <div class="level-card ${d[l.id] ? "done" : ""} ${l.id === 0 ? "tut" : ""}" data-id="${l.id}">
+      <div class="num">${l.id === 0 ? "🎓" : "#" + String(l.id).padStart(2, "0")}</div>
       <div class="nm">${S.lang === "it" ? l.name_it : l.name_en}</div>
       <div class="sz">${l.size}×${l.size}</div>
     </div>`).join("");
@@ -105,6 +113,8 @@ async function openLevel(id) {
   S.selected = null;
   S.history = [];
   S.wrong = new Set();
+  S.tutStep = 0;
+  S.tutFlash = false;
   S.t0 = Date.now();
   renderGame();
   startTimer();
@@ -202,7 +212,24 @@ function renderGame() {
   const allPlaced = L.suspects.every((_, i) => S.placements[i]);
   const nm = S.lang === "it" ? L.name_it : L.name_en;
 
-  app.innerHTML = headerHTML(`${nm} (${L.size}×${L.size})`) + `
+  // banner tutorial
+  let tutBar = "";
+  if (L.tutorial) {
+    const T = L.tutorial;
+    const txt = S.tutStep === 0 && !Object.keys(S.placements).length
+      ? (S.lang === "it" ? T.intro_it : T.intro_en) + "<br><br>" +
+        (S.lang === "it" ? T.steps[0].it : T.steps[0].en)
+      : S.tutStep < T.steps.length
+        ? (S.lang === "it" ? T.steps[S.tutStep].it : T.steps[S.tutStep].en)
+        : (S.lang === "it" ? T.outro_it : T.outro_en);
+    tutBar = `<div class="tutbar ${S.tutFlash ? "flash" : ""}">
+      <span class="tag">${t().tutorial}</span> ${txt}
+      ${S.tutFlash ? `<div class="tut-err">${t().tutWrong}</div>` : ""}</div>`;
+    // auto-seleziona il sospettato del passo corrente
+    if (S.tutStep < T.steps.length) S.selected = T.steps[S.tutStep].suspect;
+  }
+
+  app.innerHTML = headerHTML(`${nm} (${L.size}×${L.size})`) + tutBar + `
   <div class="game">
     <div class="suspects">
       <h2>${t().suspects}</h2>
@@ -217,9 +244,9 @@ function renderGame() {
       </div>
     </div>
     <div class="tools">
-      <button id="clearBtn">${t().clear}</button>
-      <button id="undoBtn" ${S.history.length ? "" : "disabled"}>${t().undo}</button>
-      <button id="hintBtn">${t().hint}</button>
+      <button id="clearBtn" ${L.tutorial ? "disabled" : ""}>${t().clear}</button>
+      <button id="undoBtn" ${S.history.length && !L.tutorial ? "" : "disabled"}>${t().undo}</button>
+      <button id="hintBtn" ${L.tutorial ? "disabled" : ""}>${t().hint}</button>
       <button id="submitBtn" class="primary" ${allPlaced ? "" : "disabled"}>
         ${t().submit}<br><span class="small" style="color:#dde">${allPlaced ? "" : t().submitSub}</span>
       </button>
@@ -250,6 +277,27 @@ function cellClick(r, c) {
   const f = furnAt(r, c);
   const here = suspectAt(r, c);
   S.wrong.clear();
+  // modalita' tutorial: accetta solo il piazzamento del passo corrente
+  const T = S.level.tutorial;
+  if (T && S.tutStep < T.steps.length) {
+    const st = T.steps[S.tutStep];
+    if (here !== null) return;                 // niente rimozioni nel tutorial
+    if (f && ASSETS[f.asset].cat === "block") return;
+    if (r === st.cell[0] && c === st.cell[1]) {
+      S.placements[st.suspect] = [r, c];
+      S.marks.delete(r + "," + c);
+      S.tutStep++;
+      S.tutFlash = false;
+      S.selected = null;
+    } else if (S.selected !== null) {
+      S.tutFlash = true;                       // cella sbagliata: feedback
+    } else {
+      const k = r + "," + c;                   // segni X permessi
+      S.marks.has(k) ? S.marks.delete(k) : S.marks.add(k);
+    }
+    renderGame();
+    return;
+  }
   if (here !== null) {
     S.history.push({ type: "remove", id: here, cell: S.placements[here] });
     delete S.placements[here];
