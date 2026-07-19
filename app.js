@@ -189,7 +189,9 @@ function renderGame() {
       let inner = "";
       if (f) {
         const a = ASSETS[f.asset];
-        inner += `<span class="furn ${a.cat === "overlay" ? "overlay" : ""}">${a.emoji}</span>`;
+        inner += a.img
+          ? `<img class="furn img ${a.cat === "overlay" ? "overlay" : ""}" src="${a.img}" alt="">`
+          : `<span class="furn ${a.cat === "overlay" ? "overlay" : ""}">${a.emoji}</span>`;
       }
       const sid = suspectAt(r, c);
       if (sid !== null) {

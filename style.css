@@ -161,6 +161,8 @@ header select, header button {
   user-select: none;
 }
 .cell .furn { pointer-events: none; }
+.cell .furn.img { width: 86%; height: 86%; object-fit: contain; }
+.cell .furn.img.overlay { width: 96%; height: 96%; }
 .cell .furn.overlay {
   opacity: .95;
   filter: drop-shadow(0 1px 1px rgba(0,0,0,.35));
