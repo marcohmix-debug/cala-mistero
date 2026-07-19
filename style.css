@@ -27,9 +27,13 @@ header {
   background: var(--panel);
   border-bottom: 2px solid #d8dbe8;
 }
-header .logo { font-size: 22px; font-weight: 800; letter-spacing: 1px; }
+header .logo { font-size: 22px; font-weight: 800; letter-spacing: 1px;
+  flex-shrink: 0; white-space: nowrap; }
 header .logo span { color: var(--accent); }
-header .sub { font-size: 13px; color: #667; }
+header .sub { font-size: 13px; color: #667;
+  min-width: 0; flex: 0 1 auto;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+header select, header #timer { flex-shrink: 0; }
 header .spacer { flex: 1; }
 header select, header button {
   font: inherit;
@@ -116,28 +120,39 @@ header select, header button {
   header { padding: 8px 10px; gap: 8px; }
   header .sub { font-size: 12px; }
 
+  /* i figli di grid/flex non scendono sotto il min-content senza questo */
+  .game > *, .board-zone > * { min-width: 0; max-width: 100%; }
+
   .board-zone { display: flex; flex-direction: column; gap: 10px; }
   .board-wrap { order: 1; }
 
   .mbar {
     order: 2;
     display: flex;
-    gap: 8px;
+    gap: 6px;
     justify-content: center;
   }
   .mbar button {
-    flex: 1;
+    flex: 1 1 0;
+    min-width: 0;
     max-width: 86px;
     display: flex; flex-direction: column; align-items: center; gap: 2px;
-    font: inherit; font-size: 17px;
-    padding: 8px 4px;
+    font: inherit; font-size: 16px;
+    padding: 8px 2px;
     border-radius: 12px;
     border: 2px solid #1c2030;
     background: var(--panel);
     box-shadow: var(--card-shadow);
     cursor: pointer;
   }
-  .mbar button span { font-size: 11px; font-weight: 700; }
+  .mbar button span {
+    font-size: clamp(8px, 2.8vw, 11px);
+    font-weight: 700;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .mbar button.active { background: #1c2030; color: #fff; }
   .mbar button:disabled { opacity: .4; }
 
