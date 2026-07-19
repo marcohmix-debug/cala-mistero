@@ -12,6 +12,8 @@ const I18N = {
     next: "Prossimo caso", home: "Livelli", retry: "Riprova",
     victim: "LA VITTIMA",
     tutorial: "TUTORIAL", tutWrong: "Non ancora — rileggi il suggerimento qui sopra.",
+    mCross: "Croci", mPlace: "Piazza", mErase: "Cancella", mUndo: "Annulla", mHint: "Aiuto",
+    mSubmit: "Invia soluzione", mPick: "Scegli un sospettato qui sopra.",
   },
   en: {
     suspects: "Suspects",
@@ -24,6 +26,8 @@ const I18N = {
     next: "Next case", home: "Levels", retry: "Retry",
     victim: "THE VICTIM",
     tutorial: "TUTORIAL", tutWrong: "Not yet — reread the hint above.",
+    mCross: "Crosses", mPlace: "Place", mErase: "Erase", mUndo: "Undo", mHint: "Hint",
+    mSubmit: "Submit solution", mPick: "Pick a suspect above.",
   },
 };
 
@@ -38,6 +42,7 @@ const S = {
   history: [],
   wrong: new Set(),
   tutStep: 0, tutFlash: false,
+  mode: "place",           // place | cross | erase (barra mobile)
   t0: null, timerInt: null,
 };
 
@@ -231,6 +236,20 @@ function renderGame() {
     if (S.tutStep < T.steps.length) S.selected = T.steps[S.tutStep].suspect;
   }
 
+  // striscia avatar (mobile) + indizio del selezionato
+  const strip = L.suspects.map((sp, i) => {
+    const clue = L.clues.find((c) => c.suspect === i);
+    return `<div class="mav ${S.selected === i ? "sel" : ""} ${S.placements[i] ? "placed" : ""}
+      ${clue.victim ? "victim" : ""}" data-id="${i}">
+      <div class="ava" style="background:${AVATAR_COLORS[i % AVATAR_COLORS.length]}">${sp.name[0]}</div>
+      <div class="nm">${sp.name}</div>
+    </div>`;
+  }).join("");
+  const selClue = S.selected !== null
+    ? (S.lang === "it" ? L.clues.find((c) => c.suspect === S.selected).it
+                       : L.clues.find((c) => c.suspect === S.selected).en)
+    : t().mPick;
+
   app.innerHTML = headerHTML(`${nm} (${L.size}×${L.size})`) + tutBar + `
   <div class="game">
     <div class="suspects">
@@ -240,10 +259,22 @@ function renderGame() {
       <button id="backBtn" style="width:100%;font:inherit;padding:8px;border-radius:8px;
         border:2px solid #c9cdde;background:#fff;cursor:pointer">${t().back}</button>
     </div>
-    <div class="board-wrap">
-      <div class="board" style="--cs:${cs}px;grid-template-columns:repeat(${L.size},${cs}px)">
-        ${cells}
+    <div class="board-zone">
+      <div class="board-wrap">
+        <div class="board" style="--cs:${cs}px;grid-template-columns:repeat(${L.size},${cs}px)">
+          ${cells}
+        </div>
       </div>
+      <div class="mbar">
+        <button id="mCross" class="${S.mode === "cross" ? "active" : ""}">✕<span>${t().mCross}</span></button>
+        <button id="mPlace" class="${S.mode === "place" ? "active" : ""}">✔<span>${t().mPlace}</span></button>
+        <button id="mErase" class="${S.mode === "erase" ? "active" : ""}">🧹<span>${t().mErase}</span></button>
+        <button id="mUndo" ${S.history.length && !L.tutorial ? "" : "disabled"}>↩<span>${t().mUndo}</span></button>
+        <button id="mHint" ${L.tutorial ? "disabled" : ""}>💡<span>${t().mHint}</span></button>
+      </div>
+      <div class="mstrip">${strip}</div>
+      <div class="mclue ${S.selected !== null && L.clues.find((c) => c.suspect === S.selected).victim ? "victim" : ""}">${selClue}</div>
+      <button id="msubmitBtn" class="msubmit" ${allPlaced ? "" : "disabled"}>${t().mSubmit}</button>
     </div>
     <div class="tools">
       <button id="clearBtn" ${L.tutorial ? "disabled" : ""}>${t().clear}</button>
@@ -265,6 +296,18 @@ function renderGame() {
   document.querySelectorAll(".cell").forEach((el) =>
     el.onclick = () => cellClick(+el.dataset.r, +el.dataset.c));
   $("#backBtn").onclick = renderHome;
+  document.querySelectorAll(".mav").forEach((el) =>
+    el.onclick = () => {
+      S.selected = S.selected === +el.dataset.id ? null : +el.dataset.id;
+      S.mode = "place";
+      renderGame();
+    });
+  $("#mCross").onclick = () => { S.mode = "cross"; renderGame(); };
+  $("#mPlace").onclick = () => { S.mode = "place"; renderGame(); };
+  $("#mErase").onclick = () => { S.mode = "erase"; renderGame(); };
+  $("#mUndo").onclick = undo;
+  $("#mHint").onclick = hint;
+  $("#msubmitBtn").onclick = submit;
   $("#clearBtn").onclick = () => {
     S.history.push({ type: "bulk", prev: { ...S.placements },
                      prevMarks: new Set(S.marks) });
@@ -301,13 +344,32 @@ function cellClick(r, c) {
     return;
   }
   if (here !== null) {
+    if (S.mode === "cross") return;   // le croci non toccano i pedoni
     S.history.push({ type: "remove", id: here, cell: S.placements[here] });
     delete S.placements[here];
-    S.selected = here;
+    S.selected = S.mode === "erase" ? S.selected : here;
     renderGame();
     return;
   }
   if (f && ASSETS[f.asset].cat === "block") return;
+  // modo Croci: segna/dissegna la cella
+  if (S.mode === "cross") {
+    const k = r + "," + c;
+    S.marks.has(k) ? S.marks.delete(k) : S.marks.add(k);
+    S.history.push({ type: "mark", cell: k });
+    renderGame();
+    return;
+  }
+  // modo Cancella: togli il segno (i pedoni sono gestiti sopra da `here`)
+  if (S.mode === "erase") {
+    const k = r + "," + c;
+    if (S.marks.has(k)) {
+      S.marks.delete(k);
+      S.history.push({ type: "mark", cell: k });
+      renderGame();
+    }
+    return;
+  }
   if (S.selected === null) {
     // nessun sospettato selezionato: segna/dissegna la cella come esclusa
     const k = r + "," + c;
