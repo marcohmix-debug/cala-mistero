@@ -180,6 +180,13 @@ function renderGame() {
 
   // board
   const labels = roomLabelCells(L);
+  const usedR = new Set(), usedC = new Set();
+  for (const p of Object.values(S.placements)) {
+    if (p) { usedR.add(p[0]); usedC.add(p[1]); }
+  }
+  const XSVG = `<svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M6.5 6.5 L17.5 17.5 M17.5 6.5 L6.5 17.5"
+      stroke="currentColor" stroke-width="3.6" stroke-linecap="round" fill="none"/></svg>`;
   let cells = "";
   for (let r = 0; r < L.size; r++) {
     for (let c = 0; c < L.size; c++) {
@@ -204,8 +211,13 @@ function renderGame() {
         inner += `<span class="pawn ${S.wrong.has(sid) ? "wrong" : ""}"
           style="background:${AVATAR_COLORS[sid % AVATAR_COLORS.length]}">${sp.name[0]}</span>`;
       }
-      if (sid === null && S.marks.has(r + "," + c))
-        inner += `<span class="xmark">✕</span>`;
+      const blockedCell = f && ASSETS[f.asset].cat === "block";
+      if (sid === null && !blockedCell) {
+        if (S.marks.has(r + "," + c))
+          inner += `<span class="xmark manual">${XSVG}</span>`;
+        else if (usedR.has(r) || usedC.has(c))
+          inner += `<span class="xmark auto">${XSVG}</span>`;
+      }
       const lbl = Object.entries(labels).find(([zz, p]) => +zz === z && p[0] === r && p[1] === c);
       if (lbl) inner += `<span class="room-label">${S.lang === "it" ? def.it : def.en}</span>`;
       const blocked = f && ASSETS[f.asset].cat === "block";

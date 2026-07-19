@@ -245,9 +245,18 @@ header select, header button {
 .cell .xmark {
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
-  font-size: calc(var(--cs, 72px) * .42);
-  font-weight: 800; color: rgba(16,20,32,.45);
   pointer-events: none;
+  animation: xpop .18s ease-out;
+}
+.cell .xmark svg {
+  width: 46%; height: 46%;
+  filter: drop-shadow(0 1px 0 rgba(255,255,255,.5));
+}
+.cell .xmark.manual { color: rgba(43, 54, 88, .62); }
+.cell .xmark.auto   { color: rgba(16, 20, 32, .22); }
+@keyframes xpop {
+  from { transform: scale(.4); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
 }
 .cell .room-label {
   position: absolute; left: 3px; bottom: 2px;
