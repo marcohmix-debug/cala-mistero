@@ -14,6 +14,8 @@ body {
   background: var(--bg);
   color: var(--ink);
   min-height: 100vh;
+  overflow-x: hidden;   /* i contenuti assoluti (etichette stanze) non devono
+                           allargare la pagina su schermi stretti */
 }
 
 /* ---------- header ---------- */
@@ -45,7 +47,7 @@ header select, header button {
 .home p.zone { color: #567; margin-bottom: 20px; }
 .level-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));
   gap: 14px;
 }
 .level-card {
@@ -272,7 +274,8 @@ header select, header button {
 }
 .cell .room-label {
   position: absolute; left: 3px; bottom: 2px;
-  font-size: 11px; font-weight: 800; color: #fff;
+  font-size: clamp(7px, calc(var(--cs, 72px) * .17), 11px);
+  font-weight: 800; color: #fff;
   text-shadow: 0 0 3px #000, 0 0 3px #000, 1px 1px 0 #000;
   letter-spacing: .5px; pointer-events: none; text-transform: uppercase;
   z-index: 3;
