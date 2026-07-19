@@ -221,12 +221,22 @@ header select, header button {
 /* board */
 .board-wrap { display: flex; justify-content: center; overflow-x: auto; }
 .board {
+  /* dimensione cella fluida: si adatta a larghezza E altezza del viewport.
+     --n (numero colonne) arriva dall'inline style */
+  --cs: clamp(30px, min(calc((100vw - 560px) / var(--n, 6)),
+                        calc((100vh - 180px) / var(--n, 6))), 78px);
   display: grid;
   border: 4px solid #101420;
   border-radius: 6px;
   background: #101420;
   gap: 0;
   box-shadow: 8px 10px 0 rgba(28,32,48,.18);
+}
+@media (max-width: 980px) {
+  .board {
+    --cs: clamp(26px, min(calc((100vw - 34px) / var(--n, 6)),
+                          calc((100vh - 400px) / var(--n, 6))), 78px);
+  }
 }
 .cell {
   width: var(--cs, 72px);

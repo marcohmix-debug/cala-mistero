@@ -160,10 +160,6 @@ function roomLabelCells(L) {
 function renderGame() {
   S.view = "game";
   const L = S.level;
-  const mobile = window.innerWidth <= 980;
-  const avail = mobile ? Math.min(window.innerWidth, 560) - 36
-                       : Math.min(640, window.innerWidth - 540);
-  const cs = Math.max(34, Math.min(76, Math.floor(avail / L.size)));
 
   // suspect cards
   const cards = L.suspects.map((sp, i) => {
@@ -285,7 +281,7 @@ function renderGame() {
     </div>
     <div class="board-zone">
       <div class="board-wrap">
-        <div class="board" style="--cs:${cs}px;grid-template-columns:repeat(${L.size},${cs}px)">
+        <div class="board" style="--n:${L.size};grid-template-columns:repeat(${L.size},var(--cs))">
           ${cells}
         </div>
       </div>
