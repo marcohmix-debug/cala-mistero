@@ -11,7 +11,7 @@ const I18N = {
     loseTitle: "Non ci siamo…", loseBody: (k) => `${k} sospettati sono nel posto sbagliato.`,
     next: "Prossimo caso", home: "Livelli", retry: "Riprova",
     victim: "LA VITTIMA",
-    tutorial: "TUTORIAL", tutWrong: "Non ancora — rileggi il suggerimento qui sopra.",
+    tutorial: "TUTORIAL", tutSkip: "Salta il tutorial →",
     mCross: "Croci", mPlace: "Piazza", mErase: "Cancella", mUndo: "Annulla", mHint: "Aiuto",
     mSubmit: "Invia soluzione", mPick: "Scegli un sospettato qui sopra.",
   },
@@ -25,7 +25,7 @@ const I18N = {
     loseTitle: "Not quite…", loseBody: (k) => `${k} suspects are in the wrong place.`,
     next: "Next case", home: "Levels", retry: "Retry",
     victim: "THE VICTIM",
-    tutorial: "TUTORIAL", tutWrong: "Not yet — reread the hint above.",
+    tutorial: "TUTORIAL", tutSkip: "Skip tutorial →",
     mCross: "Crosses", mPlace: "Place", mErase: "Erase", mUndo: "Undo", mHint: "Hint",
     mSubmit: "Submit solution", mPick: "Pick a suspect above.",
   },
@@ -231,21 +231,33 @@ function renderGame() {
   const allPlaced = L.suspects.every((_, i) => S.placements[i]);
   const nm = S.lang === "it" ? L.name_it : L.name_en;
 
-  // banner tutorial
+  // banner tutorial (non vincolante: suggerisce, non obbliga)
   let tutBar = "";
   if (L.tutorial) {
     const T = L.tutorial;
+    // il passo corrente deriva dallo stato della griglia: primi passi
+    // consecutivi gia' eseguiti (cosi' undo/svuota/aiuto lo riallineano)
+    S.tutStep = 0;
+    while (S.tutStep < T.steps.length) {
+      const st = T.steps[S.tutStep];
+      const p = S.placements[st.suspect];
+      if (p && p[0] === st.cell[0] && p[1] === st.cell[1]) S.tutStep++;
+      else break;
+    }
     const txt = S.tutStep === 0 && !Object.keys(S.placements).length
       ? (S.lang === "it" ? T.intro_it : T.intro_en) + "<br><br>" +
         (S.lang === "it" ? T.steps[0].it : T.steps[0].en)
       : S.tutStep < T.steps.length
         ? (S.lang === "it" ? T.steps[S.tutStep].it : T.steps[S.tutStep].en)
         : (S.lang === "it" ? T.outro_it : T.outro_en);
-    tutBar = `<div class="tutbar ${S.tutFlash ? "flash" : ""}">
-      <span class="tag">${t().tutorial}</span> ${txt}
-      ${S.tutFlash ? `<div class="tut-err">${t().tutWrong}</div>` : ""}</div>`;
-    // auto-seleziona il sospettato del passo corrente
-    if (S.tutStep < T.steps.length) S.selected = T.steps[S.tutStep].suspect;
+    tutBar = `<div class="tutbar">
+      <div class="tut-head"><span class="tag">${t().tutorial}</span>
+        <button id="tutSkip">${t().tutSkip}</button></div>
+      ${txt}</div>`;
+    // suggerisci il sospettato del passo solo se non ne hai selezionato uno
+    if (S.selected === null && S.tutStep < T.steps.length
+        && !S.placements[T.steps[S.tutStep].suspect])
+      S.selected = T.steps[S.tutStep].suspect;
   }
 
   // striscia avatar (mobile) + indizio del selezionato
@@ -281,17 +293,17 @@ function renderGame() {
         <button id="mCross" class="${S.mode === "cross" ? "active" : ""}">✕<span>${t().mCross}</span></button>
         <button id="mPlace" class="${S.mode === "place" ? "active" : ""}">✔<span>${t().mPlace}</span></button>
         <button id="mErase" class="${S.mode === "erase" ? "active" : ""}">🧹<span>${t().mErase}</span></button>
-        <button id="mUndo" ${S.history.length && !L.tutorial ? "" : "disabled"}>↩<span>${t().mUndo}</span></button>
-        <button id="mHint" ${L.tutorial ? "disabled" : ""}>💡<span>${t().mHint}</span></button>
+        <button id="mUndo" ${S.history.length ? "" : "disabled"}>↩<span>${t().mUndo}</span></button>
+        <button id="mHint">💡<span>${t().mHint}</span></button>
       </div>
       <div class="mstrip">${strip}</div>
       <div class="mclue ${S.selected !== null && L.clues.find((c) => c.suspect === S.selected).victim ? "victim" : ""}">${selClue}</div>
       <button id="msubmitBtn" class="msubmit" ${allPlaced ? "" : "disabled"}>${t().mSubmit}</button>
     </div>
     <div class="tools">
-      <button id="clearBtn" ${L.tutorial ? "disabled" : ""}>${t().clear}</button>
-      <button id="undoBtn" ${S.history.length && !L.tutorial ? "" : "disabled"}>${t().undo}</button>
-      <button id="hintBtn" ${L.tutorial ? "disabled" : ""}>${t().hint}</button>
+      <button id="clearBtn">${t().clear}</button>
+      <button id="undoBtn" ${S.history.length ? "" : "disabled"}>${t().undo}</button>
+      <button id="hintBtn">${t().hint}</button>
       <button id="submitBtn" class="primary" ${allPlaced ? "" : "disabled"}>
         ${t().submit}<br><span class="small" style="color:#dde">${allPlaced ? "" : t().submitSub}</span>
       </button>
@@ -308,6 +320,8 @@ function renderGame() {
   document.querySelectorAll(".cell").forEach((el) =>
     el.onclick = () => cellClick(+el.dataset.r, +el.dataset.c));
   $("#backBtn").onclick = renderHome;
+  const skipBtn = $("#tutSkip");
+  if (skipBtn) skipBtn.onclick = renderHome;
   document.querySelectorAll(".mav").forEach((el) =>
     el.onclick = () => {
       S.selected = S.selected === +el.dataset.id ? null : +el.dataset.id;
@@ -334,27 +348,6 @@ function cellClick(r, c) {
   const f = furnAt(r, c);
   const here = suspectAt(r, c);
   S.wrong.clear();
-  // modalita' tutorial: accetta solo il piazzamento del passo corrente
-  const T = S.level.tutorial;
-  if (T && S.tutStep < T.steps.length) {
-    const st = T.steps[S.tutStep];
-    if (here !== null) return;                 // niente rimozioni nel tutorial
-    if (f && ASSETS[f.asset].cat === "block") return;
-    if (r === st.cell[0] && c === st.cell[1]) {
-      S.placements[st.suspect] = [r, c];
-      S.marks.delete(r + "," + c);
-      S.tutStep++;
-      S.tutFlash = false;
-      S.selected = null;
-    } else if (S.selected !== null) {
-      S.tutFlash = true;                       // cella sbagliata: feedback
-    } else {
-      const k = r + "," + c;                   // segni X permessi
-      S.marks.has(k) ? S.marks.delete(k) : S.marks.add(k);
-    }
-    renderGame();
-    return;
-  }
   if (here !== null) {
     if (S.mode === "cross") return;   // le croci non toccano i pedoni
     S.history.push({ type: "remove", id: here, cell: S.placements[here] });
