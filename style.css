@@ -64,6 +64,37 @@ header select, header button {
 .level-card.done { background: #e4f5e8; }
 .level-card.done .nm::after { content: " ✓"; color: #2e8b57; }
 
+/* ---------- tutorial ---------- */
+.tutbar {
+  margin: 12px 16px 0;
+  padding: 12px 16px;
+  background: #fff8e1;
+  border: 2px solid #1c2030;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  font-size: 14.5px;
+  line-height: 1.45;
+}
+.tutbar .tag {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  padding: 2px 8px;
+  margin-right: 8px;
+}
+.tutbar.flash { animation: tutshake .3s; }
+.tutbar .tut-err { margin-top: 6px; color: #b33; font-weight: 700; }
+@keyframes tutshake {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+.level-card.tut { background: #fff8e1; }
+
 /* ---------- game layout ---------- */
 .game {
   display: grid;
