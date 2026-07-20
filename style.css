@@ -271,14 +271,7 @@ header select, header button {
    I pattern usano rgba nere/bianche cosi' restano coerenti su ogni colore.
    ------------------------------------------------------------------------- */
 
-/* Legno: assi orizzontali con fughe scure — Ponte / Molo */
-.cell.floor-ponte, .cell.floor-molo {
-  background-image:
-    repeating-linear-gradient(0deg,
-      rgba(0,0,0,.10) 0, rgba(0,0,0,.10) 2px,
-      transparent 2px, transparent calc(var(--cs,72px) / 3));
-}
-.cell.floor-ponte { background-size: 100% calc(var(--cs,72px) / 3); }
+/* Legno: assi orizzontali con fughe scure — Molo (Ponte usa la texture) */
 .cell.floor-molo {
   background-image:
     repeating-linear-gradient(0deg,
