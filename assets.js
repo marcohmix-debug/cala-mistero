@@ -16,5 +16,15 @@ const ASSETS = {
   pozza:      { emoji: "💧", cat: "overlay", it: "una pozza",     en: "a puddle",    img: "assets/props/pozza.png" },
 };
 
+// Texture pavimento per tipo di stanza (chiave = key stanza).
+// Le stanze senza texture usano il pattern CSS + colore.
+const FLOOR_IMG = {
+  ponte:    "assets/floors/ponte.jpg",
+  cabina:   "assets/floors/cabina.jpg",
+  plancia:  "assets/floors/plancia.jpg",
+  stiva:    "assets/floors/stiva.jpg",
+  spiaggia: "assets/floors/spiaggia.jpg",
+};
+
 const AVATAR_COLORS = ["#7c5cbf", "#2e8b6e", "#c05a5a", "#3b7bbf",
                        "#b8862e", "#8a4f7d", "#4f8a8a", "#a0522d"];
