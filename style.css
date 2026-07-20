@@ -263,6 +263,89 @@ header select, header button {
   font-size: calc(var(--cs, 72px) * .52);
   cursor: pointer;
   user-select: none;
+  background-repeat: repeat;
+}
+
+/* -------------------------------------------------------------------------
+   Pavimenti cartoon procedurali (pattern CSS sopra il --floor della stanza).
+   I pattern usano rgba nere/bianche cosi' restano coerenti su ogni colore.
+   ------------------------------------------------------------------------- */
+
+/* Legno: assi orizzontali con fughe scure — Ponte / Molo */
+.cell.floor-ponte, .cell.floor-molo {
+  background-image:
+    repeating-linear-gradient(0deg,
+      rgba(0,0,0,.10) 0, rgba(0,0,0,.10) 2px,
+      transparent 2px, transparent calc(var(--cs,72px) / 3));
+}
+.cell.floor-ponte { background-size: 100% calc(var(--cs,72px) / 3); }
+.cell.floor-molo {
+  background-image:
+    repeating-linear-gradient(0deg,
+      rgba(0,0,0,.13) 0, rgba(0,0,0,.13) 2px,
+      transparent 2px, transparent calc(var(--cs,72px) / 3)),
+    repeating-linear-gradient(90deg,
+      rgba(0,0,0,.06) 0, rgba(0,0,0,.06) 1px,
+      transparent 1px, transparent 6px);
+}
+
+/* Metallo/casse: assi verticali — Stiva */
+.cell.floor-stiva {
+  background-image:
+    repeating-linear-gradient(90deg,
+      rgba(0,0,0,.11) 0, rgba(0,0,0,.11) 2px,
+      transparent 2px, transparent calc(var(--cs,72px) / 3)),
+    linear-gradient(180deg, rgba(255,255,255,.05), transparent 40%);
+}
+
+/* Piastrelle: fughe a scacchi — Cambusa / Faro */
+.cell.floor-cambusa, .cell.floor-faro {
+  background-image:
+    linear-gradient(rgba(0,0,0,.07) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, rgba(0,0,0,.07) 1.5px, transparent 1.5px);
+  background-size:
+    calc(var(--cs,72px) / 2) calc(var(--cs,72px) / 2),
+    calc(var(--cs,72px) / 2) calc(var(--cs,72px) / 2);
+}
+.cell.floor-faro {
+  background-image:
+    linear-gradient(45deg, rgba(0,0,0,.06) 25%, transparent 25%,
+      transparent 75%, rgba(0,0,0,.06) 75%),
+    linear-gradient(45deg, rgba(0,0,0,.06) 25%, transparent 25%,
+      transparent 75%, rgba(0,0,0,.06) 75%);
+  background-size:
+    calc(var(--cs,72px) / 2) calc(var(--cs,72px) / 2),
+    calc(var(--cs,72px) / 2) calc(var(--cs,72px) / 2);
+  background-position: 0 0, calc(var(--cs,72px) / 4) calc(var(--cs,72px) / 4);
+}
+
+/* Tappeto/pannelli: trama diagonale fitta — Cabina / Plancia */
+.cell.floor-cabina {
+  background-image:
+    repeating-linear-gradient(45deg,
+      rgba(0,0,0,.05) 0, rgba(0,0,0,.05) 2px,
+      transparent 2px, transparent 6px);
+}
+.cell.floor-plancia {
+  background-image:
+    repeating-linear-gradient(-45deg,
+      rgba(255,255,255,.10) 0, rgba(255,255,255,.10) 2px,
+      transparent 2px, transparent 7px),
+    repeating-linear-gradient(45deg,
+      rgba(0,0,0,.05) 0, rgba(0,0,0,.05) 1px,
+      transparent 1px, transparent 7px);
+}
+
+/* Sabbia: stipple a puntini — Spiaggia */
+.cell.floor-spiaggia {
+  background-image:
+    radial-gradient(rgba(0,0,0,.10) 1px, transparent 1.4px),
+    radial-gradient(rgba(0,0,0,.08) 1px, transparent 1.4px);
+  background-size:
+    calc(var(--cs,72px) / 5) calc(var(--cs,72px) / 5),
+    calc(var(--cs,72px) / 5) calc(var(--cs,72px) / 5);
+  background-position: 0 0,
+    calc(var(--cs,72px) / 10) calc(var(--cs,72px) / 10);
 }
 .cell .furn { pointer-events: none; }
 .cell .furn.img { width: 86%; height: 86%; object-fit: contain; }

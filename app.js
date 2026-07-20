@@ -217,8 +217,8 @@ function renderGame() {
       const lbl = Object.entries(labels).find(([zz, p]) => +zz === z && p[0] === r && p[1] === c);
       if (lbl) inner += `<span class="room-label">${S.lang === "it" ? def.it : def.en}</span>`;
       const blocked = f && ASSETS[f.asset].cat === "block";
-      cells += `<div class="cell ${blocked ? "blocked" : ""}" data-r="${r}" data-c="${c}"
-        style="background:${def.color};
+      cells += `<div class="cell floor-${def.key} ${blocked ? "blocked" : ""}" data-r="${r}" data-c="${c}"
+        style="--floor:${def.color};background-color:${def.color};
         border-top:${bw(bT)};border-left:${bw(bL)};
         border-bottom:${bw(bB)};border-right:${bw(bR)}">${inner}</div>`;
     }
