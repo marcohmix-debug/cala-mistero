@@ -217,13 +217,11 @@ function renderGame() {
       const lbl = Object.entries(labels).find(([zz, p]) => +zz === z && p[0] === r && p[1] === c);
       if (lbl) inner += `<span class="room-label">${S.lang === "it" ? def.it : def.en}</span>`;
       const blocked = f && ASSETS[f.asset].cat === "block";
-      // texture pavimento: il tile scorre continuo sulla stanza (span 3 celle),
-      // posizionato in base a riga/colonna della cella
+      // texture pavimento: una tile intera per ogni quadrato della griglia
       const tex = FLOOR_IMG[def.key];
       const texStyle = tex
-        ? `background-image:url(${tex});background-repeat:repeat;` +
-          `background-size:calc(var(--cs) * 3);` +
-          `background-position:calc(var(--cs) * ${-c}) calc(var(--cs) * ${-r});`
+        ? `background-image:url(${tex});background-repeat:no-repeat;` +
+          `background-size:100% 100%;background-position:center;`
         : "";
       cells += `<div class="cell floor-${def.key} ${blocked ? "blocked" : ""}" data-r="${r}" data-c="${c}"
         style="--floor:${def.color};background-color:${def.color};${texStyle}
