@@ -14,6 +14,10 @@ const I18N = {
     tutorial: "TUTORIAL", tutSkip: "Salta il tutorial →",
     mCross: "Croci", mPlace: "Piazza", mErase: "Cancella", mUndo: "Annulla", mHint: "Aiuto",
     mSubmit: "Invia soluzione", mPick: "Scegli un sospettato qui sopra.",
+    zonesTitle: "Scegli una zona", zonesSub: "Ogni zona è un caso a tema",
+    zoneBack: "← Zone", zoneLevels: (n) => `${n} casi`,
+    diff: ["", "Facile", "Medio", "Difficile"], soon: "Prossimamente",
+    tutCard: "Tutorial — La Prima Indagine",
   },
   en: {
     suspects: "Suspects",
@@ -28,13 +32,19 @@ const I18N = {
     tutorial: "TUTORIAL", tutSkip: "Skip tutorial →",
     mCross: "Crosses", mPlace: "Place", mErase: "Erase", mUndo: "Undo", mHint: "Hint",
     mSubmit: "Submit solution", mPick: "Pick a suspect above.",
+    zonesTitle: "Choose a zone", zonesSub: "Each zone is a themed case",
+    zoneBack: "← Zones", zoneLevels: (n) => `${n} cases`,
+    diff: ["", "Easy", "Medium", "Hard"], soon: "Coming soon",
+    tutCard: "Tutorial — Your First Case",
   },
 };
 
 const S = {
   lang: localStorage.getItem("cm_lang") || "it",
-  view: "home",
+  view: "zones",
   index: null,
+  zones: [],
+  zone: null,          // zona corrente
   level: null,
   placements: {},      // suspectId -> [r,c]
   marks: new Set(),    // "r,c" celle escluse dal giocatore
@@ -59,19 +69,26 @@ function markDone(id) {
   localStorage.setItem("cm_done", JSON.stringify(d));
 }
 
+const BUILD = "14";
+
 async function boot() {
-  S.index = await (await fetch("levels/index.json")).json();
-  if (!S.index.levels.some((l) => l.id === 0)) {
-    S.index.levels.unshift({ id: 0, file: "tutorial.json", size: 6,
-      name_it: "Tutorial — La Prima Indagine",
-      name_en: "Tutorial — Your First Case" });
-  }
-  renderHome();
+  S.index = await (await fetch("levels/index.json?v=" + BUILD)).json();
+  S.zones = S.index.zones || [];
+  renderZones();
+}
+
+// tutte le mappe (livelli + tutorial) di una zona, per lookup e "prossimo"
+function zoneLevelList(zone) {
+  const tut = zone.tutorial
+    ? [{ id: 0, file: zone.tutorial.file, size: 6, tutorial: true }]
+    : [];
+  return tut.concat(zone.levels);
 }
 
 /* ---------------- header ---------------- */
-function headerHTML(sub) {
+function headerHTML(sub, backTo) {
   return `<header>
+    ${backTo ? `<button class="hback" id="hback">‹</button>` : ""}
     <div class="logo">SUS<span>oku</span></div>
     <div class="sub">${sub || ""}</div>
     <div class="spacer"></div>
@@ -82,37 +99,92 @@ function headerHTML(sub) {
     </select>
   </header>`;
 }
-function wireHeader() {
+function wireHeader(backFn) {
   $("#langSel").onchange = (e) => {
     S.lang = e.target.value;
     localStorage.setItem("cm_lang", S.lang);
-    S.view === "home" ? renderHome() : renderGame();
+    if (S.view === "zones") renderZones();
+    else if (S.view === "levels") renderLevels(S.zone);
+    else renderGame();
   };
+  const hb = $("#hback");
+  if (hb && backFn) hb.onclick = backFn;
 }
 
-/* ---------------- home ---------------- */
-function renderHome() {
-  S.view = "home";
+/* ---------------- zone select ---------------- */
+function renderZones() {
+  S.view = "zones";
   stopTimer();
   const d = doneMap();
-  const cards = S.index.levels.map((l) => `
-    <div class="level-card ${d[l.id] ? "done" : ""} ${l.id === 0 ? "tut" : ""}" data-id="${l.id}">
-      <div class="num">${l.id === 0 ? "🎓" : "#" + String(l.id).padStart(2, "0")}</div>
-      <div class="nm">${S.lang === "it" ? l.name_it : l.name_en}</div>
-      <div class="sz">${l.size}×${l.size}</div>
-    </div>`).join("");
-  app.innerHTML = headerHTML(t().zone) + `
-    <div class="home"><h1>${t().pick}</h1>
-    <p class="zone">${t().zone}</p>
-    <div class="level-grid">${cards}</div></div>`;
+  const cards = S.zones.map((z) => {
+    const done = z.levels.filter((l) => d[z.id + ":" + l.id]).length;
+    return `<div class="zone-card" data-zone="${z.id}"
+      style="background-image:linear-gradient(180deg,rgba(20,16,40,.15),rgba(20,16,40,.78)),url(${z.bg})">
+      <div class="zone-meta">
+        <div class="zone-name">${S.lang === "it" ? z.name_it : z.name_en}</div>
+        <div class="zone-sub">${S.lang === "it" ? z.subtitle_it : z.subtitle_en}</div>
+        <div class="zone-prog">${done}/${z.levels.length} · ${t().zoneLevels(z.levels.length)}</div>
+      </div>
+      <div class="zone-play">▶</div>
+    </div>`;
+  }).join("");
+  // slot "prossimamente" per le zone future
+  const soon = `<div class="zone-card soon">
+    <div class="zone-meta"><div class="zone-name">?</div>
+    <div class="zone-sub">${t().soon}</div></div></div>`;
+  app.innerHTML = headerHTML("") + `
+    <div class="zones-wrap">
+      <h1>${t().zonesTitle}</h1>
+      <p class="subtitle">${t().zonesSub}</p>
+      <div class="zone-grid">${cards}${soon}</div>
+    </div>`;
   wireHeader();
-  document.querySelectorAll(".level-card").forEach((el) =>
-    el.onclick = () => openLevel(+el.dataset.id));
+  document.querySelectorAll(".zone-card[data-zone]").forEach((el) =>
+    el.onclick = () => renderLevels(S.zones.find((z) => z.id === el.dataset.zone)));
 }
 
-async function openLevel(id) {
-  const meta = S.index.levels.find((l) => l.id === id);
-  S.level = await (await fetch("levels/" + meta.file)).json();
+/* ---------------- level select ---------------- */
+function renderLevels(zone) {
+  S.view = "levels";
+  S.zone = zone;
+  stopTimer();
+  const d = doneMap();
+  const key = (id) => zone.id + ":" + id;
+  let cards = "";
+  if (zone.tutorial) {
+    cards += `<div class="level-card tut ${d[key(0)] ? "done" : ""}" data-id="0">
+      <div class="lc-top"><span class="num">🎓</span></div>
+      <div class="nm">${t().tutCard}</div>
+      <div class="lc-bot"><span class="sz">6×6</span></div>
+    </div>`;
+  }
+  cards += zone.levels.map((l) => {
+    const df = l.difficulty || 2;
+    return `<div class="level-card d${df} ${d[key(l.id)] ? "done" : ""}" data-id="${l.id}">
+      <div class="lc-top">
+        <span class="num">#${String(l.id).padStart(2, "0")}</span>
+        <span class="diff diff${df}">${"●".repeat(df)}${"○".repeat(3 - df)}</span>
+      </div>
+      <div class="nm">${S.lang === "it" ? l.name_it : l.name_en}</div>
+      <div class="lc-bot"><span class="sz">${l.size}×${l.size}</span>
+        <span class="difftext">${t().diff[df]}</span></div>
+    </div>`;
+  }).join("");
+  app.innerHTML = headerHTML(S.lang === "it" ? zone.name_it : zone.name_en, true) + `
+    <div class="home">
+      <h1>${S.lang === "it" ? zone.name_it : zone.name_en}</h1>
+      <p class="subtitle">${S.lang === "it" ? zone.subtitle_it : zone.subtitle_en}</p>
+      <div class="level-grid">${cards}</div>
+    </div>`;
+  wireHeader(renderZones);
+  document.querySelectorAll(".level-card").forEach((el) =>
+    el.onclick = () => openLevel(zone, +el.dataset.id));
+}
+
+async function openLevel(zone, id) {
+  S.zone = zone;
+  const meta = zoneLevelList(zone).find((l) => l.id === id);
+  S.level = await (await fetch("levels/" + meta.file + "?v=" + BUILD)).json();
   S.placements = {};
   S.marks = new Set();
   S.selected = null;
@@ -329,9 +401,9 @@ function renderGame() {
     });
   document.querySelectorAll(".cell").forEach((el) =>
     el.onclick = () => cellClick(+el.dataset.r, +el.dataset.c));
-  $("#backBtn").onclick = renderHome;
+  $("#backBtn").onclick = () => renderLevels(S.zone);
   const skipBtn = $("#tutSkip");
-  if (skipBtn) skipBtn.onclick = renderHome;
+  if (skipBtn) skipBtn.onclick = () => renderLevels(S.zone);
   document.querySelectorAll(".mav").forEach((el) =>
     el.onclick = () => {
       S.selected = S.selected === +el.dataset.id ? null : +el.dataset.id;
@@ -446,12 +518,14 @@ function submit() {
   });
   if (S.wrong.size === 0) {
     stopTimer();
-    markDone(L.id);
+    markDone(S.zone.id + ":" + L.id);
     const m = L.suspects[L.murderer].name;
-    const isLast = L.id >= S.index.levels.length;
+    const ids = zoneLevelList(S.zone).map((l) => l.id);
+    const pos = ids.indexOf(L.id);
+    const nextId = pos >= 0 && pos < ids.length - 1 ? ids[pos + 1] : null;
     modal(t().winTitle, t().winBody(m), [
-      [t().home, renderHome],
-      ...(isLast ? [] : [[t().next, () => openLevel(L.id + 1)]]),
+      [t().home, () => renderLevels(S.zone)],
+      ...(nextId === null ? [] : [[t().next, () => openLevel(S.zone, nextId)]]),
     ]);
   } else {
     modal(t().loseTitle, t().loseBody(S.wrong.size), [[t().retry, renderGame]]);

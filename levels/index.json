@@ -1,146 +1,179 @@
 {
- "zone_it": "Zona 1 — Il Porto",
- "zone_en": "Zone 1 — The Harbor",
- "levels": [
+ "zones": [
   {
-   "id": 1,
-   "file": "level_01.json",
-   "size": 6,
-   "name_it": "Il Molo Vecchio",
-   "name_en": "The Old Dock"
-  },
-  {
-   "id": 2,
-   "file": "level_02.json",
-   "size": 6,
-   "name_it": "La Barca a Vela",
-   "name_en": "The Sailboat"
-  },
-  {
-   "id": 3,
-   "file": "level_03.json",
-   "size": 6,
-   "name_it": "Il Chiosco sulla Spiaggia",
-   "name_en": "The Beach Kiosk"
-  },
-  {
-   "id": 4,
-   "file": "level_04.json",
-   "size": 6,
-   "name_it": "La Cambusa",
-   "name_en": "The Galley"
-  },
-  {
-   "id": 5,
-   "file": "level_05.json",
-   "size": 6,
-   "name_it": "Il Faro di Ponente",
-   "name_en": "The West Lighthouse"
-  },
-  {
-   "id": 6,
-   "file": "level_06.json",
-   "size": 6,
-   "name_it": "La Stiva del Mercantile",
-   "name_en": "The Freighter Hold"
-  },
-  {
-   "id": 7,
-   "file": "level_07.json",
-   "size": 6,
-   "name_it": "Il Circolo Nautico",
-   "name_en": "The Yacht Club"
-  },
-  {
-   "id": 8,
-   "file": "level_08.json",
-   "size": 6,
-   "name_it": "La Notte al Porto",
-   "name_en": "Night at the Harbor"
-  },
-  {
-   "id": 9,
-   "file": "level_09.json",
-   "size": 7,
-   "name_it": "Il Traghetto delle 7",
-   "name_en": "The 7 O'Clock Ferry"
-  },
-  {
-   "id": 10,
-   "file": "level_10.json",
-   "size": 7,
-   "name_it": "La Baia Nascosta",
-   "name_en": "The Hidden Bay"
-  },
-  {
-   "id": 11,
-   "file": "level_11.json",
-   "size": 7,
-   "name_it": "Il Mercato del Pesce",
-   "name_en": "The Fish Market"
-  },
-  {
-   "id": 12,
-   "file": "level_12.json",
-   "size": 7,
-   "name_it": "La Regata",
-   "name_en": "The Regatta"
-  },
-  {
-   "id": 13,
-   "file": "level_13.json",
-   "size": 7,
-   "name_it": "L'Isola dei Gabbiani",
-   "name_en": "Gull Island"
-  },
-  {
-   "id": 14,
-   "file": "level_14.json",
-   "size": 7,
-   "name_it": "Il Cantiere Navale",
-   "name_en": "The Shipyard"
-  },
-  {
-   "id": 15,
-   "file": "level_15.json",
-   "size": 8,
-   "name_it": "La Nave da Crociera",
-   "name_en": "The Cruise Ship"
-  },
-  {
-   "id": 16,
-   "file": "level_16.json",
-   "size": 8,
-   "name_it": "Il Relitto",
-   "name_en": "The Wreck"
-  },
-  {
-   "id": 17,
-   "file": "level_17.json",
-   "size": 8,
-   "name_it": "La Tempesta",
-   "name_en": "The Storm"
-  },
-  {
-   "id": 18,
-   "file": "level_18.json",
-   "size": 8,
-   "name_it": "Il Porto Franco",
-   "name_en": "The Free Port"
-  },
-  {
-   "id": 19,
-   "file": "level_19.json",
-   "size": 8,
-   "name_it": "L'Ultimo Traghetto",
-   "name_en": "The Last Ferry"
-  },
-  {
-   "id": 20,
-   "file": "level_20.json",
-   "size": 8,
-   "name_it": "Il Segreto del Capitano",
-   "name_en": "The Captain's Secret"
+   "id": "cala-mistero",
+   "name_it": "Cala Mistero",
+   "name_en": "Cala Mistero",
+   "subtitle_it": "Il vecchio porto",
+   "subtitle_en": "The old harbor",
+   "theme": "marino",
+   "bg": "assets/zones/cala-mistero.jpg",
+   "tutorial": {
+    "id": 0,
+    "file": "tutorial.json"
+   },
+   "levels": [
+    {
+     "id": 1,
+     "file": "level_01.json",
+     "size": 6,
+     "name_it": "Il Molo Vecchio",
+     "name_en": "The Old Dock",
+     "difficulty": 1
+    },
+    {
+     "id": 2,
+     "file": "level_02.json",
+     "size": 6,
+     "name_it": "La Barca a Vela",
+     "name_en": "The Sailboat",
+     "difficulty": 2
+    },
+    {
+     "id": 3,
+     "file": "level_03.json",
+     "size": 6,
+     "name_it": "Il Chiosco sulla Spiaggia",
+     "name_en": "The Beach Kiosk",
+     "difficulty": 1
+    },
+    {
+     "id": 4,
+     "file": "level_04.json",
+     "size": 6,
+     "name_it": "La Cambusa",
+     "name_en": "The Galley",
+     "difficulty": 1
+    },
+    {
+     "id": 5,
+     "file": "level_05.json",
+     "size": 6,
+     "name_it": "Il Faro di Ponente",
+     "name_en": "The West Lighthouse",
+     "difficulty": 1
+    },
+    {
+     "id": 6,
+     "file": "level_06.json",
+     "size": 6,
+     "name_it": "La Stiva del Mercantile",
+     "name_en": "The Freighter Hold",
+     "difficulty": 2
+    },
+    {
+     "id": 7,
+     "file": "level_07.json",
+     "size": 6,
+     "name_it": "Il Circolo Nautico",
+     "name_en": "The Yacht Club",
+     "difficulty": 1
+    },
+    {
+     "id": 8,
+     "file": "level_08.json",
+     "size": 6,
+     "name_it": "La Notte al Porto",
+     "name_en": "Night at the Harbor",
+     "difficulty": 1
+    },
+    {
+     "id": 9,
+     "file": "level_09.json",
+     "size": 7,
+     "name_it": "Il Traghetto delle 7",
+     "name_en": "The 7 O'Clock Ferry",
+     "difficulty": 1
+    },
+    {
+     "id": 10,
+     "file": "level_10.json",
+     "size": 7,
+     "name_it": "La Baia Nascosta",
+     "name_en": "The Hidden Bay",
+     "difficulty": 1
+    },
+    {
+     "id": 11,
+     "file": "level_11.json",
+     "size": 7,
+     "name_it": "Il Mercato del Pesce",
+     "name_en": "The Fish Market",
+     "difficulty": 2
+    },
+    {
+     "id": 12,
+     "file": "level_12.json",
+     "size": 7,
+     "name_it": "La Regata",
+     "name_en": "The Regatta",
+     "difficulty": 3
+    },
+    {
+     "id": 13,
+     "file": "level_13.json",
+     "size": 7,
+     "name_it": "L'Isola dei Gabbiani",
+     "name_en": "Gull Island",
+     "difficulty": 3
+    },
+    {
+     "id": 14,
+     "file": "level_14.json",
+     "size": 7,
+     "name_it": "Il Cantiere Navale",
+     "name_en": "The Shipyard",
+     "difficulty": 3
+    },
+    {
+     "id": 15,
+     "file": "level_15.json",
+     "size": 8,
+     "name_it": "La Nave da Crociera",
+     "name_en": "The Cruise Ship",
+     "difficulty": 3
+    },
+    {
+     "id": 16,
+     "file": "level_16.json",
+     "size": 8,
+     "name_it": "Il Relitto",
+     "name_en": "The Wreck",
+     "difficulty": 3
+    },
+    {
+     "id": 17,
+     "file": "level_17.json",
+     "size": 8,
+     "name_it": "La Tempesta",
+     "name_en": "The Storm",
+     "difficulty": 2
+    },
+    {
+     "id": 18,
+     "file": "level_18.json",
+     "size": 8,
+     "name_it": "Il Porto Franco",
+     "name_en": "The Free Port",
+     "difficulty": 2
+    },
+    {
+     "id": 19,
+     "file": "level_19.json",
+     "size": 8,
+     "name_it": "L'Ultimo Traghetto",
+     "name_en": "The Last Ferry",
+     "difficulty": 3
+    },
+    {
+     "id": 20,
+     "file": "level_20.json",
+     "size": 8,
+     "name_it": "Il Segreto del Capitano",
+     "name_en": "The Captain's Secret",
+     "difficulty": 2
+    }
+   ]
   }
  ]
 }
