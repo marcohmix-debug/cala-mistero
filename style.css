@@ -267,6 +267,9 @@ header select, header button {
   cursor: pointer;
   user-select: none;
   background-repeat: repeat;
+  /* griglia sempre leggibile: velo chiaro interno che affianca la linea scura
+     del bordo, cosi' il reticolo si vede anche sulle texture scure */
+  box-shadow: inset 0 0 0 0.5px rgba(255,255,255,.22);
 }
 
 /* -------------------------------------------------------------------------
