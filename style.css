@@ -231,7 +231,10 @@ header select, header button {
   display: flex; align-items: center; justify-content: center;
   font-size: 22px; font-weight: 800; color: #fff;
   flex-shrink: 0; border: 2px solid #1c2030;
+  overflow: hidden;
 }
+.suspect-card .avatar img,
+.mav .ava img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .suspect-card .txt .nm { font-weight: 700; font-size: 14px; }
 .suspect-card .txt .clue { font-size: 12.5px; color: #334; margin-top: 2px; }
 
@@ -379,7 +382,10 @@ header select, header button {
   border: 3px solid #101420;
   z-index: 2;
   box-shadow: 0 2px 3px rgba(0,0,0,.35);
+  overflow: hidden;
 }
+.cell .pawn img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cell .pawn.hasface { inset: 6%; }
 .cell .pawn.wrong { outline: 3px solid #d33; }
 .cell.blocked { cursor: not-allowed; }
 

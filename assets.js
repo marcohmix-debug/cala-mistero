@@ -31,3 +31,13 @@ const FLOOR_IMG = {
 
 const AVATAR_COLORS = ["#7c5cbf", "#2e8b6e", "#c05a5a", "#3b7bbf",
                        "#b8862e", "#8a4f7d", "#4f8a8a", "#a0522d"];
+
+// Ritratto per nome sospettato (fallback: iniziale su colore).
+const FACE_IMG = {
+  Anna: "assets/faces/anna.jpg",   Bruno: "assets/faces/bruno.jpg",
+  Carla: "assets/faces/carla.jpg", Dario: "assets/faces/dario.jpg",
+  Elena: "assets/faces/elena.jpg", Fabio: "assets/faces/fabio.jpg",
+  Giada: "assets/faces/giada.jpg", Ugo: "assets/faces/ugo.jpg",
+  Irene: "assets/faces/irene.jpg", Luca: "assets/faces/luca.jpg",
+  Marta: "assets/faces/marta.jpg", Nino: "assets/faces/nino.jpg",
+};
