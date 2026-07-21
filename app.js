@@ -161,6 +161,13 @@ function renderGame() {
   S.view = "game";
   const L = S.level;
 
+  // avatar: ritratto (immagine) o fallback iniziale su colore
+  const avatarInner = (sp, i) => FACE_IMG[sp.name]
+    ? `<img src="${FACE_IMG[sp.name]}" alt="${sp.name}">`
+    : sp.name[0];
+  const avatarBg = (sp, i) => FACE_IMG[sp.name]
+    ? "" : `background:${AVATAR_COLORS[i % AVATAR_COLORS.length]};`;
+
   // suspect cards
   const cards = L.suspects.map((sp, i) => {
     const clue = L.clues.find((c) => c.suspect === i);
@@ -168,7 +175,7 @@ function renderGame() {
     const sel = S.selected === i ? "selected" : "";
     const vic = clue.victim ? "victim" : "";
     return `<div class="suspect-card ${placed} ${sel} ${vic}" data-id="${i}">
-      <div class="avatar" style="background:${AVATAR_COLORS[i % AVATAR_COLORS.length]}">${sp.name[0]}</div>
+      <div class="avatar" style="${avatarBg(sp, i)}">${avatarInner(sp, i)}</div>
       <div class="txt"><div class="nm">${sp.name}</div>
       <div class="clue">${S.lang === "it" ? clue.it : clue.en}</div></div>
     </div>`;
@@ -202,8 +209,8 @@ function renderGame() {
       const sid = suspectAt(r, c);
       if (sid !== null) {
         const sp = L.suspects[sid];
-        inner += `<span class="pawn ${S.wrong.has(sid) ? "wrong" : ""}"
-          style="background:${AVATAR_COLORS[sid % AVATAR_COLORS.length]}">${sp.name[0]}</span>`;
+        inner += `<span class="pawn ${FACE_IMG[sp.name] ? "hasface" : ""} ${S.wrong.has(sid) ? "wrong" : ""}"
+          style="${avatarBg(sp, sid)}">${avatarInner(sp, sid)}</span>`;
       }
       const blockedCell = f && ASSETS[f.asset].cat === "block";
       if (sid === null && !blockedCell) {
@@ -267,7 +274,7 @@ function renderGame() {
     const clue = L.clues.find((c) => c.suspect === i);
     return `<div class="mav ${S.selected === i ? "sel" : ""} ${S.placements[i] ? "placed" : ""}
       ${clue.victim ? "victim" : ""}" data-id="${i}">
-      <div class="ava" style="background:${AVATAR_COLORS[i % AVATAR_COLORS.length]}">${sp.name[0]}</div>
+      <div class="ava" style="${avatarBg(sp, i)}">${avatarInner(sp, i)}</div>
       <div class="nm">${sp.name}</div>
     </div>`;
   }).join("");
