@@ -21,9 +21,12 @@ const ASSETS = {
 const FLOOR_IMG = {
   ponte:    "assets/floors/ponte.jpg",
   cabina:   "assets/floors/cabina.jpg",
-  plancia:  "assets/floors/plancia.jpg",
+  cambusa:  "assets/floors/cambusa.jpg",
   stiva:    "assets/floors/stiva.jpg",
+  plancia:  "assets/floors/plancia.jpg",
+  molo:     "assets/floors/molo.jpg",
   spiaggia: "assets/floors/spiaggia.jpg",
+  faro:     "assets/floors/faro.jpg",
 };
 
 const AVATAR_COLORS = ["#7c5cbf", "#2e8b6e", "#c05a5a", "#3b7bbf",
