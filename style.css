@@ -353,12 +353,11 @@ header select, header button {
   pointer-events: none;
   animation: xpop .18s ease-out;
 }
-.cell .xmark svg {
-  width: 46%; height: 46%;
-  filter: drop-shadow(0 1px 0 rgba(255,255,255,.5));
+.cell .xmark img {
+  width: 40%; height: 40%; object-fit: contain;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,.35));
 }
-.cell .xmark.manual { color: rgba(43, 54, 88, .62); }
-.cell .xmark.auto   { color: rgba(16, 20, 32, .22); }
+.cell .xmark.auto img { opacity: .5; }
 @keyframes xpop {
   from { transform: scale(.4); opacity: 0; }
   to   { transform: scale(1); opacity: 1; }

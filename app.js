@@ -180,9 +180,7 @@ function renderGame() {
   for (const p of Object.values(S.placements)) {
     if (p) { usedR.add(p[0]); usedC.add(p[1]); }
   }
-  const XSVG = `<svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M6.5 6.5 L17.5 17.5 M17.5 6.5 L6.5 17.5"
-      stroke="currentColor" stroke-width="3.6" stroke-linecap="round" fill="none"/></svg>`;
+  const XIMG = `<img src="assets/croce.png" alt="" aria-hidden="true">`;
   let cells = "";
   for (let r = 0; r < L.size; r++) {
     for (let c = 0; c < L.size; c++) {
@@ -210,18 +208,20 @@ function renderGame() {
       const blockedCell = f && ASSETS[f.asset].cat === "block";
       if (sid === null && !blockedCell) {
         if (S.marks.has(r + "," + c))
-          inner += `<span class="xmark manual">${XSVG}</span>`;
+          inner += `<span class="xmark manual">${XIMG}</span>`;
         else if (usedR.has(r) || usedC.has(c))
-          inner += `<span class="xmark auto">${XSVG}</span>`;
+          inner += `<span class="xmark auto">${XIMG}</span>`;
       }
       const lbl = Object.entries(labels).find(([zz, p]) => +zz === z && p[0] === r && p[1] === c);
       if (lbl) inner += `<span class="room-label">${S.lang === "it" ? def.it : def.en}</span>`;
       const blocked = f && ASSETS[f.asset].cat === "block";
-      // texture pavimento: una tile intera per ogni quadrato della griglia
+      // texture pavimento: il pattern scorre continuo sulla stanza
+      // (tile ~2 celle), posizionato in base a riga/colonna della cella
       const tex = FLOOR_IMG[def.key];
       const texStyle = tex
-        ? `background-image:url(${tex});background-repeat:no-repeat;` +
-          `background-size:100% 100%;background-position:center;`
+        ? `background-image:url(${tex});background-repeat:repeat;` +
+          `background-size:calc(var(--cs) * 2);` +
+          `background-position:calc(var(--cs) * ${-c}) calc(var(--cs) * ${-r});`
         : "";
       cells += `<div class="cell floor-${def.key} ${blocked ? "blocked" : ""}" data-r="${r}" data-c="${c}"
         style="--floor:${def.color};background-color:${def.color};${texStyle}
