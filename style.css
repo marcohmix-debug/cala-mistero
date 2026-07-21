@@ -350,8 +350,13 @@ header select, header button {
 .cell .furn.img { width: 86%; height: 86%; object-fit: contain; }
 .cell .furn.img.overlay { width: 96%; height: 96%; }
 .cell .furn.overlay {
-  opacity: .95;
-  filter: drop-shadow(0 1px 1px rgba(0,0,0,.35));
+  opacity: 1;
+  /* alone chiaro + ombra scura: gli overlay piatti (pozza, corda, rete)
+     restano visibili sia su texture chiare che scure */
+  filter:
+    drop-shadow(0 0 2px rgba(255,255,255,.85))
+    drop-shadow(0 0 1px rgba(255,255,255,.85))
+    drop-shadow(0 1px 1px rgba(0,0,0,.45));
 }
 .cell .xmark {
   position: absolute; inset: 0;
