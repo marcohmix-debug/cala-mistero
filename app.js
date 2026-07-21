@@ -1,4 +1,4 @@
-/* Cala Mistero — SPA */
+/* SUSoku — SPA */
 
 const I18N = {
   it: {
@@ -72,7 +72,7 @@ async function boot() {
 /* ---------------- header ---------------- */
 function headerHTML(sub) {
   return `<header>
-    <div class="logo">CALA<span>MISTERO</span></div>
+    <div class="logo">SUS<span>oku</span></div>
     <div class="sub">${sub || ""}</div>
     <div class="spacer"></div>
     <span id="timer"></span>
@@ -198,7 +198,8 @@ function renderGame() {
       const bL = c === 0 || L.rooms[r][c - 1] !== z;
       const bB = r === L.size - 1 || L.rooms[r + 1][c] !== z;
       const bR = c === L.size - 1 || L.rooms[r][c + 1] !== z;
-      const bw = (b) => b ? "2px solid #101420" : "1px solid rgba(16,20,32,.12)";
+      // linea di griglia interna ben visibile anche sopra la texture
+      const bw = (b) => b ? "2px solid #101420" : "1px solid rgba(16,20,32,.38)";
       let inner = "";
       if (f) {
         const a = ASSETS[f.asset];
@@ -222,12 +223,12 @@ function renderGame() {
       const lbl = Object.entries(labels).find(([zz, p]) => +zz === z && p[0] === r && p[1] === c);
       if (lbl) inner += `<span class="room-label">${S.lang === "it" ? def.it : def.en}</span>`;
       const blocked = f && ASSETS[f.asset].cat === "block";
-      // texture pavimento: il pattern scorre continuo sulla stanza
-      // (tile ~2 celle), posizionato in base a riga/colonna della cella
+      // texture pavimento: il pattern scorre continuo a coprire la stanza
+      // (tile ~3 celle), posizionato in base a riga/colonna della cella
       const tex = FLOOR_IMG[def.key];
       const texStyle = tex
         ? `background-image:url(${tex});background-repeat:repeat;` +
-          `background-size:calc(var(--cs) * 2);` +
+          `background-size:calc(var(--cs) * 3);` +
           `background-position:calc(var(--cs) * ${-c}) calc(var(--cs) * ${-r});`
         : "";
       cells += `<div class="cell floor-${def.key} ${blocked ? "blocked" : ""}" data-r="${r}" data-c="${c}"
