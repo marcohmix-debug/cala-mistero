@@ -18,6 +18,7 @@ const I18N = {
     zoneBack: "← Zone", zoneLevels: (n) => `${n} casi`,
     diff: ["", "Facile", "Medio", "Difficile"], soon: "Prossimamente",
     tutCard: "Tutorial — La Prima Indagine",
+    genClues: "Indizi generali",
   },
   en: {
     suspects: "Suspects",
@@ -36,6 +37,7 @@ const I18N = {
     zoneBack: "← Zones", zoneLevels: (n) => `${n} cases`,
     diff: ["", "Easy", "Medium", "Hard"], soon: "Coming soon",
     tutCard: "Tutorial — Your First Case",
+    genClues: "General clues",
   },
 };
 
@@ -356,11 +358,22 @@ function renderGame() {
                        : L.clues.find((c) => c.suspect === S.selected).en)
     : t().mPick;
 
+  // pannello indizi generali (griglie grandi)
+  let genBar = "";
+  if (L.general_clues && L.general_clues.length) {
+    const items = L.general_clues
+      .map((g) => `<li>${S.lang === "it" ? g.it : g.en}</li>`).join("");
+    genBar = `<div class="genclues">
+      <div class="gc-title">🔎 ${t().genClues}</div>
+      <ul>${items}</ul></div>`;
+  }
+
   app.innerHTML = headerHTML(`${nm} (${L.size}×${L.size})`) + tutBar + `
   <div class="game">
     <div class="suspects">
       <h2>${t().suspects}</h2>
       <div class="hint-line">${t().howto}</div>
+      ${genBar}
       ${cards}
       <button id="backBtn" style="width:100%;font:inherit;padding:8px;border-radius:8px;
         border:2px solid #c9cdde;background:#fff;cursor:pointer">${t().back}</button>
