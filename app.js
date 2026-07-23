@@ -71,7 +71,7 @@ function markDone(id) {
   localStorage.setItem("cm_done", JSON.stringify(d));
 }
 
-const BUILD = "18";
+const BUILD = "20";
 
 async function boot() {
   S.index = await (await fetch("levels/index.json?v=" + BUILD)).json();
@@ -366,25 +366,30 @@ function renderGame() {
 
   // pannello indizi generali (griglie grandi)
   let genBar = "";
+  let mobileGenBar = "";
   if (L.general_clues && L.general_clues.length) {
     const items = L.general_clues
       .map((g) => `<li>${S.lang === "it" ? g.it : g.en}</li>`).join("");
     genBar = `<div class="genclues">
       <div class="gc-title">🔎 ${t().genClues}</div>
       <ul>${items}</ul></div>`;
+    mobileGenBar = `<details class="genclues mobile-genclues" open>
+      <summary>🔎 ${t().genClues}</summary>
+      <ul>${items}</ul></details>`;
   }
 
   app.innerHTML = headerHTML(`${nm} (${L.size}×${L.size})`, true) + tutBar + `
-  <div class="game">
+  <div class="game ${L.size >= 12 ? "large-grid" : ""}">
     <div class="suspects">
       <h2>${t().suspects}</h2>
       <div class="hint-line">${t().howto}</div>
       ${genBar}
-      ${cards}
+      <div class="suspect-list">${cards}</div>
       <button id="backBtn" style="width:100%;font:inherit;padding:8px;border-radius:8px;
         border:2px solid #c9cdde;background:#fff;cursor:pointer">${t().back}</button>
     </div>
     <div class="board-zone">
+      ${mobileGenBar}
       <div class="board-wrap">
         <div class="board" style="--n:${L.size};grid-template-columns:repeat(${L.size},var(--cs))">
           ${cells}
