@@ -40,4 +40,7 @@ const FACE_IMG = {
   Giada: "assets/faces/giada.jpg", Ugo: "assets/faces/ugo.jpg",
   Irene: "assets/faces/irene.jpg", Luca: "assets/faces/luca.jpg",
   Marta: "assets/faces/marta.jpg", Nino: "assets/faces/nino.jpg",
+  Olga: "assets/faces/olga.jpg", Paolo: "assets/faces/paolo.jpg",
+  Rosa: "assets/faces/rosa.jpg", Sergio: "assets/faces/sergio.jpg",
+  Tea: "assets/faces/tea.jpg", Vito: "assets/faces/vito.jpg",
 };
