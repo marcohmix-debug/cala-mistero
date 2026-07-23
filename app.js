@@ -12,7 +12,8 @@ const I18N = {
     next: "Prossimo caso", home: "Livelli", retry: "Riprova",
     victim: "LA VITTIMA",
     tutorial: "TUTORIAL", tutSkip: "Salta il tutorial →",
-    mCross: "Croci", mPlace: "Piazza", mErase: "Cancella", mUndo: "Annulla", mHint: "Aiuto",
+    mCross: "Croci", mPlace: "Piazza", mPencil: "Ipotesi", mErase: "Cancella", mUndo: "Annulla", mHint: "Aiuto",
+    pencilOn: "✏️ Ipotesi attive", pencilOff: "✏️ Fai ipotesi",
     mSubmit: "Invia soluzione", mPick: "Scegli un sospettato qui sopra.",
     zonesTitle: "Scegli una zona", zonesSub: "Ogni zona è un caso a tema",
     zoneBack: "← Zone", zoneLevels: (n) => `${n} casi`,
@@ -31,7 +32,8 @@ const I18N = {
     next: "Next case", home: "Levels", retry: "Retry",
     victim: "THE VICTIM",
     tutorial: "TUTORIAL", tutSkip: "Skip tutorial →",
-    mCross: "Crosses", mPlace: "Place", mErase: "Erase", mUndo: "Undo", mHint: "Hint",
+    mCross: "Crosses", mPlace: "Place", mPencil: "Notes", mErase: "Erase", mUndo: "Undo", mHint: "Hint",
+    pencilOn: "✏️ Notes active", pencilOff: "✏️ Add notes",
     mSubmit: "Submit solution", mPick: "Pick a suspect above.",
     zonesTitle: "Choose a zone", zonesSub: "Each zone is a themed case",
     zoneBack: "← Zones", zoneLevels: (n) => `${n} cases`,
@@ -49,12 +51,13 @@ const S = {
   zone: null,          // zona corrente
   level: null,
   placements: {},      // suspectId -> [r,c]
+  candidates: {},      // suspectId -> ["r,c", ...] posizioni provvisorie
   marks: new Set(),    // "r,c" celle escluse dal giocatore
   selected: null,
   history: [],
   wrong: new Set(),
   tutStep: 0, tutFlash: false,
-  mode: "place",           // place | cross | erase (barra mobile)
+  mode: "place",           // place | pencil | cross | erase
   t0: null, timerInt: null,
 };
 
@@ -71,7 +74,7 @@ function markDone(id) {
   localStorage.setItem("cm_done", JSON.stringify(d));
 }
 
-const BUILD = "20";
+const BUILD = "21";
 
 async function boot() {
   S.index = await (await fetch("levels/index.json?v=" + BUILD)).json();
@@ -188,6 +191,7 @@ async function openLevel(zone, id) {
   const meta = zoneLevelList(zone).find((l) => l.id === id);
   S.level = await (await fetch("levels/" + meta.file + "?v=" + BUILD)).json();
   S.placements = {};
+  S.candidates = {};
   S.marks = new Set();
   S.selected = null;
   S.history = [];
@@ -218,6 +222,17 @@ function suspectAt(r, c) {
   for (const [id, p] of Object.entries(S.placements))
     if (p && p[0] === r && p[1] === c) return +id;
   return null;
+}
+function candidatesAt(r, c) {
+  const key = r + "," + c;
+  return Object.entries(S.candidates)
+    .filter(([, cells]) => cells.includes(key))
+    .map(([id]) => +id);
+}
+function cloneCandidates() {
+  return Object.fromEntries(
+    Object.entries(S.candidates).map(([id, cells]) => [id, [...cells]])
+  );
 }
 function roomLabelCells(L) {
   // per ogni stanza: cella con r massima, poi c minima
@@ -251,12 +266,14 @@ function renderGame() {
     const sp = L.suspects[i];
     const clue = L.clues.find((c) => c.suspect === i);
     const placed = S.placements[i] ? "placed" : "";
+    const candidateCount = (S.candidates[i] || []).length;
     const sel = S.selected === i ? "selected" : "";
     const vic = clue.victim ? "victim" : "";
-    return `<div class="suspect-card ${placed} ${sel} ${vic}" data-id="${i}">
+    return `<div class="suspect-card ${placed} ${sel} ${vic} ${candidateCount ? "has-candidates" : ""}" data-id="${i}">
       <div class="avatar" style="${avatarBg(sp, i)}">${avatarInner(sp, i)}</div>
       <div class="txt"><div class="nm">${sp.name}</div>
       <div class="clue">${S.lang === "it" ? clue.it : clue.en}</div></div>
+      ${candidateCount ? `<span class="candidate-count">${candidateCount}</span>` : ""}
     </div>`;
   }).join("");
 
@@ -287,10 +304,17 @@ function renderGame() {
           : `<span class="furn ${a.cat === "overlay" ? "overlay" : ""}">${a.emoji}</span>`;
       }
       const sid = suspectAt(r, c);
+      const provisional = candidatesAt(r, c);
       if (sid !== null) {
         const sp = L.suspects[sid];
         inner += `<span class="pawn ${FACE_IMG[sp.name] ? "hasface" : ""} ${S.wrong.has(sid) ? "wrong" : ""}"
           style="${avatarBg(sp, sid)}">${avatarInner(sp, sid)}</span>`;
+      }
+      if (provisional.length) {
+        inner += `<span class="pencils">${provisional.map((id) => {
+          const sp = L.suspects[id];
+          return `<span class="pencil" title="${sp.name}" style="${avatarBg(sp, id)}">${avatarInner(sp, id)}</span>`;
+        }).join("")}</span>`;
       }
       const blockedCell = f && ASSETS[f.asset].cat === "block";
       if (sid === null && !blockedCell) {
@@ -310,7 +334,7 @@ function renderGame() {
           `background-size:calc(var(--cs) * 3);` +
           `background-position:calc(var(--cs) * ${-c}) calc(var(--cs) * ${-r});`
         : "";
-      cells += `<div class="cell floor-${def.key} ${blocked ? "blocked" : ""}" data-r="${r}" data-c="${c}"
+      cells += `<div class="cell floor-${def.key} ${blocked ? "blocked" : ""} ${sid !== null && f ? "has-pawn-on-object" : ""} ${provisional.length ? "has-pencils" : ""}" data-r="${r}" data-c="${c}"
         style="--floor:${def.color};background-color:${def.color};${texStyle}
         border-top:${bw(bT)};border-left:${bw(bL)};
         border-bottom:${bw(bB)};border-right:${bw(bR)}">${inner}</div>`;
@@ -353,10 +377,12 @@ function renderGame() {
   const strip = order.map((i) => {
     const sp = L.suspects[i];
     const clue = L.clues.find((c) => c.suspect === i);
+    const candidateCount = (S.candidates[i] || []).length;
     return `<div class="mav ${S.selected === i ? "sel" : ""} ${S.placements[i] ? "placed" : ""}
       ${clue.victim ? "victim" : ""}" data-id="${i}">
       <div class="ava" style="${avatarBg(sp, i)}">${avatarInner(sp, i)}</div>
       <div class="nm">${sp.name}</div>
+      ${candidateCount ? `<span class="candidate-count">${candidateCount}</span>` : ""}
     </div>`;
   }).join("");
   const selClue = S.selected !== null
@@ -398,6 +424,7 @@ function renderGame() {
       <div class="mbar">
         <button id="mCross" class="${S.mode === "cross" ? "active" : ""}">✕<span>${t().mCross}</span></button>
         <button id="mPlace" class="${S.mode === "place" ? "active" : ""}">✔<span>${t().mPlace}</span></button>
+        <button id="mPencil" class="${S.mode === "pencil" ? "active pencil-mode" : ""}">✏️<span>${t().mPencil}</span></button>
         <button id="mErase" class="${S.mode === "erase" ? "active" : ""}">🧹<span>${t().mErase}</span></button>
         <button id="mUndo" ${S.history.length ? "" : "disabled"}>↩<span>${t().mUndo}</span></button>
         <button id="mHint">💡<span>${t().mHint}</span></button>
@@ -407,6 +434,7 @@ function renderGame() {
       <button id="msubmitBtn" class="msubmit" ${allPlaced ? "" : "disabled"}>${t().mSubmit}</button>
     </div>
     <div class="tools">
+      <button id="pencilBtn" class="${S.mode === "pencil" ? "mode-active" : ""}">${S.mode === "pencil" ? t().pencilOn : t().pencilOff}</button>
       <button id="clearBtn">${t().clear}</button>
       <button id="undoBtn" ${S.history.length ? "" : "disabled"}>${t().undo}</button>
       <button id="hintBtn">${t().hint}</button>
@@ -438,14 +466,19 @@ function renderGame() {
     });
   $("#mCross").onclick = () => { S.mode = "cross"; renderGame(); };
   $("#mPlace").onclick = () => { S.mode = "place"; renderGame(); };
+  $("#mPencil").onclick = () => { S.mode = "pencil"; renderGame(); };
   $("#mErase").onclick = () => { S.mode = "erase"; renderGame(); };
   $("#mUndo").onclick = undo;
   $("#mHint").onclick = hint;
   $("#msubmitBtn").onclick = submit;
+  $("#pencilBtn").onclick = () => {
+    S.mode = S.mode === "pencil" ? "place" : "pencil";
+    renderGame();
+  };
   $("#clearBtn").onclick = () => {
     S.history.push({ type: "bulk", prev: { ...S.placements },
-                     prevMarks: new Set(S.marks) });
-    S.placements = {}; S.marks.clear(); S.wrong.clear(); renderGame();
+                     prevCandidates: cloneCandidates(), prevMarks: new Set(S.marks) });
+    S.placements = {}; S.candidates = {}; S.marks.clear(); S.wrong.clear(); renderGame();
   };
   $("#undoBtn").onclick = undo;
   $("#hintBtn").onclick = hint;
@@ -457,7 +490,7 @@ function cellClick(r, c) {
   const here = suspectAt(r, c);
   S.wrong.clear();
   if (here !== null) {
-    if (S.mode === "cross") return;   // le croci non toccano i pedoni
+    if (S.mode === "cross" || S.mode === "pencil") return;
     S.history.push({ type: "remove", id: here, cell: S.placements[here] });
     delete S.placements[here];
     S.selected = S.mode === "erase" ? S.selected : here;
@@ -473,9 +506,36 @@ function cellClick(r, c) {
     renderGame();
     return;
   }
+  // modo Ipotesi: aggiunge/toglie il sospettato in più celle senza creare X
+  if (S.mode === "pencil") {
+    if (S.selected === null) return;
+    const k = r + "," + c;
+    const cells = S.candidates[S.selected] || [];
+    const added = !cells.includes(k);
+    S.history.push({ type: "candidate", id: S.selected, cell: k, added });
+    if (added) S.candidates[S.selected] = [...cells, k];
+    else {
+      const next = cells.filter((cell) => cell !== k);
+      if (next.length) S.candidates[S.selected] = next;
+      else delete S.candidates[S.selected];
+    }
+    renderGame();
+    return;
+  }
   // modo Cancella: togli il segno (i pedoni sono gestiti sopra da `here`)
   if (S.mode === "erase") {
     const k = r + "," + c;
+    const provisional = candidatesAt(r, c);
+    if (provisional.length) {
+      S.history.push({ type: "eraseCandidates", cell: k,
+        prev: Object.fromEntries(provisional.map((id) => [id, [...S.candidates[id]]])) });
+      provisional.forEach((id) => {
+        S.candidates[id] = S.candidates[id].filter((cell) => cell !== k);
+        if (!S.candidates[id].length) delete S.candidates[id];
+      });
+      renderGame();
+      return;
+    }
     if (S.marks.has(k)) {
       S.marks.delete(k);
       S.history.push({ type: "mark", cell: k });
@@ -492,9 +552,11 @@ function cellClick(r, c) {
     return;
   }
   const prev = S.placements[S.selected] || null;
-  S.history.push({ type: "place", id: S.selected, prev });
+  const prevCandidates = [...(S.candidates[S.selected] || [])];
+  S.history.push({ type: "place", id: S.selected, prev, prevCandidates });
   S.marks.delete(r + "," + c);
   S.placements[S.selected] = [r, c];
+  delete S.candidates[S.selected];
   // auto-seleziona il prossimo non piazzato
   const nxt = S.level.suspects.findIndex((_, i) => !S.placements[i]);
   S.selected = nxt >= 0 ? nxt : null;
@@ -507,13 +569,27 @@ function undo() {
   S.wrong.clear();
   if (h.type === "place") {
     if (h.prev) S.placements[h.id] = h.prev; else delete S.placements[h.id];
+    if (h.prevCandidates?.length) S.candidates[h.id] = h.prevCandidates;
+    else delete S.candidates[h.id];
   } else if (h.type === "remove") {
     S.placements[h.id] = h.cell;
   } else if (h.type === "bulk") {
     S.placements = h.prev;
+    S.candidates = h.prevCandidates || {};
     if (h.prevMarks) S.marks = h.prevMarks;
   } else if (h.type === "mark") {
     S.marks.has(h.cell) ? S.marks.delete(h.cell) : S.marks.add(h.cell);
+  } else if (h.type === "candidate") {
+    const cells = S.candidates[h.id] || [];
+    if (h.added) {
+      const next = cells.filter((cell) => cell !== h.cell);
+      if (next.length) S.candidates[h.id] = next;
+      else delete S.candidates[h.id];
+    } else {
+      S.candidates[h.id] = [...cells, h.cell];
+    }
+  } else if (h.type === "eraseCandidates") {
+    Object.entries(h.prev).forEach(([id, cells]) => { S.candidates[id] = cells; });
   }
   renderGame();
 }
@@ -527,8 +603,10 @@ function hint() {
       // libera la cella se occupata da altri
       const occ = suspectAt(sol[0], sol[1]);
       if (occ !== null && occ !== i) delete S.placements[occ];
-      S.history.push({ type: "place", id: i, prev: cur || null });
+      S.history.push({ type: "place", id: i, prev: cur || null,
+        prevCandidates: [...(S.candidates[i] || [])] });
       S.placements[i] = [sol[0], sol[1]];
+      delete S.candidates[i];
       renderGame();
       return;
     }
