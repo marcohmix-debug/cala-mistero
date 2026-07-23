@@ -71,7 +71,7 @@ function markDone(id) {
   localStorage.setItem("cm_done", JSON.stringify(d));
 }
 
-const BUILD = "14";
+const BUILD = "18";
 
 async function boot() {
   S.index = await (await fetch("levels/index.json?v=" + BUILD)).json();
@@ -243,7 +243,12 @@ function renderGame() {
     ? "" : `background:${AVATAR_COLORS[i % AVATAR_COLORS.length]};`;
 
   // suspect cards
-  const cards = L.suspects.map((sp, i) => {
+  // ordine di visualizzazione: la vittima sempre per ultima
+  const order = L.suspects.map((_, i) => i)
+    .sort((a, b) => (a === L.victim ? 1 : 0) - (b === L.victim ? 1 : 0));
+
+  const cards = order.map((i) => {
+    const sp = L.suspects[i];
     const clue = L.clues.find((c) => c.suspect === i);
     const placed = S.placements[i] ? "placed" : "";
     const sel = S.selected === i ? "selected" : "";
@@ -344,8 +349,9 @@ function renderGame() {
       S.selected = T.steps[S.tutStep].suspect;
   }
 
-  // striscia avatar (mobile) + indizio del selezionato
-  const strip = L.suspects.map((sp, i) => {
+  // striscia avatar (mobile) + indizio del selezionato — vittima per ultima
+  const strip = order.map((i) => {
+    const sp = L.suspects[i];
     const clue = L.clues.find((c) => c.suspect === i);
     return `<div class="mav ${S.selected === i ? "sel" : ""} ${S.placements[i] ? "placed" : ""}
       ${clue.victim ? "victim" : ""}" data-id="${i}">
@@ -368,7 +374,7 @@ function renderGame() {
       <ul>${items}</ul></div>`;
   }
 
-  app.innerHTML = headerHTML(`${nm} (${L.size}×${L.size})`) + tutBar + `
+  app.innerHTML = headerHTML(`${nm} (${L.size}×${L.size})`, true) + tutBar + `
   <div class="game">
     <div class="suspects">
       <h2>${t().suspects}</h2>
@@ -414,6 +420,8 @@ function renderGame() {
     });
   document.querySelectorAll(".cell").forEach((el) =>
     el.onclick = () => cellClick(+el.dataset.r, +el.dataset.c));
+  const hb = $("#hback");
+  if (hb) hb.onclick = () => renderLevels(S.zone);
   $("#backBtn").onclick = () => renderLevels(S.zone);
   const skipBtn = $("#tutSkip");
   if (skipBtn) skipBtn.onclick = () => renderLevels(S.zone);
