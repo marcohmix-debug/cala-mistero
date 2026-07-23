@@ -1000,6 +1000,127 @@ header select {
   .cell .pawn { border-width: 2px; }
 }
 
+/* ==========================================================================
+   Hypothesis placement + object visibility v21
+   ========================================================================== */
+.suspect-card,
+.mav { position: relative; }
+
+.candidate-count {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  z-index: 5;
+  min-width: 23px;
+  height: 23px;
+  padding: 0 5px;
+  border: 2px solid var(--cartoon-line);
+  border-radius: 999px;
+  background: var(--sun);
+  color: var(--cartoon-line);
+  box-shadow: 0 2px 0 var(--cartoon-line);
+  font-size: 11px;
+  font-weight: 950;
+  line-height: 19px;
+  text-align: center;
+}
+
+.suspect-card.has-candidates:not(.selected) {
+  border-color: #8e6220;
+  background: #fff9df;
+}
+
+.cell .furn {
+  position: relative;
+  z-index: 1;
+}
+
+.cell.has-pawn-on-object .furn {
+  position: absolute;
+  left: 2%;
+  bottom: 2%;
+  z-index: 3;
+  width: 48%;
+  height: 48%;
+  padding: 2%;
+  border: 2px solid var(--cartoon-line);
+  border-radius: 8px;
+  background: rgba(255,250,240,.88);
+  object-fit: contain;
+  filter: drop-shadow(0 2px 0 rgba(23,22,42,.8));
+}
+
+.cell.has-pawn-on-object .pawn {
+  inset: 5% 5% 28% 28%;
+  z-index: 4;
+}
+
+.pencils {
+  position: absolute;
+  inset: 3px;
+  z-index: 5;
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  gap: 2px;
+  pointer-events: none;
+}
+
+.pencil {
+  width: clamp(13px, calc(var(--cs, 72px) * .28), 24px);
+  height: clamp(13px, calc(var(--cs, 72px) * .28), 24px);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px dashed var(--cartoon-line);
+  border-radius: 50%;
+  background: var(--foam);
+  color: var(--cartoon-line);
+  box-shadow: 0 1px 0 rgba(23,22,42,.65);
+  font-size: 9px;
+  font-weight: 900;
+  opacity: .84;
+}
+
+.pencil img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(.72);
+}
+
+.tools button.mode-active,
+.mbar button.pencil-mode {
+  color: var(--cartoon-line) !important;
+  background: linear-gradient(145deg, #ffe89a, #ffc95c) !important;
+  box-shadow: 0 4px 0 #8d6421 !important;
+}
+
+@media (max-width: 980px) {
+  .mbar {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .mbar button {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .cell.has-pawn-on-object .furn {
+    border-width: 1px;
+    border-radius: 5px;
+  }
+
+  .pencils {
+    inset: 2px;
+    gap: 1px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;
