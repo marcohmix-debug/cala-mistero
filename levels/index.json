@@ -1709,6 +1709,1494 @@
    ]
   },
   {
+   "id": "west",
+   "name_it": "Rock Springs",
+   "name_en": "Rock Springs",
+   "subtitle_it": "Una città, una legge sola",
+   "subtitle_en": "One town, one law",
+   "theme": "west",
+   "bg": "assets/zones/west.jpg",
+   "levels": [
+    {
+     "id": 1,
+     "file": "west_01.json",
+     "size": 6,
+     "name_it": "Polvere sul Bancone",
+     "name_en": "Dust on the Counter",
+     "difficulty": 1
+    },
+    {
+     "id": 2,
+     "file": "west_02.json",
+     "size": 6,
+     "name_it": "L'Ultimo Bicchiere",
+     "name_en": "The Last Drink",
+     "difficulty": 1
+    },
+    {
+     "id": 3,
+     "file": "west_03.json",
+     "size": 6,
+     "name_it": "Il Cavallo Sbagliato",
+     "name_en": "The Wrong Horse",
+     "difficulty": 1
+    },
+    {
+     "id": 4,
+     "file": "west_04.json",
+     "size": 6,
+     "name_it": "Taglia da Mille Dollari",
+     "name_en": "A Thousand Dollar Bounty",
+     "difficulty": 1
+    },
+    {
+     "id": 5,
+     "file": "west_05.json",
+     "size": 6,
+     "name_it": "Il Treno delle Sei",
+     "name_en": "The Six O'Clock Train",
+     "difficulty": 1
+    },
+    {
+     "id": 6,
+     "file": "west_06.json",
+     "size": 6,
+     "name_it": "Carte Truccate",
+     "name_en": "Marked Cards",
+     "difficulty": 1
+    },
+    {
+     "id": 7,
+     "file": "west_07.json",
+     "size": 6,
+     "name_it": "La Stella dello Sceriffo",
+     "name_en": "The Sheriff's Star",
+     "difficulty": 1
+    },
+    {
+     "id": 8,
+     "file": "west_08.json",
+     "size": 6,
+     "name_it": "Sabbia negli Occhi",
+     "name_en": "Sand in the Eyes",
+     "difficulty": 1
+    },
+    {
+     "id": 9,
+     "file": "west_09.json",
+     "size": 6,
+     "name_it": "Il Pozzo Avvelenato",
+     "name_en": "The Poisoned Well",
+     "difficulty": 1
+    },
+    {
+     "id": 10,
+     "file": "west_10.json",
+     "size": 6,
+     "name_it": "Rapina alle Tre",
+     "name_en": "Three O'Clock Robbery",
+     "difficulty": 1
+    },
+    {
+     "id": 11,
+     "file": "west_11.json",
+     "size": 6,
+     "name_it": "Il Pianista Muto",
+     "name_en": "The Silent Piano Player",
+     "difficulty": 1
+    },
+    {
+     "id": 12,
+     "file": "west_12.json",
+     "size": 6,
+     "name_it": "Ferri di Cavallo",
+     "name_en": "Horseshoes",
+     "difficulty": 1
+    },
+    {
+     "id": 13,
+     "file": "west_13.json",
+     "size": 7,
+     "name_it": "La Diligenza Scomparsa",
+     "name_en": "The Missing Stagecoach",
+     "difficulty": 1
+    },
+    {
+     "id": 14,
+     "file": "west_14.json",
+     "size": 7,
+     "name_it": "Whisky e Silenzio",
+     "name_en": "Whiskey and Silence",
+     "difficulty": 1
+    },
+    {
+     "id": 15,
+     "file": "west_15.json",
+     "size": 7,
+     "name_it": "Il Mandante",
+     "name_en": "The Man Who Paid",
+     "difficulty": 1
+    },
+    {
+     "id": 16,
+     "file": "west_16.json",
+     "size": 7,
+     "name_it": "Sangue nel Canyon",
+     "name_en": "Blood in the Canyon",
+     "difficulty": 1
+    },
+    {
+     "id": 17,
+     "file": "west_17.json",
+     "size": 7,
+     "name_it": "La Cassaforte Aperta",
+     "name_en": "The Open Safe",
+     "difficulty": 1
+    },
+    {
+     "id": 18,
+     "file": "west_18.json",
+     "size": 7,
+     "name_it": "Nessuno in Città",
+     "name_en": "Nobody in Town",
+     "difficulty": 1
+    },
+    {
+     "id": 19,
+     "file": "west_19.json",
+     "size": 7,
+     "name_it": "Il Vice Traditore",
+     "name_en": "The Turncoat Deputy",
+     "difficulty": 2
+    },
+    {
+     "id": 20,
+     "file": "west_20.json",
+     "size": 7,
+     "name_it": "Fumo sulle Colline",
+     "name_en": "Smoke on the Hills",
+     "difficulty": 2
+    },
+    {
+     "id": 21,
+     "file": "west_21.json",
+     "size": 7,
+     "name_it": "La Miniera Chiusa",
+     "name_en": "The Closed Mine",
+     "difficulty": 2
+    },
+    {
+     "id": 22,
+     "file": "west_22.json",
+     "size": 7,
+     "name_it": "Sei Colpi",
+     "name_en": "Six Shots",
+     "difficulty": 2
+    },
+    {
+     "id": 23,
+     "file": "west_23.json",
+     "size": 7,
+     "name_it": "Il Forestiero",
+     "name_en": "The Stranger",
+     "difficulty": 2
+    },
+    {
+     "id": 24,
+     "file": "west_24.json",
+     "size": 8,
+     "name_it": "Debiti di Gioco",
+     "name_en": "Gambling Debts",
+     "difficulty": 2
+    },
+    {
+     "id": 25,
+     "file": "west_25.json",
+     "size": 8,
+     "name_it": "Il Marchio Falso",
+     "name_en": "The False Brand",
+     "difficulty": 2
+    },
+    {
+     "id": 26,
+     "file": "west_26.json",
+     "size": 8,
+     "name_it": "Mezzogiorno di Fuoco",
+     "name_en": "High Noon",
+     "difficulty": 2
+    },
+    {
+     "id": 27,
+     "file": "west_27.json",
+     "size": 8,
+     "name_it": "La Vedova del Ranch",
+     "name_en": "The Ranch Widow",
+     "difficulty": 2
+    },
+    {
+     "id": 28,
+     "file": "west_28.json",
+     "size": 8,
+     "name_it": "Oro Sporco",
+     "name_en": "Dirty Gold",
+     "difficulty": 2
+    },
+    {
+     "id": 29,
+     "file": "west_29.json",
+     "size": 8,
+     "name_it": "Il Telegrafo Muto",
+     "name_en": "The Silent Telegraph",
+     "difficulty": 2
+    },
+    {
+     "id": 30,
+     "file": "west_30.json",
+     "size": 8,
+     "name_it": "Corda e Ferro",
+     "name_en": "Rope and Iron",
+     "difficulty": 2
+    },
+    {
+     "id": 31,
+     "file": "west_31.json",
+     "size": 8,
+     "name_it": "Tre Cavalli Rubati",
+     "name_en": "Three Stolen Horses",
+     "difficulty": 2
+    },
+    {
+     "id": 32,
+     "file": "west_32.json",
+     "size": 8,
+     "name_it": "L'Emporio Bruciato",
+     "name_en": "The Burned Store",
+     "difficulty": 2
+    },
+    {
+     "id": 33,
+     "file": "west_33.json",
+     "size": 8,
+     "name_it": "Il Pozzo Secco",
+     "name_en": "The Dry Well",
+     "difficulty": 2
+    },
+    {
+     "id": 34,
+     "file": "west_34.json",
+     "size": 9,
+     "name_it": "Piombo e Polvere",
+     "name_en": "Lead and Dust",
+     "difficulty": 2
+    },
+    {
+     "id": 35,
+     "file": "west_35.json",
+     "size": 9,
+     "name_it": "La Carovana Perduta",
+     "name_en": "The Lost Caravan",
+     "difficulty": 2
+    },
+    {
+     "id": 36,
+     "file": "west_36.json",
+     "size": 9,
+     "name_it": "Il Barile Vuoto",
+     "name_en": "The Empty Barrel",
+     "difficulty": 2
+    },
+    {
+     "id": 37,
+     "file": "west_37.json",
+     "size": 9,
+     "name_it": "Un Colpo alla Banca",
+     "name_en": "A Job at the Bank",
+     "difficulty": 3
+    },
+    {
+     "id": 38,
+     "file": "west_38.json",
+     "size": 9,
+     "name_it": "Il Fuggitivo",
+     "name_en": "The Fugitive",
+     "difficulty": 3
+    },
+    {
+     "id": 39,
+     "file": "west_39.json",
+     "size": 9,
+     "name_it": "La Notte dei Coyote",
+     "name_en": "Night of the Coyotes",
+     "difficulty": 3
+    },
+    {
+     "id": 40,
+     "file": "west_40.json",
+     "size": 10,
+     "name_it": "Ferro Rovente",
+     "name_en": "Red Hot Iron",
+     "difficulty": 3
+    },
+    {
+     "id": 41,
+     "file": "west_41.json",
+     "size": 10,
+     "name_it": "Il Testimone Cieco",
+     "name_en": "The Blind Witness",
+     "difficulty": 3
+    },
+    {
+     "id": 42,
+     "file": "west_42.json",
+     "size": 10,
+     "name_it": "Sella Vuota",
+     "name_en": "Empty Saddle",
+     "difficulty": 3
+    },
+    {
+     "id": 43,
+     "file": "west_43.json",
+     "size": 10,
+     "name_it": "La Legge del Deserto",
+     "name_en": "Desert Law",
+     "difficulty": 3
+    },
+    {
+     "id": 44,
+     "file": "west_44.json",
+     "size": 10,
+     "name_it": "Un Nome sulla Lapide",
+     "name_en": "A Name on the Headstone",
+     "difficulty": 3
+    },
+    {
+     "id": 45,
+     "file": "west_45.json",
+     "size": 10,
+     "name_it": "Il Prezzo del Silenzio",
+     "name_en": "The Price of Silence",
+     "difficulty": 3
+    },
+    {
+     "id": 46,
+     "file": "west_46.json",
+     "size": 11,
+     "name_it": "Acqua e Sangue",
+     "name_en": "Water and Blood",
+     "difficulty": 3
+    },
+    {
+     "id": 47,
+     "file": "west_47.json",
+     "size": 11,
+     "name_it": "Il Baro",
+     "name_en": "The Cheat",
+     "difficulty": 3
+    },
+    {
+     "id": 48,
+     "file": "west_48.json",
+     "size": 11,
+     "name_it": "Fuori dalla Legge",
+     "name_en": "Outlaw",
+     "difficulty": 3
+    },
+    {
+     "id": 49,
+     "file": "west_49.json",
+     "size": 11,
+     "name_it": "L'Ultimo Treno",
+     "name_en": "The Last Train",
+     "difficulty": 3
+    },
+    {
+     "id": 50,
+     "file": "west_50.json",
+     "size": 12,
+     "name_it": "Il Duello Mancato",
+     "name_en": "The Duel That Wasn't",
+     "difficulty": 3
+    },
+    {
+     "id": 51,
+     "file": "west_51.json",
+     "size": 12,
+     "name_it": "Sabbia sulle Tracce",
+     "name_en": "Sand on the Tracks",
+     "difficulty": 3
+    },
+    {
+     "id": 52,
+     "file": "west_52.json",
+     "size": 12,
+     "name_it": "La Banda dei Fratelli",
+     "name_en": "The Brothers' Gang",
+     "difficulty": 3
+    },
+    {
+     "id": 53,
+     "file": "west_53.json",
+     "size": 13,
+     "name_it": "Vento del Nord",
+     "name_en": "North Wind",
+     "difficulty": 3
+    },
+    {
+     "id": 54,
+     "file": "west_54.json",
+     "size": 13,
+     "name_it": "Il Conto del Saloon",
+     "name_en": "The Saloon Tab",
+     "difficulty": 3
+    },
+    {
+     "id": 55,
+     "file": "west_55.json",
+     "size": 14,
+     "name_it": "Nessun Testimone",
+     "name_en": "No Witnesses",
+     "difficulty": 3
+    },
+    {
+     "id": 56,
+     "file": "west_b56.json",
+     "size": 15,
+     "name_it": "Il Ritorno dello Sceriffo",
+     "name_en": "The Sheriff Returns",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 57,
+     "file": "west_b57.json",
+     "size": 15,
+     "name_it": "Piombo nel Buio",
+     "name_en": "Lead in the Dark",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 58,
+     "file": "west_b58.json",
+     "size": 16,
+     "name_it": "L'Ultima Diligenza",
+     "name_en": "The Last Stagecoach",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 59,
+     "file": "west_b59.json",
+     "size": 16,
+     "name_it": "Alba sul Deserto",
+     "name_en": "Desert Dawn",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 60,
+     "file": "west_b60.json",
+     "size": 16,
+     "name_it": "La Città Fantasma",
+     "name_en": "The Ghost Town",
+     "difficulty": 3,
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "id": "egitto",
+   "name_it": "La Piramide di Ankhet",
+   "name_en": "The Pyramid of Ankhet",
+   "subtitle_it": "Chi entra non sempre esce",
+   "subtitle_en": "Not everyone who enters leaves",
+   "theme": "egitto",
+   "bg": "assets/zones/egitto.jpg",
+   "levels": [
+    {
+     "id": 1,
+     "file": "egitto_01.json",
+     "size": 6,
+     "name_it": "Il Sigillo Rotto",
+     "name_en": "The Broken Seal",
+     "difficulty": 1
+    },
+    {
+     "id": 2,
+     "file": "egitto_02.json",
+     "size": 6,
+     "name_it": "Sabbia nella Cripta",
+     "name_en": "Sand in the Crypt",
+     "difficulty": 1
+    },
+    {
+     "id": 3,
+     "file": "egitto_03.json",
+     "size": 6,
+     "name_it": "L'Urna Mancante",
+     "name_en": "The Missing Jar",
+     "difficulty": 1
+    },
+    {
+     "id": 4,
+     "file": "egitto_04.json",
+     "size": 6,
+     "name_it": "La Maledizione del Faraone",
+     "name_en": "The Pharaoh's Curse",
+     "difficulty": 1
+    },
+    {
+     "id": 5,
+     "file": "egitto_05.json",
+     "size": 6,
+     "name_it": "Geroglifici Falsi",
+     "name_en": "False Hieroglyphs",
+     "difficulty": 1
+    },
+    {
+     "id": 6,
+     "file": "egitto_06.json",
+     "size": 6,
+     "name_it": "Il Braciere Spento",
+     "name_en": "The Dead Brazier",
+     "difficulty": 1
+    },
+    {
+     "id": 7,
+     "file": "egitto_07.json",
+     "size": 6,
+     "name_it": "Ombre tra le Colonne",
+     "name_en": "Shadows Among the Columns",
+     "difficulty": 1
+    },
+    {
+     "id": 8,
+     "file": "egitto_08.json",
+     "size": 6,
+     "name_it": "Il Sarcofago Vuoto",
+     "name_en": "The Empty Sarcophagus",
+     "difficulty": 1
+    },
+    {
+     "id": 9,
+     "file": "egitto_09.json",
+     "size": 6,
+     "name_it": "Grano Contato",
+     "name_en": "Counted Grain",
+     "difficulty": 1
+    },
+    {
+     "id": 10,
+     "file": "egitto_10.json",
+     "size": 6,
+     "name_it": "Lo Scarabeo d'Oro",
+     "name_en": "The Golden Scarab",
+     "difficulty": 1
+    },
+    {
+     "id": 11,
+     "file": "egitto_11.json",
+     "size": 6,
+     "name_it": "La Camera Sigillata",
+     "name_en": "The Sealed Chamber",
+     "difficulty": 1
+    },
+    {
+     "id": 12,
+     "file": "egitto_12.json",
+     "size": 6,
+     "name_it": "Il Papiro Bruciato",
+     "name_en": "The Burned Papyrus",
+     "difficulty": 1
+    },
+    {
+     "id": 13,
+     "file": "egitto_13.json",
+     "size": 7,
+     "name_it": "Occhi di Anubi",
+     "name_en": "Eyes of Anubis",
+     "difficulty": 1
+    },
+    {
+     "id": 14,
+     "file": "egitto_14.json",
+     "size": 7,
+     "name_it": "Il Tesoro Alleggerito",
+     "name_en": "The Lighter Treasure",
+     "difficulty": 1
+    },
+    {
+     "id": 15,
+     "file": "egitto_15.json",
+     "size": 7,
+     "name_it": "Passi nel Corridoio",
+     "name_en": "Steps in the Corridor",
+     "difficulty": 1
+    },
+    {
+     "id": 16,
+     "file": "egitto_16.json",
+     "size": 7,
+     "name_it": "L'Architetto Scomparso",
+     "name_en": "The Vanished Architect",
+     "difficulty": 1
+    },
+    {
+     "id": 17,
+     "file": "egitto_17.json",
+     "size": 7,
+     "name_it": "Acqua nel Tempio",
+     "name_en": "Water in the Temple",
+     "difficulty": 1
+    },
+    {
+     "id": 18,
+     "file": "egitto_18.json",
+     "size": 7,
+     "name_it": "Il Sacerdote Mente",
+     "name_en": "The Priest Lies",
+     "difficulty": 1
+    },
+    {
+     "id": 19,
+     "file": "egitto_19.json",
+     "size": 7,
+     "name_it": "Polvere di Secoli",
+     "name_en": "Dust of Ages",
+     "difficulty": 2
+    },
+    {
+     "id": 20,
+     "file": "egitto_20.json",
+     "size": 7,
+     "name_it": "La Trappola",
+     "name_en": "The Trap",
+     "difficulty": 2
+    },
+    {
+     "id": 21,
+     "file": "egitto_21.json",
+     "size": 7,
+     "name_it": "Il Nome Cancellato",
+     "name_en": "The Erased Name",
+     "difficulty": 2
+    },
+    {
+     "id": 22,
+     "file": "egitto_22.json",
+     "size": 7,
+     "name_it": "Offerte Sbagliate",
+     "name_en": "Wrong Offerings",
+     "difficulty": 2
+    },
+    {
+     "id": 23,
+     "file": "egitto_23.json",
+     "size": 7,
+     "name_it": "Notte di Piena",
+     "name_en": "Night of the Flood",
+     "difficulty": 2
+    },
+    {
+     "id": 24,
+     "file": "egitto_24.json",
+     "size": 8,
+     "name_it": "Il Custode Addormentato",
+     "name_en": "The Sleeping Keeper",
+     "difficulty": 2
+    },
+    {
+     "id": 25,
+     "file": "egitto_25.json",
+     "size": 8,
+     "name_it": "Oro sotto la Sabbia",
+     "name_en": "Gold Beneath the Sand",
+     "difficulty": 2
+    },
+    {
+     "id": 26,
+     "file": "egitto_26.json",
+     "size": 8,
+     "name_it": "La Porta Falsa",
+     "name_en": "The False Door",
+     "difficulty": 2
+    },
+    {
+     "id": 27,
+     "file": "egitto_27.json",
+     "size": 8,
+     "name_it": "Il Conto degli Schiavi",
+     "name_en": "The Slave Tally",
+     "difficulty": 2
+    },
+    {
+     "id": 28,
+     "file": "egitto_28.json",
+     "size": 8,
+     "name_it": "Ombra dell'Obelisco",
+     "name_en": "Shadow of the Obelisk",
+     "difficulty": 2
+    },
+    {
+     "id": 29,
+     "file": "egitto_29.json",
+     "size": 8,
+     "name_it": "Il Ladro di Tombe",
+     "name_en": "The Tomb Robber",
+     "difficulty": 2
+    },
+    {
+     "id": 30,
+     "file": "egitto_30.json",
+     "size": 8,
+     "name_it": "Bende e Bugie",
+     "name_en": "Bandages and Lies",
+     "difficulty": 2
+    },
+    {
+     "id": 31,
+     "file": "egitto_31.json",
+     "size": 8,
+     "name_it": "Il Cuore Pesato",
+     "name_en": "The Weighed Heart",
+     "difficulty": 2
+    },
+    {
+     "id": 32,
+     "file": "egitto_32.json",
+     "size": 8,
+     "name_it": "Sette Urne",
+     "name_en": "Seven Jars",
+     "difficulty": 2
+    },
+    {
+     "id": 33,
+     "file": "egitto_33.json",
+     "size": 8,
+     "name_it": "La Piena del Nilo",
+     "name_en": "The Nile Rises",
+     "difficulty": 2
+    },
+    {
+     "id": 34,
+     "file": "egitto_34.json",
+     "size": 9,
+     "name_it": "Il Faraone Non Dorme",
+     "name_en": "The Pharaoh Does Not Sleep",
+     "difficulty": 2
+    },
+    {
+     "id": 35,
+     "file": "egitto_35.json",
+     "size": 9,
+     "name_it": "Vento di Deserto",
+     "name_en": "Desert Wind",
+     "difficulty": 2
+    },
+    {
+     "id": 36,
+     "file": "egitto_36.json",
+     "size": 9,
+     "name_it": "La Chiave di Pietra",
+     "name_en": "The Stone Key",
+     "difficulty": 2
+    },
+    {
+     "id": 37,
+     "file": "egitto_37.json",
+     "size": 9,
+     "name_it": "Un Passaggio Murato",
+     "name_en": "A Walled Passage",
+     "difficulty": 3
+    },
+    {
+     "id": 38,
+     "file": "egitto_38.json",
+     "size": 9,
+     "name_it": "Il Vizir Ambizioso",
+     "name_en": "The Ambitious Vizier",
+     "difficulty": 3
+    },
+    {
+     "id": 39,
+     "file": "egitto_39.json",
+     "size": 9,
+     "name_it": "Fuoco nel Granaio",
+     "name_en": "Fire in the Granary",
+     "difficulty": 3
+    },
+    {
+     "id": 40,
+     "file": "egitto_40.json",
+     "size": 10,
+     "name_it": "Il Gatto del Tempio",
+     "name_en": "The Temple Cat",
+     "difficulty": 3
+    },
+    {
+     "id": 41,
+     "file": "egitto_41.json",
+     "size": 10,
+     "name_it": "Sangue sull'Altare",
+     "name_en": "Blood on the Altar",
+     "difficulty": 3
+    },
+    {
+     "id": 42,
+     "file": "egitto_42.json",
+     "size": 10,
+     "name_it": "La Mappa Incisa",
+     "name_en": "The Carved Map",
+     "difficulty": 3
+    },
+    {
+     "id": 43,
+     "file": "egitto_43.json",
+     "size": 10,
+     "name_it": "Nessuno Esce",
+     "name_en": "Nobody Leaves",
+     "difficulty": 3
+    },
+    {
+     "id": 44,
+     "file": "egitto_44.json",
+     "size": 10,
+     "name_it": "Il Terzo Sarcofago",
+     "name_en": "The Third Sarcophagus",
+     "difficulty": 3
+    },
+    {
+     "id": 45,
+     "file": "egitto_45.json",
+     "size": 10,
+     "name_it": "Ombre di Lucerna",
+     "name_en": "Lamplight Shadows",
+     "difficulty": 3
+    },
+    {
+     "id": 46,
+     "file": "egitto_46.json",
+     "size": 11,
+     "name_it": "Il Peso dell'Oro",
+     "name_en": "The Weight of Gold",
+     "difficulty": 3
+    },
+    {
+     "id": 47,
+     "file": "egitto_47.json",
+     "size": 11,
+     "name_it": "Scribi Silenziosi",
+     "name_en": "Silent Scribes",
+     "difficulty": 3
+    },
+    {
+     "id": 48,
+     "file": "egitto_48.json",
+     "size": 11,
+     "name_it": "La Stanza Sotto",
+     "name_en": "The Room Below",
+     "difficulty": 3
+    },
+    {
+     "id": 49,
+     "file": "egitto_49.json",
+     "size": 11,
+     "name_it": "Sabbia nei Polmoni",
+     "name_en": "Sand in the Lungs",
+     "difficulty": 3
+    },
+    {
+     "id": 50,
+     "file": "egitto_50.json",
+     "size": 12,
+     "name_it": "Il Segno di Anubi",
+     "name_en": "The Mark of Anubis",
+     "difficulty": 3
+    },
+    {
+     "id": 51,
+     "file": "egitto_51.json",
+     "size": 12,
+     "name_it": "Corridoio Cieco",
+     "name_en": "Blind Corridor",
+     "difficulty": 3
+    },
+    {
+     "id": 52,
+     "file": "egitto_52.json",
+     "size": 12,
+     "name_it": "L'Ultimo Rito",
+     "name_en": "The Last Rite",
+     "difficulty": 3
+    },
+    {
+     "id": 53,
+     "file": "egitto_53.json",
+     "size": 13,
+     "name_it": "Il Sigillo del Sommo",
+     "name_en": "The High Priest's Seal",
+     "difficulty": 3
+    },
+    {
+     "id": 54,
+     "file": "egitto_54.json",
+     "size": 13,
+     "name_it": "Luna sulle Piramidi",
+     "name_en": "Moon over the Pyramids",
+     "difficulty": 3
+    },
+    {
+     "id": 55,
+     "file": "egitto_55.json",
+     "size": 14,
+     "name_it": "Il Tesoro Maledetto",
+     "name_en": "The Cursed Hoard",
+     "difficulty": 3
+    },
+    {
+     "id": 56,
+     "file": "egitto_b56.json",
+     "size": 15,
+     "name_it": "Chi Ha Aperto la Tomba",
+     "name_en": "Who Opened the Tomb",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 57,
+     "file": "egitto_b57.json",
+     "size": 15,
+     "name_it": "Il Giudizio di Osiride",
+     "name_en": "The Judgment of Osiris",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 58,
+     "file": "egitto_b58.json",
+     "size": 16,
+     "name_it": "Silenzio di Pietra",
+     "name_en": "Silence of Stone",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 59,
+     "file": "egitto_b59.json",
+     "size": 16,
+     "name_it": "L'Alba del Faraone",
+     "name_en": "The Pharaoh's Dawn",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 60,
+     "file": "egitto_b60.json",
+     "size": 16,
+     "name_it": "Il Segreto della Piramide",
+     "name_en": "The Pyramid's Secret",
+     "difficulty": 3,
+     "bonus": true
+    }
+   ]
+  },
+  {
+   "id": "hotel",
+   "name_it": "Grand Hotel Aurora",
+   "name_en": "Grand Hotel Aurora",
+   "subtitle_it": "Eleganza, e qualcosa di marcio",
+   "subtitle_en": "Elegance, and something rotten",
+   "theme": "hotel",
+   "bg": "assets/zones/hotel.jpg",
+   "levels": [
+    {
+     "id": 1,
+     "file": "hotel_01.json",
+     "size": 6,
+     "name_it": "Champagne alle Undici",
+     "name_en": "Champagne at Eleven",
+     "difficulty": 1
+    },
+    {
+     "id": 2,
+     "file": "hotel_02.json",
+     "size": 6,
+     "name_it": "La Chiave della 12",
+     "name_en": "The Key to Room 12",
+     "difficulty": 1
+    },
+    {
+     "id": 3,
+     "file": "hotel_03.json",
+     "size": 6,
+     "name_it": "Un Valzer di Troppo",
+     "name_en": "One Waltz Too Many",
+     "difficulty": 1
+    },
+    {
+     "id": 4,
+     "file": "hotel_04.json",
+     "size": 6,
+     "name_it": "Il Baule Pesante",
+     "name_en": "The Heavy Trunk",
+     "difficulty": 1
+    },
+    {
+     "id": 5,
+     "file": "hotel_05.json",
+     "size": 6,
+     "name_it": "Bicchieri Rotti",
+     "name_en": "Broken Glasses",
+     "difficulty": 1
+    },
+    {
+     "id": 6,
+     "file": "hotel_06.json",
+     "size": 6,
+     "name_it": "Il Registro Alterato",
+     "name_en": "The Altered Register",
+     "difficulty": 1
+    },
+    {
+     "id": 7,
+     "file": "hotel_07.json",
+     "size": 6,
+     "name_it": "Silenzio in Sala Ballo",
+     "name_en": "Silence in the Ballroom",
+     "difficulty": 1
+    },
+    {
+     "id": 8,
+     "file": "hotel_08.json",
+     "size": 6,
+     "name_it": "La Perla Scomparsa",
+     "name_en": "The Missing Pearl",
+     "difficulty": 1
+    },
+    {
+     "id": 9,
+     "file": "hotel_09.json",
+     "size": 6,
+     "name_it": "Il Grammofono Acceso",
+     "name_en": "The Gramophone Was On",
+     "difficulty": 1
+    },
+    {
+     "id": 10,
+     "file": "hotel_10.json",
+     "size": 6,
+     "name_it": "Nessuno alla Reception",
+     "name_en": "Nobody at Reception",
+     "difficulty": 1
+    },
+    {
+     "id": 11,
+     "file": "hotel_11.json",
+     "size": 6,
+     "name_it": "L'Ospite della 7",
+     "name_en": "The Guest in Room 7",
+     "difficulty": 1
+    },
+    {
+     "id": 12,
+     "file": "hotel_12.json",
+     "size": 6,
+     "name_it": "Cappotto Bagnato",
+     "name_en": "A Wet Coat",
+     "difficulty": 1
+    },
+    {
+     "id": 13,
+     "file": "hotel_13.json",
+     "size": 7,
+     "name_it": "Il Direttore Nervoso",
+     "name_en": "The Nervous Manager",
+     "difficulty": 1
+    },
+    {
+     "id": 14,
+     "file": "hotel_14.json",
+     "size": 7,
+     "name_it": "Fumo in Cantina",
+     "name_en": "Smoke in the Cellar",
+     "difficulty": 1
+    },
+    {
+     "id": 15,
+     "file": "hotel_15.json",
+     "size": 7,
+     "name_it": "La Stecca Spezzata",
+     "name_en": "The Broken Cue",
+     "difficulty": 1
+    },
+    {
+     "id": 16,
+     "file": "hotel_16.json",
+     "size": 7,
+     "name_it": "Un Telegramma di Notte",
+     "name_en": "A Telegram at Night",
+     "difficulty": 1
+    },
+    {
+     "id": 17,
+     "file": "hotel_17.json",
+     "size": 7,
+     "name_it": "Il Conto Non Pagato",
+     "name_en": "The Unpaid Bill",
+     "difficulty": 1
+    },
+    {
+     "id": 18,
+     "file": "hotel_18.json",
+     "size": 7,
+     "name_it": "Specchi e Bugie",
+     "name_en": "Mirrors and Lies",
+     "difficulty": 1
+    },
+    {
+     "id": 19,
+     "file": "hotel_19.json",
+     "size": 7,
+     "name_it": "La Cameriera Sa",
+     "name_en": "The Maid Knows",
+     "difficulty": 2
+    },
+    {
+     "id": 20,
+     "file": "hotel_20.json",
+     "size": 7,
+     "name_it": "Veleno nel Cognac",
+     "name_en": "Poison in the Cognac",
+     "difficulty": 2
+    },
+    {
+     "id": 21,
+     "file": "hotel_21.json",
+     "size": 7,
+     "name_it": "L'Ascensore Fermo",
+     "name_en": "The Stalled Elevator",
+     "difficulty": 2
+    },
+    {
+     "id": 22,
+     "file": "hotel_22.json",
+     "size": 7,
+     "name_it": "Il Cameriere Nuovo",
+     "name_en": "The New Waiter",
+     "difficulty": 2
+    },
+    {
+     "id": 23,
+     "file": "hotel_23.json",
+     "size": 7,
+     "name_it": "Rose Senza Biglietto",
+     "name_en": "Roses Without a Card",
+     "difficulty": 2
+    },
+    {
+     "id": 24,
+     "file": "hotel_24.json",
+     "size": 8,
+     "name_it": "La Suite Chiusa",
+     "name_en": "The Locked Suite",
+     "difficulty": 2
+    },
+    {
+     "id": 25,
+     "file": "hotel_25.json",
+     "size": 8,
+     "name_it": "Mezzanotte al Piano",
+     "name_en": "Midnight at the Piano",
+     "difficulty": 2
+    },
+    {
+     "id": 26,
+     "file": "hotel_26.json",
+     "size": 8,
+     "name_it": "Il Diamante Falso",
+     "name_en": "The Fake Diamond",
+     "difficulty": 2
+    },
+    {
+     "id": 27,
+     "file": "hotel_27.json",
+     "size": 8,
+     "name_it": "Passi nel Corridoio",
+     "name_en": "Steps in the Corridor",
+     "difficulty": 2
+    },
+    {
+     "id": 28,
+     "file": "hotel_28.json",
+     "size": 8,
+     "name_it": "Champagne e Cianuro",
+     "name_en": "Champagne and Cyanide",
+     "difficulty": 2
+    },
+    {
+     "id": 29,
+     "file": "hotel_29.json",
+     "size": 8,
+     "name_it": "Il Portiere di Notte",
+     "name_en": "The Night Porter",
+     "difficulty": 2
+    },
+    {
+     "id": 30,
+     "file": "hotel_30.json",
+     "size": 8,
+     "name_it": "Una Firma Contraffatta",
+     "name_en": "A Forged Signature",
+     "difficulty": 2
+    },
+    {
+     "id": 31,
+     "file": "hotel_31.json",
+     "size": 8,
+     "name_it": "La Contessa Mente",
+     "name_en": "The Countess Lies",
+     "difficulty": 2
+    },
+    {
+     "id": 32,
+     "file": "hotel_32.json",
+     "size": 8,
+     "name_it": "Luci Spente alle Due",
+     "name_en": "Lights Out at Two",
+     "difficulty": 2
+    },
+    {
+     "id": 33,
+     "file": "hotel_33.json",
+     "size": 8,
+     "name_it": "Il Tavolo Sbagliato",
+     "name_en": "The Wrong Table",
+     "difficulty": 2
+    },
+    {
+     "id": 34,
+     "file": "hotel_34.json",
+     "size": 9,
+     "name_it": "Sangue sul Velluto",
+     "name_en": "Blood on the Velvet",
+     "difficulty": 2
+    },
+    {
+     "id": 35,
+     "file": "hotel_35.json",
+     "size": 9,
+     "name_it": "Il Cuoco Ha Visto",
+     "name_en": "The Cook Saw It",
+     "difficulty": 2
+    },
+    {
+     "id": 36,
+     "file": "hotel_36.json",
+     "size": 9,
+     "name_it": "Un Ballo Interrotto",
+     "name_en": "An Interrupted Dance",
+     "difficulty": 2
+    },
+    {
+     "id": 37,
+     "file": "hotel_37.json",
+     "size": 9,
+     "name_it": "La Valigia Scambiata",
+     "name_en": "The Swapped Suitcase",
+     "difficulty": 3
+    },
+    {
+     "id": 38,
+     "file": "hotel_38.json",
+     "size": 9,
+     "name_it": "Il Fiore all'Occhiello",
+     "name_en": "The Boutonnière",
+     "difficulty": 3
+    },
+    {
+     "id": 39,
+     "file": "hotel_39.json",
+     "size": 9,
+     "name_it": "Debiti e Diamanti",
+     "name_en": "Debts and Diamonds",
+     "difficulty": 3
+    },
+    {
+     "id": 40,
+     "file": "hotel_40.json",
+     "size": 10,
+     "name_it": "L'Ospite Inatteso",
+     "name_en": "The Unexpected Guest",
+     "difficulty": 3
+    },
+    {
+     "id": 41,
+     "file": "hotel_41.json",
+     "size": 10,
+     "name_it": "Neve sul Giardino",
+     "name_en": "Snow on the Garden",
+     "difficulty": 3
+    },
+    {
+     "id": 42,
+     "file": "hotel_42.json",
+     "size": 10,
+     "name_it": "Il Cameriere Sparito",
+     "name_en": "The Vanished Waiter",
+     "difficulty": 3
+    },
+    {
+     "id": 43,
+     "file": "hotel_43.json",
+     "size": 10,
+     "name_it": "Una Lettera nel Camino",
+     "name_en": "A Letter in the Fireplace",
+     "difficulty": 3
+    },
+    {
+     "id": 44,
+     "file": "hotel_44.json",
+     "size": 10,
+     "name_it": "Il Barone e la Ballerina",
+     "name_en": "The Baron and the Dancer",
+     "difficulty": 3
+    },
+    {
+     "id": 45,
+     "file": "hotel_45.json",
+     "size": 10,
+     "name_it": "Ombre nella Hall",
+     "name_en": "Shadows in the Lobby",
+     "difficulty": 3
+    },
+    {
+     "id": 46,
+     "file": "hotel_46.json",
+     "size": 11,
+     "name_it": "Il Biglietto Anonimo",
+     "name_en": "The Anonymous Note",
+     "difficulty": 3
+    },
+    {
+     "id": 47,
+     "file": "hotel_47.json",
+     "size": 11,
+     "name_it": "Whisky Fuori Orario",
+     "name_en": "After Hours Whiskey",
+     "difficulty": 3
+    },
+    {
+     "id": 48,
+     "file": "hotel_48.json",
+     "size": 11,
+     "name_it": "La Terza Chiave",
+     "name_en": "The Third Key",
+     "difficulty": 3
+    },
+    {
+     "id": 49,
+     "file": "hotel_49.json",
+     "size": 11,
+     "name_it": "Un Grido alle Quattro",
+     "name_en": "A Scream at Four",
+     "difficulty": 3
+    },
+    {
+     "id": 50,
+     "file": "hotel_50.json",
+     "size": 12,
+     "name_it": "Il Testimone Ubriaco",
+     "name_en": "The Drunk Witness",
+     "difficulty": 3
+    },
+    {
+     "id": 51,
+     "file": "hotel_51.json",
+     "size": 12,
+     "name_it": "Perle nel Biliardo",
+     "name_en": "Pearls in the Billiard Room",
+     "difficulty": 3
+    },
+    {
+     "id": 52,
+     "file": "hotel_52.json",
+     "size": 12,
+     "name_it": "La Ricevuta Strappata",
+     "name_en": "The Torn Receipt",
+     "difficulty": 3
+    },
+    {
+     "id": 53,
+     "file": "hotel_53.json",
+     "size": 13,
+     "name_it": "Nessuno Ha Sentito",
+     "name_en": "Nobody Heard a Thing",
+     "difficulty": 3
+    },
+    {
+     "id": 54,
+     "file": "hotel_54.json",
+     "size": 13,
+     "name_it": "Il Piano Ammutolito",
+     "name_en": "The Piano Fell Silent",
+     "difficulty": 3
+    },
+    {
+     "id": 55,
+     "file": "hotel_55.json",
+     "size": 14,
+     "name_it": "Sotto il Lampadario",
+     "name_en": "Beneath the Chandelier",
+     "difficulty": 3
+    },
+    {
+     "id": 56,
+     "file": "hotel_b56.json",
+     "size": 15,
+     "name_it": "L'Ultimo Ballo",
+     "name_en": "The Last Dance",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 57,
+     "file": "hotel_b57.json",
+     "size": 15,
+     "name_it": "Il Conto del Direttore",
+     "name_en": "The Manager's Ledger",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 58,
+     "file": "hotel_b58.json",
+     "size": 16,
+     "name_it": "Alba sul Grand Hotel",
+     "name_en": "Dawn at the Grand Hotel",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 59,
+     "file": "hotel_b59.json",
+     "size": 16,
+     "name_it": "Chiusura Stagionale",
+     "name_en": "End of Season",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 60,
+     "file": "hotel_b60.json",
+     "size": 16,
+     "name_it": "Il Segreto della Suite",
+     "name_en": "The Secret of the Suite",
+     "difficulty": 3,
+     "bonus": true
+    }
+   ]
+  },
+  {
    "id": "test",
    "name_it": "Area di test",
    "name_en": "Test Area",
