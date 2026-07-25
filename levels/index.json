@@ -172,6 +172,51 @@
      "name_it": "Il Segreto del Capitano",
      "name_en": "The Captain's Secret",
      "difficulty": 2
+    },
+    {
+     "id": 21,
+     "file": "cala-mistero_b21.json",
+     "size": 15,
+     "name_it": "Il Porto Sommerso",
+     "name_en": "The Drowned Harbor",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 22,
+     "file": "cala-mistero_b22.json",
+     "size": 15,
+     "name_it": "Rotta di Collisione",
+     "name_en": "Collision Course",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 23,
+     "file": "cala-mistero_b23.json",
+     "size": 16,
+     "name_it": "L'Armatore",
+     "name_en": "The Shipowner",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 24,
+     "file": "cala-mistero_b24.json",
+     "size": 16,
+     "name_it": "Mare Forza Nove",
+     "name_en": "Force Nine",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 25,
+     "file": "cala-mistero_b25.json",
+     "size": 16,
+     "name_it": "Il Faro Spento",
+     "name_en": "The Dark Lighthouse",
+     "difficulty": 3,
+     "bonus": true
     }
    ]
   },
@@ -623,6 +668,51 @@
      "name_it": "Conto alla Rovescia",
      "name_en": "Countdown",
      "difficulty": 3
+    },
+    {
+     "id": 56,
+     "file": "spazio_b56.json",
+     "size": 15,
+     "name_it": "Il Riflesso nell'Oblò",
+     "name_en": "Reflection in the Porthole",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 57,
+     "file": "spazio_b57.json",
+     "size": 15,
+     "name_it": "Manovra Proibita",
+     "name_en": "Forbidden Maneuver",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 58,
+     "file": "spazio_b58.json",
+     "size": 16,
+     "name_it": "Fine Missione",
+     "name_en": "Mission's End",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 59,
+     "file": "spazio_b59.json",
+     "size": 16,
+     "name_it": "Il Vuoto Risponde",
+     "name_en": "The Void Answers",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 60,
+     "file": "spazio_b60.json",
+     "size": 16,
+     "name_it": "Rientro a Casa",
+     "name_en": "Homebound",
+     "difficulty": 3,
+     "bonus": true
     }
    ]
   },
@@ -1074,6 +1164,51 @@
      "name_it": "Fiamme in Armeria",
      "name_en": "Flames in the Armory",
      "difficulty": 3
+    },
+    {
+     "id": 56,
+     "file": "fantasy_b56.json",
+     "size": 15,
+     "name_it": "La Lettera Sigillata",
+     "name_en": "The Sealed Letter",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 57,
+     "file": "fantasy_b57.json",
+     "size": 15,
+     "name_it": "Il Giudizio del Re",
+     "name_en": "The King's Judgment",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 58,
+     "file": "fantasy_b58.json",
+     "size": 16,
+     "name_it": "Ultimo Cavaliere",
+     "name_en": "The Last Knight",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 59,
+     "file": "fantasy_b59.json",
+     "size": 16,
+     "name_it": "L'Alba del Nuovo Re",
+     "name_en": "Dawn of the New King",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 60,
+     "file": "fantasy_b60.json",
+     "size": 16,
+     "name_it": "Il Castello Tace",
+     "name_en": "The Castle Falls Silent",
+     "difficulty": 3,
+     "bonus": true
     }
    ]
   },
@@ -1525,6 +1660,51 @@
      "name_it": "Nessuno Ha Visto Nulla",
      "name_en": "Nobody Saw Anything",
      "difficulty": 3
+    },
+    {
+     "id": 56,
+     "file": "natale_b56.json",
+     "size": 15,
+     "name_it": "Il Turno di Babbo Natale",
+     "name_en": "Santa's Own Shift",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 57,
+     "file": "natale_b57.json",
+     "size": 15,
+     "name_it": "La Consegna Impossibile",
+     "name_en": "The Impossible Delivery",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 58,
+     "file": "natale_b58.json",
+     "size": 16,
+     "name_it": "Mezzanotte in Punto",
+     "name_en": "Midnight Sharp",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 59,
+     "file": "natale_b59.json",
+     "size": 16,
+     "name_it": "L'Alba di Natale",
+     "name_en": "Christmas Dawn",
+     "difficulty": 3,
+     "bonus": true
+    },
+    {
+     "id": 60,
+     "file": "natale_b60.json",
+     "size": 16,
+     "name_it": "Il Caso di Natale",
+     "name_en": "The Christmas Case",
+     "difficulty": 3,
+     "bonus": true
     }
    ]
   },

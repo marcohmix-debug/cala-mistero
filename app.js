@@ -40,6 +40,19 @@ const I18N = {
     dailyTitle: (d) => `Sfida del ${d}`,
     pDaily: "Sfide quotidiane", pStreak: "Serie attuale", pBestStreak: "Serie record",
     dayNames: ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"],
+    hintTitle: (nm) => `Tocca a ${nm}`,
+    hintLeft: (n) => `Aiuti rimasti: ${n}`,
+    hintNoWhy: "Ho piazzato il prossimo sospettato al posto giusto.",
+    hintShopTitle: "Aiuti esauriti",
+    hintShopBody: "Guadagni aiuti risolvendo la sfida del giorno (+1) e completando una zona (+3).",
+    hintAd: (n) => `🎬 Guarda un annuncio (+1) · ${n} oggi`,
+    hintAdOut: "🎬 Annunci finiti per oggi",
+    hintGotTitle: "Aiuto ottenuto",
+    hintGot: (n) => `Ora ne hai ${n}.`,
+    hintsWord: "aiuti", ok: "Ok",
+    bonusTitle: "Casi bonus", bonusLocked: "🔒 Bloccato",
+    bonusHow: (n) => `Risolvi tutti i ${n} casi della zona per sbloccare le 5 griglie più grandi.`,
+    bonusUnlocked: "Sbloccati!",
   },
   en: {
     suspects: "Suspects",
@@ -79,6 +92,19 @@ const I18N = {
     dailyTitle: (d) => `Challenge of ${d}`,
     pDaily: "Daily challenges", pStreak: "Current streak", pBestStreak: "Best streak",
     dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    hintTitle: (nm) => `${nm} is next`,
+    hintLeft: (n) => `Hints left: ${n}`,
+    hintNoWhy: "I placed the next suspect in the right square.",
+    hintShopTitle: "Out of hints",
+    hintShopBody: "You earn hints by solving the daily challenge (+1) and by completing a zone (+3).",
+    hintAd: (n) => `🎬 Watch an ad (+1) · ${n} today`,
+    hintAdOut: "🎬 No ads left today",
+    hintGotTitle: "Hint earned",
+    hintGot: (n) => `You now have ${n}.`,
+    hintsWord: "hints", ok: "Ok",
+    bonusTitle: "Bonus cases", bonusLocked: "🔒 Locked",
+    bonusHow: (n) => `Solve all ${n} cases in the zone to unlock the 5 largest grids.`,
+    bonusUnlocked: "Unlocked!",
   },
 };
 
@@ -116,7 +142,7 @@ Profile.onChange = () => {
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "23";
+const BUILD = "24";
 
 async function boot() {
   S.index = await (await fetch("levels/index.json?v=" + BUILD)).json();
@@ -319,13 +345,14 @@ function renderZones() {
   S.view = "zones";
   stopTimer();
   const cards = S.zones.map((z) => {
-    const done = z.levels.filter((l) => isDone(z.id + ":" + l.id)).length;
+    const base = z.levels.filter((l) => !l.bonus);
+    const done = base.filter((l) => isDone(z.id + ":" + l.id)).length;
     return `<div class="zone-card" data-zone="${z.id}"
       style="background-image:linear-gradient(180deg,rgba(20,16,40,.15),rgba(20,16,40,.78)),url(${z.bg})">
       <div class="zone-meta">
         <div class="zone-name">${S.lang === "it" ? z.name_it : z.name_en}</div>
         <div class="zone-sub">${S.lang === "it" ? z.subtitle_it : z.subtitle_en}</div>
-        <div class="zone-prog">${done}/${z.levels.length} · ${t().zoneLevels(z.levels.length)}</div>
+        <div class="zone-prog">${done}/${base.length} · ${t().zoneLevels(base.length)}</div>
       </div>
       <div class="zone-play">▶</div>
     </div>`;
@@ -362,28 +389,52 @@ function renderLevels(zone) {
       <div class="lc-bot"><span class="sz">6×6</span></div>
     </div>`;
   }
-  cards += zone.levels.map((l) => {
+  const base = zone.levels.filter((l) => !l.bonus);
+  const bonus = zone.levels.filter((l) => l.bonus);
+  const cardFor = (l, locked) => {
     const df = l.difficulty || 2;
     const bt = bestOf(key(l.id));
-    return `<div class="level-card d${df} ${isDone(key(l.id)) ? "done" : ""}" data-id="${l.id}">
+    return `<div class="level-card d${df} ${isDone(key(l.id)) ? "done" : ""}
+      ${l.bonus ? "bonus" : ""} ${locked ? "locked" : ""}" data-id="${l.id}">
       <div class="lc-top">
-        <span class="num">#${String(l.id).padStart(2, "0")}</span>
+        <span class="num">${l.bonus ? "★" : "#" + String(l.id).padStart(2, "0")}</span>
         <span class="diff diff${df}">${"●".repeat(df)}${"○".repeat(3 - df)}</span>
       </div>
-      <div class="nm">${S.lang === "it" ? l.name_it : l.name_en}</div>
+      <div class="nm">${locked ? t().bonusLocked
+                               : (S.lang === "it" ? l.name_it : l.name_en)}</div>
       <div class="lc-bot"><span class="sz">${l.size}×${l.size}</span>
         <span class="difftext">${bt != null ? "⏱ " + fmtTime(bt) : t().diff[df]}</span></div>
     </div>`;
-  }).join("");
+  };
+  cards += base.map((l) => cardFor(l, false)).join("");
+  // casi bonus: le griglie piu' grandi, in fondo, chiuse finche' la zona
+  // non e' completata
+  let bonusBlock = "";
+  if (bonus.length) {
+    const left = base.filter((l) => !isDone(key(l.id))).length;
+    const unlocked = left === 0;
+    bonusBlock = `<div class="bonus-sec ${unlocked ? "open" : ""}">
+      <h2>${t().bonusTitle} ${unlocked ? `<span class="ok">${t().bonusUnlocked}</span>` : ""}</h2>
+      <p class="subtitle">${unlocked ? "" : t().bonusHow(base.length)}</p>
+      <div class="level-grid">${bonus.map((l) => cardFor(l, !unlocked)).join("")}</div>
+    </div>`;
+  }
   app.innerHTML = headerHTML(S.lang === "it" ? zone.name_it : zone.name_en, true) + `
     <div class="home">
       <h1>${S.lang === "it" ? zone.name_it : zone.name_en}</h1>
       <p class="subtitle">${S.lang === "it" ? zone.subtitle_it : zone.subtitle_en}</p>
       <div class="level-grid">${cards}</div>
+      ${bonusBlock}
     </div>`;
   wireHeader(renderZones);
   document.querySelectorAll(".level-card").forEach((el) =>
-    el.onclick = () => openLevel(zone, +el.dataset.id));
+    el.onclick = () => {
+      if (el.classList.contains("locked")) {
+        modal(t().bonusTitle, t().bonusHow(base.length), [[t().ok, () => {}]]);
+        return;
+      }
+      openLevel(zone, +el.dataset.id);
+    });
 }
 
 async function openLevel(zone, id) {
@@ -627,7 +678,7 @@ function renderGame() {
         <button id="mPencil" class="${S.mode === "pencil" ? "active pencil-mode" : ""}">✏️<span>${t().mPencil}</span></button>
         <button id="mErase" class="${S.mode === "erase" ? "active" : ""}">🧹<span>${t().mErase}</span></button>
         <button id="mUndo" ${S.history.length ? "" : "disabled"}>↩<span>${t().mUndo}</span></button>
-        <button id="mHint">💡<span>${t().mHint}</span></button>
+        <button id="mHint">💡<span>${t().mHint} (${Hints.balance(S.zones)})</span></button>
       </div>
       <div class="mstrip">${strip}</div>
       <div class="mclue ${S.selected !== null && L.clues.find((c) => c.suspect === S.selected).victim ? "victim" : ""}">${selClue}</div>
@@ -637,7 +688,7 @@ function renderGame() {
       <button id="pencilBtn" class="${S.mode === "pencil" ? "mode-active" : ""}">${S.mode === "pencil" ? t().pencilOn : t().pencilOff}</button>
       <button id="clearBtn">${t().clear}</button>
       <button id="undoBtn" ${S.history.length ? "" : "disabled"}>${t().undo}</button>
-      <button id="hintBtn">${t().hint}</button>
+      <button id="hintBtn">${t().hint} (${Hints.balance(S.zones)})</button>
       <button id="submitBtn" class="primary" ${allPlaced ? "" : "disabled"}>
         ${t().submit}<br><span class="small" style="color:#dde">${allPlaced ? "" : t().submitSub}</span>
       </button>
@@ -800,23 +851,74 @@ function undo() {
   renderGame();
 }
 
-function hint() {
+/** Il prossimo passo della catena deduttiva non ancora eseguito dal giocatore.
+ *  Non e' "un sospettato a caso": e' quello che ORA si può dedurre, con la
+ *  sua spiegazione. Se il livello non ha catena (o è finita) si ripiega sul
+ *  primo sospettato fuori posto, senza spiegazione. */
+function nextStep() {
   const L = S.level;
-  for (let i = 0; i < L.suspects.length; i++) {
-    const sol = L.solution[i];
-    const cur = S.placements[i];
-    if (!cur || cur[0] !== sol[0] || cur[1] !== sol[1]) {
-      // libera la cella se occupata da altri
-      const occ = suspectAt(sol[0], sol[1]);
-      if (occ !== null && occ !== i) delete S.placements[occ];
-      S.history.push({ type: "place", id: i, prev: cur || null,
-        prevCandidates: [...(S.candidates[i] || [])] });
-      S.placements[i] = [sol[0], sol[1]];
-      delete S.candidates[i];
-      renderGame();
-      return;
-    }
+  const done = (i, cell) => {
+    const p = S.placements[i];
+    return p && p[0] === cell[0] && p[1] === cell[1];
+  };
+  for (const st of L.steps || []) {
+    if (!done(st.suspect, st.cell)) return st;
   }
+  for (let i = 0; i < L.suspects.length; i++) {
+    if (!done(i, L.solution[i]))
+      return { suspect: i, cell: L.solution[i], fallback: true };
+  }
+  return null;
+}
+
+function applyStep(st) {
+  const occ = suspectAt(st.cell[0], st.cell[1]);   // libera la casella
+  if (occ !== null && occ !== st.suspect) delete S.placements[occ];
+  S.history.push({ type: "place", id: st.suspect,
+    prev: S.placements[st.suspect] || null,
+    prevCandidates: [...(S.candidates[st.suspect] || [])] });
+  S.placements[st.suspect] = [st.cell[0], st.cell[1]];
+  delete S.candidates[st.suspect];
+  S.selected = null;
+}
+
+function hint() {
+  const st = nextStep();
+  if (!st) return;
+  if (!Hints.spend(S.zones)) return hintShop();   // saldo a zero
+  applyStep(st);
+  renderGame();
+  const nm = S.level.suspects[st.suspect].name;
+  const why = st.fallback
+    ? t().hintNoWhy
+    : (S.lang === "it" ? st.it : st.en);
+  modal(t().hintTitle(nm), why + `<br><span class="hintleft">${
+    t().hintLeft(Hints.balance(S.zones))}</span>`, [[t().ok, () => {}]]);
+}
+
+/** Finiti gli aiuti: annuncio (in arrivo) o acquisto. */
+function hintShop() {
+  const left = Hints.adsLeftToday();
+  const packs = HINT_RULES.packs.map((p) =>
+    `<li><b>${p.hints}</b> ${t().hintsWord}${p.badge ? ` <em>${p.badge}</em>` : ""}</li>`
+  ).join("");
+  modal(t().hintShopTitle, `${t().hintShopBody}
+    <div class="shop">
+      <button id="adBtn" ${left > 0 ? "" : "disabled"}>${
+        left > 0 ? t().hintAd(left) : t().hintAdOut}</button>
+      <ul class="packs">${packs}</ul>
+      <span class="soonlabel">${t().soon}</span>
+    </div>`, [[t().ok, () => {}]]);
+  const ad = $("#adBtn");
+  if (ad) ad.onclick = () => {
+    // qui andra' la rete pubblicitaria: per ora l'aiuto viene accreditato
+    // subito, cosi' il flusso e' testabile end-to-end
+    if (Hints.grantFromAd()) {
+      document.querySelector(".modal-bg")?.remove();
+      renderGame();
+      modal(t().hintGotTitle, t().hintGot(Hints.balance(S.zones)), [[t().ok, () => {}]]);
+    }
+  };
 }
 
 function submit() {
