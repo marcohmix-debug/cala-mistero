@@ -1531,3 +1531,207 @@ button:active {
     box-shadow: 0 4px 0 rgba(4,9,22,.85);
   }
 }
+
+/* ---------- profilo ---------- */
+header .hprofile {
+  font: inherit; font-size: 17px; line-height: 1;
+  width: 34px; height: 34px; padding: 0; flex-shrink: 0;
+  border-radius: 50%; border: 1px solid rgba(166,97,226,.5);
+  background: rgba(166,97,226,.14); color: var(--purple-l);
+  cursor: pointer; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+header .hprofile img { width: 100%; height: 100%; object-fit: cover; }
+
+.profile-wrap { max-width: 720px; margin: 26px auto 60px; padding: 0 16px; }
+.profile-wrap h1 { font-size: 26px; color: #fff; margin: 0; }
+.profile-wrap .subtitle { color: #b9aee0; margin: 2px 0 0; font-size: 14px; }
+
+.phead { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.phead > div:nth-child(2) { min-width: 0; flex: 1; }
+.pavatar {
+  width: 58px; height: 58px; flex-shrink: 0;
+  border-radius: 50%; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; background: rgba(166,97,226,.2);
+  border: 2px solid rgba(166,97,226,.55);
+}
+.pavatar img { width: 100%; height: 100%; object-fit: cover; }
+.plink {
+  font: inherit; font-size: 13px; color: var(--purple-l);
+  background: none; border: none; cursor: pointer;
+  text-decoration: underline; flex-shrink: 0;
+}
+
+.pstats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
+.pstat {
+  background: rgba(34,26,68,.72); border: 1px solid rgba(166,97,226,.28);
+  border-radius: 12px; padding: 14px 10px; text-align: center;
+}
+.pstat .pv { font-size: 24px; font-weight: 800; color: #fff; font-variant-numeric: tabular-nums; }
+.pstat .pv small { font-size: 14px; font-weight: 600; color: #9d8fc9; }
+.pstat .pl { font-size: 12px; color: #b9aee0; margin-top: 3px; }
+
+.pcard {
+  background: rgba(34,26,68,.72); border: 1px solid rgba(166,97,226,.28);
+  border-radius: 14px; padding: 16px; margin-bottom: 14px;
+}
+.pcard h2 { font-size: 15px; color: #e6dcff; margin: 0 0 12px; letter-spacing: .3px; }
+
+.prow { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 14px; }
+.prow .pz { flex: 0 0 34%; color: #e9e3ff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.prow .pbar { flex: 1; height: 8px; border-radius: 6px; background: rgba(255,255,255,.1); overflow: hidden; }
+.prow .pbar span { display: block; height: 100%; background: linear-gradient(90deg, #a661e2, #d2a6ff); }
+.prow .pn, .prow .pt { flex-shrink: 0; color: #b9aee0; font-variant-numeric: tabular-nums; font-size: 13px; }
+.prow .pt { min-width: 56px; text-align: right; }
+
+.pbest { list-style: none; padding: 0; margin: 0; }
+.pbest li {
+  display: flex; justify-content: space-between; gap: 12px;
+  padding: 7px 0; font-size: 14px; color: #e9e3ff;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.pbest li:last-child { border-bottom: none; }
+.pbest b { color: var(--purple-l); font-variant-numeric: tabular-nums; }
+
+.pnote { color: #b9aee0; font-size: 13.5px; line-height: 1.5; margin: 0; }
+.pbtns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+.pbtns button {
+  font: inherit; font-size: 14px; padding: 10px 16px; cursor: pointer;
+  border-radius: 10px; border: 1px solid rgba(166,97,226,.5);
+  background: linear-gradient(145deg, #a86be5, #7d43bb); color: #fff; font-weight: 600;
+}
+.pbtns button.alt { background: rgba(166,97,226,.14); color: var(--purple-l); }
+
+.wintime { font-size: 15px; color: #b9aee0; }
+.winrec { font-size: 14px; color: #ffd479; font-weight: 600; }
+
+@media (max-width: 520px) {
+  .pstats { gap: 8px; }
+  .pstat { padding: 12px 6px; }
+  .pstat .pv { font-size: 20px; }
+  .prow .pz { flex-basis: 30%; }
+}
+
+/* ---------- leggibilità mappa ----------
+   I pavimenti a colori pieni + texture rubavano contrasto agli oggetti,
+   soprattutto sulle griglie grandi (celle piccole). Due correzioni:
+   1. un velo chiaro sopra il pavimento (piu' forte quando la griglia e'
+      grande) che ne abbassa la saturazione senza toccare i colori del tema;
+   2. alone chiaro + ombra su TUTTI gli arredi, non solo sugli overlay, cosi'
+      la sagoma dell'oggetto si stacca da qualunque fondo.                   */
+.cell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--floor-wash, rgba(250,249,255,.20));
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* griglie grandi: celle piccole, servono fondi ancora piu' spenti */
+.game.large-grid .cell::after { --floor-wash: rgba(250,249,255,.40); }
+
+.cell .furn.img:not(.overlay) {
+  filter:
+    drop-shadow(0 0 1.5px rgba(255,255,255,.9))
+    drop-shadow(0 1px 2px rgba(20,16,40,.5));
+}
+
+/* etichetta stanza: leggibile sopra il velo */
+.cell .room-label {
+  z-index: 2;
+  text-shadow: 0 1px 2px rgba(255,255,255,.85), 0 0 3px rgba(255,255,255,.7);
+}
+
+/* la croce deve restare il segno piu' evidente della cella */
+.cell .xmark { z-index: 2; }
+
+/* ---------- pavimenti dei temi nuovi ----------
+   Finché non ci sono le texture in assets/floors/, le stanze di spazio /
+   fantasy / natale riusano i pattern procedurali già definiti, scelti per
+   materiale. Basta aggiungere la chiave al gruppo giusto.                   */
+
+/* legno: officina, stalla, salotto, ufficio, magazzino, cucine, mensa */
+.cell.floor-officina, .cell.floor-stalla, .cell.floor-salotto,
+.cell.floor-ufficio, .cell.floor-magazzino, .cell.floor-lettere,
+.cell.floor-cucina_nat, .cell.floor-cucine, .cell.floor-mensa {
+  background-image:
+    repeating-linear-gradient(0deg,
+      rgba(0,0,0,.13) 0, rgba(0,0,0,.13) 2px,
+      transparent 2px, transparent calc(var(--cs,72px) / 3)),
+    repeating-linear-gradient(90deg,
+      rgba(0,0,0,.06) 0, rgba(0,0,0,.06) 1px,
+      transparent 1px, transparent 6px);
+}
+
+/* metallo/pannelli: tutta la stazione orbitale */
+.cell.floor-comando, .cell.floor-laboratorio, .cell.floor-hangar,
+.cell.floor-criosonno, .cell.floor-motori, .cell.floor-antenne {
+  background-image:
+    repeating-linear-gradient(90deg,
+      rgba(0,0,0,.11) 0, rgba(0,0,0,.11) 2px,
+      transparent 2px, transparent calc(var(--cs,72px) / 3)),
+    repeating-linear-gradient(0deg,
+      rgba(255,255,255,.10) 0, rgba(255,255,255,.10) 1px,
+      transparent 1px, transparent calc(var(--cs,72px) / 3));
+}
+
+/* pietra: castello */
+.cell.floor-trono_sala, .cell.floor-biblioteca, .cell.floor-armeria,
+.cell.floor-segrete, .cell.floor-torre, .cell.floor-cappella {
+  background-image:
+    repeating-linear-gradient(0deg,
+      rgba(0,0,0,.10) 0, rgba(0,0,0,.10) 2px,
+      transparent 2px, transparent calc(var(--cs,72px) / 2)),
+    repeating-linear-gradient(90deg,
+      rgba(0,0,0,.10) 0, rgba(0,0,0,.10) 2px,
+      transparent 2px, transparent calc(var(--cs,72px) / 2));
+}
+
+/* terreno/neve: serra, cortile, giardino */
+.cell.floor-serra, .cell.floor-cortile, .cell.floor-giardino {
+  background-image:
+    radial-gradient(rgba(0,0,0,.10) 1px, transparent 1.4px),
+    radial-gradient(rgba(255,255,255,.16) 1px, transparent 1.4px);
+  background-size:
+    calc(var(--cs,72px) / 5) calc(var(--cs,72px) / 5),
+    calc(var(--cs,72px) / 5) calc(var(--cs,72px) / 5);
+  background-position: 0 0,
+    calc(var(--cs,72px) / 10) calc(var(--cs,72px) / 10);
+}
+
+/* fondo delle card-zona finché non ci sono le immagini in assets/zones/:
+   il gradiente inline resta sopra, sotto ci va un colore a tema */
+.zone-card[data-zone="spazio"]  { background-color: #1b2547; }
+.zone-card[data-zone="fantasy"] { background-color: #2e2340; }
+.zone-card[data-zone="natale"]  { background-color: #1f3b34; }
+
+/* ---------- sfida quotidiana ---------- */
+.daily-card {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 22px; padding: 14px 16px; cursor: pointer;
+  border-radius: 14px;
+  border: 1px solid rgba(166,97,226,.45);
+  background: linear-gradient(135deg, rgba(166,97,226,.22), rgba(34,26,68,.85));
+  box-shadow: 0 4px 0 rgba(4,9,22,.6);
+}
+.daily-card:hover { filter: brightness(1.07); }
+.daily-card.done { border-color: rgba(120,200,150,.5); }
+.dc-left { flex: 1; min-width: 0; }
+.dc-day { font-size: 12px; color: #b9aee0; text-transform: capitalize; }
+.dc-title { font-size: 19px; font-weight: 800; color: #fff; }
+.dc-meta { font-size: 12.5px; color: #cdbff0; margin-top: 2px; }
+.dc-right { flex-shrink: 0; text-align: right; }
+.dc-play {
+  display: inline-block; padding: 9px 15px; border-radius: 10px;
+  background: linear-gradient(145deg, #a86be5, #7d43bb);
+  color: #fff; font-weight: 700; font-size: 14px;
+}
+.dc-done { display: block; color: #8fdcae; font-weight: 700; font-size: 14px; }
+.dc-time { font-size: 13px; color: #b9aee0; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 520px) {
+  .daily-card { padding: 12px; gap: 10px; }
+  .dc-title { font-size: 17px; }
+}

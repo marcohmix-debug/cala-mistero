@@ -1,6 +1,9 @@
 // Manifest asset — immagini cartoon in assets/props/, emoji come fallback.
-// Il renderer preferisce `img` all'emoji quando presente.
+// Il renderer preferisce `img` all'emoji quando presente: per dare un'immagine
+// a un arredo dei temi nuovi basta aggiungere `img: "assets/props/<id>.png"`.
+// Gli id sono unici tra i temi e devono combaciare con tools/themes.py.
 const ASSETS = {
+  /* --- marino --- */
   barile:     { emoji: "🛢️", cat: "block",   it: "un barile",     en: "a barrel",    img: "assets/props/barile.png" },
   cassa:      { emoji: "📦", cat: "block",   it: "una cassa",     en: "a crate",     img: "assets/props/cassa.png" },
   ancora:     { emoji: "⚓", cat: "block",   it: "un'ancora",     en: "an anchor",   img: "assets/props/ancora.png" },
@@ -14,6 +17,51 @@ const ASSETS = {
   rete:       { emoji: "🥅", cat: "overlay", it: "una rete",      en: "a net",       img: "assets/props/rete.png" },
   corda:      { emoji: "🪢", cat: "overlay", it: "una corda",     en: "a rope coil", img: "assets/props/corda.png" },
   pozza:      { emoji: "💧", cat: "overlay", it: "una pozza",     en: "a puddle",    img: "assets/props/pozza.png" },
+
+  /* --- spazio --- */
+  consolle:      { emoji: "🖥️", cat: "block", it: "una consolle", en: "a console" },
+  reattore:      { emoji: "⚛️", cat: "block", it: "un reattore", en: "a reactor" },
+  criocapsula:   { emoji: "🧊", cat: "block", it: "una criocapsula", en: "a cryopod" },
+  droide:        { emoji: "🤖", cat: "block", it: "un droide", en: "a droid" },
+  serbatoio:     { emoji: "⛽", cat: "block", it: "un serbatoio", en: "a fuel tank" },
+  antenna:       { emoji: "📡", cat: "block", it: "un'antenna", en: "an antenna" },
+  idroponica:    { emoji: "🌱", cat: "block", it: "una vasca idroponica", en: "a hydroponic tank" },
+  oblo:          { emoji: "🪟", cat: "block", it: "un oblò", en: "a porthole" },
+  scafandro:     { emoji: "🧑‍🚀", cat: "block", it: "uno scafandro", en: "a spacesuit" },
+  poltrona:      { emoji: "💺", cat: "sit", it: "una poltrona", en: "a flight seat" },
+  cavi:          { emoji: "🔌", cat: "overlay", it: "un fascio di cavi", en: "a cable bundle" },
+  grata:         { emoji: "🔲", cat: "overlay", it: "una grata", en: "a floor grate" },
+  refrigerante:  { emoji: "🧪", cat: "overlay", it: "una perdita di refrigerante", en: "a coolant spill" },
+
+  /* --- fantasy --- */
+  trono:      { emoji: "👑", cat: "block", it: "un trono", en: "a throne" },
+  armatura:   { emoji: "🛡️", cat: "block", it: "un'armatura", en: "a suit of armor" },
+  calderone:  { emoji: "🍲", cat: "block", it: "un calderone", en: "a cauldron" },
+  libreria:   { emoji: "📚", cat: "block", it: "una libreria", en: "a bookcase" },
+  torcia:     { emoji: "🔥", cat: "block", it: "una torcia", en: "a torch" },
+  statua:     { emoji: "🗿", cat: "block", it: "una statua", en: "a statue" },
+  botte:      { emoji: "🛖", cat: "block", it: "una botte", en: "an ale barrel" },
+  forziere:   { emoji: "💰", cat: "block", it: "un forziere", en: "a treasure chest" },
+  sgabello:   { emoji: "🪑", cat: "sit", it: "uno sgabello", en: "a stool" },
+  tappeto:    { emoji: "🟥", cat: "overlay", it: "un tappeto", en: "a rug" },
+  paglia:     { emoji: "🌾", cat: "overlay", it: "della paglia", en: "a bed of straw" },
+  catene:     { emoji: "⛓️", cat: "overlay", it: "delle catene", en: "loose chains" },
+  runa:       { emoji: "✨", cat: "overlay", it: "una runa", en: "a glowing rune" },
+
+  /* --- natale --- */
+  albero:     { emoji: "🎄", cat: "block", it: "un albero di Natale", en: "a Christmas tree" },
+  regalo:     { emoji: "🎁", cat: "block", it: "un regalo", en: "a present" },
+  camino:     { emoji: "🧱", cat: "block", it: "un camino", en: "a fireplace" },
+  slitta:     { emoji: "🛷", cat: "block", it: "una slitta", en: "a sleigh" },
+  pupazzo:    { emoji: "⛄", cat: "block", it: "un pupazzo di neve", en: "a snowman" },
+  calza:      { emoji: "🧦", cat: "block", it: "una calza", en: "a stocking" },
+  biscotti:   { emoji: "🍪", cat: "block", it: "un vassoio di biscotti", en: "a tray of cookies" },
+  campana:    { emoji: "🔔", cat: "block", it: "una campana", en: "a bell" },
+  dondolo:    { emoji: "🪑", cat: "sit", it: "una sedia a dondolo", en: "a rocking chair" },
+  neve:       { emoji: "❄️", cat: "overlay", it: "un cumulo di neve", en: "a snow pile" },
+  nastri:     { emoji: "🎀", cat: "overlay", it: "dei nastri", en: "loose ribbons" },
+  caramelle:  { emoji: "🍬", cat: "overlay", it: "delle caramelle", en: "candy canes" },
+  letterine:  { emoji: "✉️", cat: "overlay", it: "un mucchio di letterine", en: "a pile of letters" },
 };
 
 // Texture pavimento per tipo di stanza (chiave = key stanza).
