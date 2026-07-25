@@ -176,6 +176,1359 @@
    ]
   },
   {
+   "id": "spazio",
+   "name_it": "Stazione Orbitale",
+   "name_en": "Orbital Station",
+   "subtitle_it": "Un equipaggio, nessuna via d'uscita",
+   "subtitle_en": "One crew, no way out",
+   "theme": "spazio",
+   "bg": "assets/zones/spazio.jpg",
+   "levels": [
+    {
+     "id": 1,
+     "file": "spazio_01.json",
+     "size": 6,
+     "name_it": "Allarme sul Ponte",
+     "name_en": "Alarm on the Bridge",
+     "difficulty": 1
+    },
+    {
+     "id": 2,
+     "file": "spazio_02.json",
+     "size": 6,
+     "name_it": "Il Turno di Notte",
+     "name_en": "The Night Shift",
+     "difficulty": 1
+    },
+    {
+     "id": 3,
+     "file": "spazio_03.json",
+     "size": 6,
+     "name_it": "Ossigeno in Calo",
+     "name_en": "Oxygen Falling",
+     "difficulty": 1
+    },
+    {
+     "id": 4,
+     "file": "spazio_04.json",
+     "size": 6,
+     "name_it": "La Capsula Vuota",
+     "name_en": "The Empty Pod",
+     "difficulty": 1
+    },
+    {
+     "id": 5,
+     "file": "spazio_05.json",
+     "size": 6,
+     "name_it": "Rotta Sconosciuta",
+     "name_en": "Unknown Heading",
+     "difficulty": 1
+    },
+    {
+     "id": 6,
+     "file": "spazio_06.json",
+     "size": 6,
+     "name_it": "Il Droide Testimone",
+     "name_en": "The Droid Witness",
+     "difficulty": 1
+    },
+    {
+     "id": 7,
+     "file": "spazio_07.json",
+     "size": 6,
+     "name_it": "Silenzio Radio",
+     "name_en": "Radio Silence",
+     "difficulty": 1
+    },
+    {
+     "id": 8,
+     "file": "spazio_08.json",
+     "size": 6,
+     "name_it": "La Serra Buia",
+     "name_en": "The Dark Greenhouse",
+     "difficulty": 1
+    },
+    {
+     "id": 9,
+     "file": "spazio_09.json",
+     "size": 6,
+     "name_it": "Codice Rosso",
+     "name_en": "Code Red",
+     "difficulty": 1
+    },
+    {
+     "id": 10,
+     "file": "spazio_10.json",
+     "size": 6,
+     "name_it": "L'Ultimo Rifornimento",
+     "name_en": "The Last Refuel",
+     "difficulty": 1
+    },
+    {
+     "id": 11,
+     "file": "spazio_11.json",
+     "size": 6,
+     "name_it": "Gravità Zero",
+     "name_en": "Zero Gravity",
+     "difficulty": 1
+    },
+    {
+     "id": 12,
+     "file": "spazio_12.json",
+     "size": 6,
+     "name_it": "Il Portello Aperto",
+     "name_en": "The Open Hatch",
+     "difficulty": 1
+    },
+    {
+     "id": 13,
+     "file": "spazio_13.json",
+     "size": 7,
+     "name_it": "Segnale dal Nulla",
+     "name_en": "Signal from Nowhere",
+     "difficulty": 1
+    },
+    {
+     "id": 14,
+     "file": "spazio_14.json",
+     "size": 7,
+     "name_it": "Il Reattore Freddo",
+     "name_en": "The Cold Reactor",
+     "difficulty": 1
+    },
+    {
+     "id": 15,
+     "file": "spazio_15.json",
+     "size": 7,
+     "name_it": "Turno Doppio",
+     "name_en": "Double Shift",
+     "difficulty": 1
+    },
+    {
+     "id": 16,
+     "file": "spazio_16.json",
+     "size": 7,
+     "name_it": "La Mensa Deserta",
+     "name_en": "The Empty Mess",
+     "difficulty": 1
+    },
+    {
+     "id": 17,
+     "file": "spazio_17.json",
+     "size": 7,
+     "name_it": "Perdita di Refrigerante",
+     "name_en": "Coolant Leak",
+     "difficulty": 1
+    },
+    {
+     "id": 18,
+     "file": "spazio_18.json",
+     "size": 7,
+     "name_it": "Il Manifesto di Carico",
+     "name_en": "The Cargo Manifest",
+     "difficulty": 1
+    },
+    {
+     "id": 19,
+     "file": "spazio_19.json",
+     "size": 7,
+     "name_it": "Quarantena",
+     "name_en": "Quarantine",
+     "difficulty": 2
+    },
+    {
+     "id": 20,
+     "file": "spazio_20.json",
+     "size": 7,
+     "name_it": "L'Ombra nell'Hangar",
+     "name_en": "Shadow in the Hangar",
+     "difficulty": 2
+    },
+    {
+     "id": 21,
+     "file": "spazio_21.json",
+     "size": 7,
+     "name_it": "Orbita Decadente",
+     "name_en": "Decaying Orbit",
+     "difficulty": 2
+    },
+    {
+     "id": 22,
+     "file": "spazio_22.json",
+     "size": 7,
+     "name_it": "Il Passeggero in Più",
+     "name_en": "One Passenger Too Many",
+     "difficulty": 2
+    },
+    {
+     "id": 23,
+     "file": "spazio_23.json",
+     "size": 7,
+     "name_it": "Blackout",
+     "name_en": "Blackout",
+     "difficulty": 2
+    },
+    {
+     "id": 24,
+     "file": "spazio_24.json",
+     "size": 8,
+     "name_it": "La Chiave Biometrica",
+     "name_en": "The Biometric Key",
+     "difficulty": 2
+    },
+    {
+     "id": 25,
+     "file": "spazio_25.json",
+     "size": 8,
+     "name_it": "Rientro d'Emergenza",
+     "name_en": "Emergency Descent",
+     "difficulty": 2
+    },
+    {
+     "id": 26,
+     "file": "spazio_26.json",
+     "size": 8,
+     "name_it": "Il Diario di Bordo",
+     "name_en": "The Ship's Log",
+     "difficulty": 2
+    },
+    {
+     "id": 27,
+     "file": "spazio_27.json",
+     "size": 8,
+     "name_it": "Sabotaggio",
+     "name_en": "Sabotage",
+     "difficulty": 2
+    },
+    {
+     "id": 28,
+     "file": "spazio_28.json",
+     "size": 8,
+     "name_it": "Il Sonno Interrotto",
+     "name_en": "Interrupted Sleep",
+     "difficulty": 2
+    },
+    {
+     "id": 29,
+     "file": "spazio_29.json",
+     "size": 8,
+     "name_it": "Tempesta Solare",
+     "name_en": "Solar Storm",
+     "difficulty": 2
+    },
+    {
+     "id": 30,
+     "file": "spazio_30.json",
+     "size": 8,
+     "name_it": "La Firma Termica",
+     "name_en": "The Heat Signature",
+     "difficulty": 2
+    },
+    {
+     "id": 31,
+     "file": "spazio_31.json",
+     "size": 8,
+     "name_it": "Nessuno sul Radar",
+     "name_en": "Nothing on Radar",
+     "difficulty": 2
+    },
+    {
+     "id": 32,
+     "file": "spazio_32.json",
+     "size": 8,
+     "name_it": "Il Modulo Perduto",
+     "name_en": "The Lost Module",
+     "difficulty": 2
+    },
+    {
+     "id": 33,
+     "file": "spazio_33.json",
+     "size": 8,
+     "name_it": "Frequenza Proibita",
+     "name_en": "Forbidden Frequency",
+     "difficulty": 2
+    },
+    {
+     "id": 34,
+     "file": "spazio_34.json",
+     "size": 9,
+     "name_it": "Il Guasto Programmato",
+     "name_en": "The Scheduled Failure",
+     "difficulty": 2
+    },
+    {
+     "id": 35,
+     "file": "spazio_35.json",
+     "size": 9,
+     "name_it": "Vuoto Assoluto",
+     "name_en": "Absolute Vacuum",
+     "difficulty": 2
+    },
+    {
+     "id": 36,
+     "file": "spazio_36.json",
+     "size": 9,
+     "name_it": "La Serra Avvelenata",
+     "name_en": "The Poisoned Greenhouse",
+     "difficulty": 2
+    },
+    {
+     "id": 37,
+     "file": "spazio_37.json",
+     "size": 9,
+     "name_it": "Ultimo Contatto",
+     "name_en": "Last Contact",
+     "difficulty": 3
+    },
+    {
+     "id": 38,
+     "file": "spazio_38.json",
+     "size": 9,
+     "name_it": "Il Comandante Mente",
+     "name_en": "The Captain Lies",
+     "difficulty": 3
+    },
+    {
+     "id": 39,
+     "file": "spazio_39.json",
+     "size": 9,
+     "name_it": "Assetto Instabile",
+     "name_en": "Unstable Attitude",
+     "difficulty": 3
+    },
+    {
+     "id": 40,
+     "file": "spazio_40.json",
+     "size": 10,
+     "name_it": "Il Peso Sbagliato",
+     "name_en": "The Wrong Weight",
+     "difficulty": 3
+    },
+    {
+     "id": 41,
+     "file": "spazio_41.json",
+     "size": 10,
+     "name_it": "Protocollo Silenzio",
+     "name_en": "Silence Protocol",
+     "difficulty": 3
+    },
+    {
+     "id": 42,
+     "file": "spazio_42.json",
+     "size": 10,
+     "name_it": "La Stiva Sigillata",
+     "name_en": "The Sealed Hold",
+     "difficulty": 3
+    },
+    {
+     "id": 43,
+     "file": "spazio_43.json",
+     "size": 10,
+     "name_it": "Deriva",
+     "name_en": "Adrift",
+     "difficulty": 3
+    },
+    {
+     "id": 44,
+     "file": "spazio_44.json",
+     "size": 10,
+     "name_it": "Il Sospetto Congelato",
+     "name_en": "The Frozen Suspect",
+     "difficulty": 3
+    },
+    {
+     "id": 45,
+     "file": "spazio_45.json",
+     "size": 10,
+     "name_it": "Rumore di Fondo",
+     "name_en": "Background Noise",
+     "difficulty": 3
+    },
+    {
+     "id": 46,
+     "file": "spazio_46.json",
+     "size": 11,
+     "name_it": "La Rotta Alterata",
+     "name_en": "The Altered Course",
+     "difficulty": 3
+    },
+    {
+     "id": 47,
+     "file": "spazio_47.json",
+     "size": 11,
+     "name_it": "Fuga dall'Airlock",
+     "name_en": "Airlock Escape",
+     "difficulty": 3
+    },
+    {
+     "id": 48,
+     "file": "spazio_48.json",
+     "size": 11,
+     "name_it": "Il Testimone Robotico",
+     "name_en": "The Robotic Witness",
+     "difficulty": 3
+    },
+    {
+     "id": 49,
+     "file": "spazio_49.json",
+     "size": 11,
+     "name_it": "Sistema Compromesso",
+     "name_en": "Compromised System",
+     "difficulty": 3
+    },
+    {
+     "id": 50,
+     "file": "spazio_50.json",
+     "size": 12,
+     "name_it": "La Lunga Notte",
+     "name_en": "The Long Night",
+     "difficulty": 3
+    },
+    {
+     "id": 51,
+     "file": "spazio_51.json",
+     "size": 12,
+     "name_it": "Traiettoria di Collisione",
+     "name_en": "Collision Course",
+     "difficulty": 3
+    },
+    {
+     "id": 52,
+     "file": "spazio_52.json",
+     "size": 12,
+     "name_it": "Il Segnale di Soccorso",
+     "name_en": "The Distress Call",
+     "difficulty": 3
+    },
+    {
+     "id": 53,
+     "file": "spazio_53.json",
+     "size": 13,
+     "name_it": "Consumi Anomali",
+     "name_en": "Anomalous Draw",
+     "difficulty": 3
+    },
+    {
+     "id": 54,
+     "file": "spazio_54.json",
+     "size": 13,
+     "name_it": "L'Ospite Clandestino",
+     "name_en": "The Stowaway",
+     "difficulty": 3
+    },
+    {
+     "id": 55,
+     "file": "spazio_55.json",
+     "size": 14,
+     "name_it": "Conto alla Rovescia",
+     "name_en": "Countdown",
+     "difficulty": 3
+    }
+   ]
+  },
+  {
+   "id": "fantasy",
+   "name_it": "Il Castello di Valombra",
+   "name_en": "Shadowvale Castle",
+   "subtitle_it": "Corte, congiure e sotterranei",
+   "subtitle_en": "Court, plots and dungeons",
+   "theme": "fantasy",
+   "bg": "assets/zones/fantasy.jpg",
+   "levels": [
+    {
+     "id": 1,
+     "file": "fantasy_01.json",
+     "size": 6,
+     "name_it": "Il Banchetto Interrotto",
+     "name_en": "The Interrupted Feast",
+     "difficulty": 1
+    },
+    {
+     "id": 2,
+     "file": "fantasy_02.json",
+     "size": 6,
+     "name_it": "La Corona Scomparsa",
+     "name_en": "The Missing Crown",
+     "difficulty": 1
+    },
+    {
+     "id": 3,
+     "file": "fantasy_03.json",
+     "size": 6,
+     "name_it": "Sangue nelle Segrete",
+     "name_en": "Blood in the Dungeon",
+     "difficulty": 1
+    },
+    {
+     "id": 4,
+     "file": "fantasy_04.json",
+     "size": 6,
+     "name_it": "Il Libro Proibito",
+     "name_en": "The Forbidden Book",
+     "difficulty": 1
+    },
+    {
+     "id": 5,
+     "file": "fantasy_05.json",
+     "size": 6,
+     "name_it": "La Torcia Spenta",
+     "name_en": "The Snuffed Torch",
+     "difficulty": 1
+    },
+    {
+     "id": 6,
+     "file": "fantasy_06.json",
+     "size": 6,
+     "name_it": "Il Cavaliere Silenzioso",
+     "name_en": "The Silent Knight",
+     "difficulty": 1
+    },
+    {
+     "id": 7,
+     "file": "fantasy_07.json",
+     "size": 6,
+     "name_it": "Veleno nel Calderone",
+     "name_en": "Poison in the Cauldron",
+     "difficulty": 1
+    },
+    {
+     "id": 8,
+     "file": "fantasy_08.json",
+     "size": 6,
+     "name_it": "La Statua che Guarda",
+     "name_en": "The Watching Statue",
+     "difficulty": 1
+    },
+    {
+     "id": 9,
+     "file": "fantasy_09.json",
+     "size": 6,
+     "name_it": "Il Forziere Vuoto",
+     "name_en": "The Empty Chest",
+     "difficulty": 1
+    },
+    {
+     "id": 10,
+     "file": "fantasy_10.json",
+     "size": 6,
+     "name_it": "Runa di Sangue",
+     "name_en": "Rune of Blood",
+     "difficulty": 1
+    },
+    {
+     "id": 11,
+     "file": "fantasy_11.json",
+     "size": 6,
+     "name_it": "L'Ospite del Re",
+     "name_en": "The King's Guest",
+     "difficulty": 1
+    },
+    {
+     "id": 12,
+     "file": "fantasy_12.json",
+     "size": 6,
+     "name_it": "Il Passaggio Segreto",
+     "name_en": "The Secret Passage",
+     "difficulty": 1
+    },
+    {
+     "id": 13,
+     "file": "fantasy_13.json",
+     "size": 7,
+     "name_it": "Notte di Luna Nuova",
+     "name_en": "New Moon Night",
+     "difficulty": 1
+    },
+    {
+     "id": 14,
+     "file": "fantasy_14.json",
+     "size": 7,
+     "name_it": "Il Sigillo Spezzato",
+     "name_en": "The Broken Seal",
+     "difficulty": 1
+    },
+    {
+     "id": 15,
+     "file": "fantasy_15.json",
+     "size": 7,
+     "name_it": "La Congiura",
+     "name_en": "The Conspiracy",
+     "difficulty": 1
+    },
+    {
+     "id": 16,
+     "file": "fantasy_16.json",
+     "size": 7,
+     "name_it": "Il Mago non Risponde",
+     "name_en": "The Wizard Is Silent",
+     "difficulty": 1
+    },
+    {
+     "id": 17,
+     "file": "fantasy_17.json",
+     "size": 7,
+     "name_it": "Armatura Vuota",
+     "name_en": "Hollow Armor",
+     "difficulty": 1
+    },
+    {
+     "id": 18,
+     "file": "fantasy_18.json",
+     "size": 7,
+     "name_it": "Il Corvo della Torre",
+     "name_en": "The Tower Raven",
+     "difficulty": 1
+    },
+    {
+     "id": 19,
+     "file": "fantasy_19.json",
+     "size": 7,
+     "name_it": "Debito di Sangue",
+     "name_en": "Blood Debt",
+     "difficulty": 2
+    },
+    {
+     "id": 20,
+     "file": "fantasy_20.json",
+     "size": 7,
+     "name_it": "La Cappella Profanata",
+     "name_en": "The Desecrated Chapel",
+     "difficulty": 2
+    },
+    {
+     "id": 21,
+     "file": "fantasy_21.json",
+     "size": 7,
+     "name_it": "Il Testamento del Duca",
+     "name_en": "The Duke's Will",
+     "difficulty": 2
+    },
+    {
+     "id": 22,
+     "file": "fantasy_22.json",
+     "size": 7,
+     "name_it": "Fuoco nelle Cucine",
+     "name_en": "Fire in the Kitchens",
+     "difficulty": 2
+    },
+    {
+     "id": 23,
+     "file": "fantasy_23.json",
+     "size": 7,
+     "name_it": "Il Prigioniero Fuggito",
+     "name_en": "The Escaped Prisoner",
+     "difficulty": 2
+    },
+    {
+     "id": 24,
+     "file": "fantasy_24.json",
+     "size": 8,
+     "name_it": "Sussurri nella Biblioteca",
+     "name_en": "Whispers in the Library",
+     "difficulty": 2
+    },
+    {
+     "id": 25,
+     "file": "fantasy_25.json",
+     "size": 8,
+     "name_it": "La Spada Spezzata",
+     "name_en": "The Broken Sword",
+     "difficulty": 2
+    },
+    {
+     "id": 26,
+     "file": "fantasy_26.json",
+     "size": 8,
+     "name_it": "Il Torneo Truccato",
+     "name_en": "The Rigged Tourney",
+     "difficulty": 2
+    },
+    {
+     "id": 27,
+     "file": "fantasy_27.json",
+     "size": 8,
+     "name_it": "Ombre nel Cortile",
+     "name_en": "Shadows in the Courtyard",
+     "difficulty": 2
+    },
+    {
+     "id": 28,
+     "file": "fantasy_28.json",
+     "size": 8,
+     "name_it": "L'Erede Sbagliato",
+     "name_en": "The Wrong Heir",
+     "difficulty": 2
+    },
+    {
+     "id": 29,
+     "file": "fantasy_29.json",
+     "size": 8,
+     "name_it": "Il Patto d'Ombra",
+     "name_en": "The Shadow Pact",
+     "difficulty": 2
+    },
+    {
+     "id": 30,
+     "file": "fantasy_30.json",
+     "size": 8,
+     "name_it": "Cenere e Corona",
+     "name_en": "Ash and Crown",
+     "difficulty": 2
+    },
+    {
+     "id": 31,
+     "file": "fantasy_31.json",
+     "size": 8,
+     "name_it": "La Chiave del Maniero",
+     "name_en": "The Manor Key",
+     "difficulty": 2
+    },
+    {
+     "id": 32,
+     "file": "fantasy_32.json",
+     "size": 8,
+     "name_it": "Il Menestrello Muto",
+     "name_en": "The Mute Minstrel",
+     "difficulty": 2
+    },
+    {
+     "id": 33,
+     "file": "fantasy_33.json",
+     "size": 8,
+     "name_it": "Le Catene Aperte",
+     "name_en": "The Open Chains",
+     "difficulty": 2
+    },
+    {
+     "id": 34,
+     "file": "fantasy_34.json",
+     "size": 9,
+     "name_it": "Il Filtro dell'Alchimista",
+     "name_en": "The Alchemist's Draught",
+     "difficulty": 2
+    },
+    {
+     "id": 35,
+     "file": "fantasy_35.json",
+     "size": 9,
+     "name_it": "Trono Vacante",
+     "name_en": "Vacant Throne",
+     "difficulty": 2
+    },
+    {
+     "id": 36,
+     "file": "fantasy_36.json",
+     "size": 9,
+     "name_it": "La Profezia Falsa",
+     "name_en": "The False Prophecy",
+     "difficulty": 2
+    },
+    {
+     "id": 37,
+     "file": "fantasy_37.json",
+     "size": 9,
+     "name_it": "Il Guardiano Addormentato",
+     "name_en": "The Sleeping Guard",
+     "difficulty": 3
+    },
+    {
+     "id": 38,
+     "file": "fantasy_38.json",
+     "size": 9,
+     "name_it": "Sale e Ferro",
+     "name_en": "Salt and Iron",
+     "difficulty": 3
+    },
+    {
+     "id": 39,
+     "file": "fantasy_39.json",
+     "size": 9,
+     "name_it": "Il Ritratto Bruciato",
+     "name_en": "The Burned Portrait",
+     "difficulty": 3
+    },
+    {
+     "id": 40,
+     "file": "fantasy_40.json",
+     "size": 10,
+     "name_it": "Un Dono Avvelenato",
+     "name_en": "A Poisoned Gift",
+     "difficulty": 3
+    },
+    {
+     "id": 41,
+     "file": "fantasy_41.json",
+     "size": 10,
+     "name_it": "La Campana a Morto",
+     "name_en": "The Death Knell",
+     "difficulty": 3
+    },
+    {
+     "id": 42,
+     "file": "fantasy_42.json",
+     "size": 10,
+     "name_it": "Il Traditore a Corte",
+     "name_en": "Traitor at Court",
+     "difficulty": 3
+    },
+    {
+     "id": 43,
+     "file": "fantasy_43.json",
+     "size": 10,
+     "name_it": "Neve sul Ponte Levatoio",
+     "name_en": "Snow on the Drawbridge",
+     "difficulty": 3
+    },
+    {
+     "id": 44,
+     "file": "fantasy_44.json",
+     "size": 10,
+     "name_it": "Il Pozzo Senza Fondo",
+     "name_en": "The Bottomless Well",
+     "difficulty": 3
+    },
+    {
+     "id": 45,
+     "file": "fantasy_45.json",
+     "size": 10,
+     "name_it": "L'Anello del Vescovo",
+     "name_en": "The Bishop's Ring",
+     "difficulty": 3
+    },
+    {
+     "id": 46,
+     "file": "fantasy_46.json",
+     "size": 11,
+     "name_it": "La Notte del Giuramento",
+     "name_en": "Oath Night",
+     "difficulty": 3
+    },
+    {
+     "id": 47,
+     "file": "fantasy_47.json",
+     "size": 11,
+     "name_it": "Ferro Freddo",
+     "name_en": "Cold Iron",
+     "difficulty": 3
+    },
+    {
+     "id": 48,
+     "file": "fantasy_48.json",
+     "size": 11,
+     "name_it": "Il Sigillo del Mago",
+     "name_en": "The Wizard's Sigil",
+     "difficulty": 3
+    },
+    {
+     "id": 49,
+     "file": "fantasy_49.json",
+     "size": 11,
+     "name_it": "Assedio all'Alba",
+     "name_en": "Siege at Dawn",
+     "difficulty": 3
+    },
+    {
+     "id": 50,
+     "file": "fantasy_50.json",
+     "size": 12,
+     "name_it": "La Voce nel Muro",
+     "name_en": "The Voice in the Wall",
+     "difficulty": 3
+    },
+    {
+     "id": 51,
+     "file": "fantasy_51.json",
+     "size": 12,
+     "name_it": "Corvi sul Torrione",
+     "name_en": "Ravens on the Keep",
+     "difficulty": 3
+    },
+    {
+     "id": 52,
+     "file": "fantasy_52.json",
+     "size": 12,
+     "name_it": "Il Vino del Barone",
+     "name_en": "The Baron's Wine",
+     "difficulty": 3
+    },
+    {
+     "id": 53,
+     "file": "fantasy_53.json",
+     "size": 13,
+     "name_it": "Sotto la Cripta",
+     "name_en": "Beneath the Crypt",
+     "difficulty": 3
+    },
+    {
+     "id": 54,
+     "file": "fantasy_54.json",
+     "size": 13,
+     "name_it": "Il Falso Cavaliere",
+     "name_en": "The False Knight",
+     "difficulty": 3
+    },
+    {
+     "id": 55,
+     "file": "fantasy_55.json",
+     "size": 14,
+     "name_it": "Fiamme in Armeria",
+     "name_en": "Flames in the Armory",
+     "difficulty": 3
+    }
+   ]
+  },
+  {
+   "id": "natale",
+   "name_it": "Il Villaggio di Natale",
+   "name_en": "The Christmas Village",
+   "subtitle_it": "Qualcuno ha rovinato la Vigilia",
+   "subtitle_en": "Someone ruined Christmas Eve",
+   "theme": "natale",
+   "bg": "assets/zones/natale.jpg",
+   "levels": [
+    {
+     "id": 1,
+     "file": "natale_01.json",
+     "size": 6,
+     "name_it": "Il Primo Regalo Sparito",
+     "name_en": "The First Missing Gift",
+     "difficulty": 1
+    },
+    {
+     "id": 2,
+     "file": "natale_02.json",
+     "size": 6,
+     "name_it": "Biscotti Contati",
+     "name_en": "Counted Cookies",
+     "difficulty": 1
+    },
+    {
+     "id": 3,
+     "file": "natale_03.json",
+     "size": 6,
+     "name_it": "La Slitta Graffiata",
+     "name_en": "The Scratched Sleigh",
+     "difficulty": 1
+    },
+    {
+     "id": 4,
+     "file": "natale_04.json",
+     "size": 6,
+     "name_it": "Calze Scambiate",
+     "name_en": "Swapped Stockings",
+     "difficulty": 1
+    },
+    {
+     "id": 5,
+     "file": "natale_05.json",
+     "size": 6,
+     "name_it": "Il Nastro Rosso",
+     "name_en": "The Red Ribbon",
+     "difficulty": 1
+    },
+    {
+     "id": 6,
+     "file": "natale_06.json",
+     "size": 6,
+     "name_it": "Neve in Officina",
+     "name_en": "Snow in the Workshop",
+     "difficulty": 1
+    },
+    {
+     "id": 7,
+     "file": "natale_07.json",
+     "size": 6,
+     "name_it": "La Renna Nervosa",
+     "name_en": "The Restless Reindeer",
+     "difficulty": 1
+    },
+    {
+     "id": 8,
+     "file": "natale_08.json",
+     "size": 6,
+     "name_it": "Lettere Fuori Posto",
+     "name_en": "Misfiled Letters",
+     "difficulty": 1
+    },
+    {
+     "id": 9,
+     "file": "natale_09.json",
+     "size": 6,
+     "name_it": "Il Campanello Muto",
+     "name_en": "The Silent Bell",
+     "difficulty": 1
+    },
+    {
+     "id": 10,
+     "file": "natale_10.json",
+     "size": 6,
+     "name_it": "Fuliggine sul Tappeto",
+     "name_en": "Soot on the Rug",
+     "difficulty": 1
+    },
+    {
+     "id": 11,
+     "file": "natale_11.json",
+     "size": 6,
+     "name_it": "La Lista Alterata",
+     "name_en": "The Altered List",
+     "difficulty": 1
+    },
+    {
+     "id": 12,
+     "file": "natale_12.json",
+     "size": 6,
+     "name_it": "Un Elfo di Troppo",
+     "name_en": "One Elf Too Many",
+     "difficulty": 1
+    },
+    {
+     "id": 13,
+     "file": "natale_13.json",
+     "size": 7,
+     "name_it": "Il Camino Freddo",
+     "name_en": "The Cold Fireplace",
+     "difficulty": 1
+    },
+    {
+     "id": 14,
+     "file": "natale_14.json",
+     "size": 7,
+     "name_it": "Zucchero Filato",
+     "name_en": "Spun Sugar",
+     "difficulty": 1
+    },
+    {
+     "id": 15,
+     "file": "natale_15.json",
+     "size": 7,
+     "name_it": "La Notte del 23",
+     "name_en": "The Night of the 23rd",
+     "difficulty": 1
+    },
+    {
+     "id": 16,
+     "file": "natale_16.json",
+     "size": 7,
+     "name_it": "Pacchi senza Nome",
+     "name_en": "Nameless Parcels",
+     "difficulty": 1
+    },
+    {
+     "id": 17,
+     "file": "natale_17.json",
+     "size": 7,
+     "name_it": "L'Albero Caduto",
+     "name_en": "The Fallen Tree",
+     "difficulty": 1
+    },
+    {
+     "id": 18,
+     "file": "natale_18.json",
+     "size": 7,
+     "name_it": "Il Pupazzo Testimone",
+     "name_en": "The Snowman Witness",
+     "difficulty": 1
+    },
+    {
+     "id": 19,
+     "file": "natale_19.json",
+     "size": 7,
+     "name_it": "Orme nella Neve",
+     "name_en": "Footprints in the Snow",
+     "difficulty": 2
+    },
+    {
+     "id": 20,
+     "file": "natale_20.json",
+     "size": 7,
+     "name_it": "Turno in Magazzino",
+     "name_en": "Warehouse Shift",
+     "difficulty": 2
+    },
+    {
+     "id": 21,
+     "file": "natale_21.json",
+     "size": 7,
+     "name_it": "La Chiave dell'Ufficio",
+     "name_en": "The Office Key",
+     "difficulty": 2
+    },
+    {
+     "id": 22,
+     "file": "natale_22.json",
+     "size": 7,
+     "name_it": "Carbone per Tutti",
+     "name_en": "Coal for Everyone",
+     "difficulty": 2
+    },
+    {
+     "id": 23,
+     "file": "natale_23.json",
+     "size": 7,
+     "name_it": "Il Nastro Tagliato",
+     "name_en": "The Cut Ribbon",
+     "difficulty": 2
+    },
+    {
+     "id": 24,
+     "file": "natale_24.json",
+     "size": 8,
+     "name_it": "Sabotaggio in Officina",
+     "name_en": "Workshop Sabotage",
+     "difficulty": 2
+    },
+    {
+     "id": 25,
+     "file": "natale_25.json",
+     "size": 8,
+     "name_it": "La Renna Undicesima",
+     "name_en": "The Eleventh Reindeer",
+     "difficulty": 2
+    },
+    {
+     "id": 26,
+     "file": "natale_26.json",
+     "size": 8,
+     "name_it": "Biscotti Avvelenati",
+     "name_en": "Poisoned Cookies",
+     "difficulty": 2
+    },
+    {
+     "id": 27,
+     "file": "natale_27.json",
+     "size": 8,
+     "name_it": "Il Sacco Bucato",
+     "name_en": "The Torn Sack",
+     "difficulty": 2
+    },
+    {
+     "id": 28,
+     "file": "natale_28.json",
+     "size": 8,
+     "name_it": "Silenzio alla Vigilia",
+     "name_en": "Silence on the Eve",
+     "difficulty": 2
+    },
+    {
+     "id": 29,
+     "file": "natale_29.json",
+     "size": 8,
+     "name_it": "Le Letterine Bruciate",
+     "name_en": "The Burned Letters",
+     "difficulty": 2
+    },
+    {
+     "id": 30,
+     "file": "natale_30.json",
+     "size": 8,
+     "name_it": "Un Regalo di Troppo",
+     "name_en": "One Gift Too Many",
+     "difficulty": 2
+    },
+    {
+     "id": 31,
+     "file": "natale_31.json",
+     "size": 8,
+     "name_it": "La Cucina Chiusa",
+     "name_en": "The Locked Kitchen",
+     "difficulty": 2
+    },
+    {
+     "id": 32,
+     "file": "natale_32.json",
+     "size": 8,
+     "name_it": "Campanelle nella Notte",
+     "name_en": "Bells in the Night",
+     "difficulty": 2
+    },
+    {
+     "id": 33,
+     "file": "natale_33.json",
+     "size": 8,
+     "name_it": "Il Turno delle Tre",
+     "name_en": "The Three O'Clock Shift",
+     "difficulty": 2
+    },
+    {
+     "id": 34,
+     "file": "natale_34.json",
+     "size": 9,
+     "name_it": "Ghiaccio sul Tetto",
+     "name_en": "Ice on the Roof",
+     "difficulty": 2
+    },
+    {
+     "id": 35,
+     "file": "natale_35.json",
+     "size": 9,
+     "name_it": "La Firma Falsa",
+     "name_en": "The Forged Signature",
+     "difficulty": 2
+    },
+    {
+     "id": 36,
+     "file": "natale_36.json",
+     "size": 9,
+     "name_it": "Nessuno in Salotto",
+     "name_en": "No One in the Parlor",
+     "difficulty": 2
+    },
+    {
+     "id": 37,
+     "file": "natale_37.json",
+     "size": 9,
+     "name_it": "Il Dono Anonimo",
+     "name_en": "The Anonymous Gift",
+     "difficulty": 3
+    },
+    {
+     "id": 38,
+     "file": "natale_38.json",
+     "size": 9,
+     "name_it": "Doppia Consegna",
+     "name_en": "Double Delivery",
+     "difficulty": 3
+    },
+    {
+     "id": 39,
+     "file": "natale_39.json",
+     "size": 9,
+     "name_it": "La Stalla Aperta",
+     "name_en": "The Open Stable",
+     "difficulty": 3
+    },
+    {
+     "id": 40,
+     "file": "natale_40.json",
+     "size": 10,
+     "name_it": "Un Fiocco Storto",
+     "name_en": "The Crooked Bow",
+     "difficulty": 3
+    },
+    {
+     "id": 41,
+     "file": "natale_41.json",
+     "size": 10,
+     "name_it": "L'Inventario Sbagliato",
+     "name_en": "The Wrong Inventory",
+     "difficulty": 3
+    },
+    {
+     "id": 42,
+     "file": "natale_42.json",
+     "size": 10,
+     "name_it": "Il Buio in Deposito",
+     "name_en": "Darkness in Storage",
+     "difficulty": 3
+    },
+    {
+     "id": 43,
+     "file": "natale_43.json",
+     "size": 10,
+     "name_it": "Caramelle Rubate",
+     "name_en": "Stolen Candy",
+     "difficulty": 3
+    },
+    {
+     "id": 44,
+     "file": "natale_44.json",
+     "size": 10,
+     "name_it": "La Slitta non Vola",
+     "name_en": "The Sleigh Won't Fly",
+     "difficulty": 3
+    },
+    {
+     "id": 45,
+     "file": "natale_45.json",
+     "size": 10,
+     "name_it": "Neve Sporca",
+     "name_en": "Dirty Snow",
+     "difficulty": 3
+    },
+    {
+     "id": 46,
+     "file": "natale_46.json",
+     "size": 11,
+     "name_it": "Il Vassoio Vuoto",
+     "name_en": "The Empty Tray",
+     "difficulty": 3
+    },
+    {
+     "id": 47,
+     "file": "natale_47.json",
+     "size": 11,
+     "name_it": "Tredici Calze",
+     "name_en": "Thirteen Stockings",
+     "difficulty": 3
+    },
+    {
+     "id": 48,
+     "file": "natale_48.json",
+     "size": 11,
+     "name_it": "La Renna Zoppa",
+     "name_en": "The Limping Reindeer",
+     "difficulty": 3
+    },
+    {
+     "id": 49,
+     "file": "natale_49.json",
+     "size": 11,
+     "name_it": "Segreti sotto l'Albero",
+     "name_en": "Secrets Under the Tree",
+     "difficulty": 3
+    },
+    {
+     "id": 50,
+     "file": "natale_50.json",
+     "size": 12,
+     "name_it": "Il Sacco Scambiato",
+     "name_en": "The Swapped Sack",
+     "difficulty": 3
+    },
+    {
+     "id": 51,
+     "file": "natale_51.json",
+     "size": 12,
+     "name_it": "Luci Spente",
+     "name_en": "Lights Out",
+     "difficulty": 3
+    },
+    {
+     "id": 52,
+     "file": "natale_52.json",
+     "size": 12,
+     "name_it": "L'Ultima Letterina",
+     "name_en": "The Last Letter",
+     "difficulty": 3
+    },
+    {
+     "id": 53,
+     "file": "natale_53.json",
+     "size": 13,
+     "name_it": "Il Grande Inventario",
+     "name_en": "The Great Inventory",
+     "difficulty": 3
+    },
+    {
+     "id": 54,
+     "file": "natale_54.json",
+     "size": 13,
+     "name_it": "Vigilia di Ghiaccio",
+     "name_en": "Frozen Eve",
+     "difficulty": 3
+    },
+    {
+     "id": 55,
+     "file": "natale_55.json",
+     "size": 14,
+     "name_it": "Nessuno Ha Visto Nulla",
+     "name_en": "Nobody Saw Anything",
+     "difficulty": 3
+    }
+   ]
+  },
+  {
    "id": "test",
    "name_it": "Area di test",
    "name_en": "Test Area",

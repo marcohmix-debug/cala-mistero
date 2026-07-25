@@ -20,6 +20,26 @@ const I18N = {
     diff: ["", "Facile", "Medio", "Difficile"], soon: "Prossimamente",
     tutCard: "Tutorial — La Prima Indagine",
     genClues: "Indizi generali",
+    profile: "Profilo", profileSub: "I tuoi progressi da detective",
+    pSolved: "Casi risolti", pTime: "Tempo totale", pAvg: "Tempo medio",
+    pBest: "Record", pNoTime: "senza tempo",
+    pGuest: "Detective anonimo", pLocalOnly: "Progressi salvati su questo dispositivo",
+    pSignedAs: (n) => `Connesso come ${n}`,
+    pSignInGoogle: "Accedi con Google", pSignInApple: "Accedi con Apple",
+    pSignOut: "Esci", pSigning: "Accesso in corso…",
+    pSyncNote: "Accedi per ritrovare i tuoi progressi su ogni dispositivo.",
+    pCloudOff: "Sincronizzazione cloud non configurata: i progressi restano su questo dispositivo.",
+    pRename: "Cambia nome", pNamePrompt: "Come ti chiami, detective?",
+    pNothing: "Nessun caso risolto. Il primo ti aspetta.",
+    winTime: (tm) => `Tempo: ${tm}`, winRecord: "🏅 Nuovo record personale!",
+    daily: "Sfida del giorno", dailyDone: "Completata ✓",
+    dailyPlay: "Gioca",
+    dailyStreak: (n) => n === 1 ? "🔥 1 giorno di fila" : `🔥 ${n} giorni di fila`,
+    homeZones: "Zone",
+    dailyNone: "Nessuna sfida disponibile",
+    dailyTitle: (d) => `Sfida del ${d}`,
+    pDaily: "Sfide quotidiane", pStreak: "Serie attuale", pBestStreak: "Serie record",
+    dayNames: ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"],
   },
   en: {
     suspects: "Suspects",
@@ -40,6 +60,25 @@ const I18N = {
     diff: ["", "Easy", "Medium", "Hard"], soon: "Coming soon",
     tutCard: "Tutorial — Your First Case",
     genClues: "General clues",
+    profile: "Profile", profileSub: "Your detective record",
+    pSolved: "Cases solved", pTime: "Total time", pAvg: "Average time",
+    pBest: "Best", pNoTime: "untimed",
+    pGuest: "Anonymous detective", pLocalOnly: "Progress saved on this device",
+    pSignedAs: (n) => `Signed in as ${n}`,
+    pSignInGoogle: "Sign in with Google", pSignInApple: "Sign in with Apple",
+    pSignOut: "Sign out", pSigning: "Signing in…",
+    pSyncNote: "Sign in to keep your progress on every device.",
+    pCloudOff: "Cloud sync not configured: progress stays on this device.",
+    pRename: "Change name", pNamePrompt: "What's your name, detective?",
+    pNothing: "No cases solved yet. The first one awaits.",
+    winTime: (tm) => `Time: ${tm}`, winRecord: "🏅 New personal best!",
+    daily: "Daily challenge", dailyDone: "Completed ✓",
+    dailyPlay: "Play", dailyStreak: (n) => `🔥 ${n} day streak`,
+    homeZones: "Zones",
+    dailyNone: "No challenge available",
+    dailyTitle: (d) => `Challenge of ${d}`,
+    pDaily: "Daily challenges", pStreak: "Current streak", pBestStreak: "Best streak",
+    dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
   },
 };
 
@@ -59,27 +98,88 @@ const S = {
   tutStep: 0, tutFlash: false,
   mode: "place",           // place | pencil | cross | erase
   t0: null, timerInt: null,
+  profileBack: "zones",    // dove torna il ‹ dal profilo
 };
 
 const $ = (sel) => document.querySelector(sel);
 const t = () => I18N[S.lang];
 const app = $("#app");
 
-function doneMap() {
-  try { return JSON.parse(localStorage.getItem("cm_done") || "{}"); }
-  catch { return {}; }
-}
-function markDone(id) {
-  const d = doneMap(); d[id] = true;
-  localStorage.setItem("cm_done", JSON.stringify(d));
-}
+// progressi: li tiene Profile (profile.js), qui solo le viste
+const isDone = (key) => Profile.solved(key);
+const bestOf = (key) => Profile.best(key);
 
-const BUILD = "21";
+// il cloud puo' rispondere in ritardo: quando arriva, ridisegna la vista
+Profile.onChange = () => {
+  if (S.view === "profile") renderProfile();
+  else if (S.view === "zones") renderZones();
+  else if (S.view === "levels") renderLevels(S.zone);
+};
+
+const BUILD = "23";
 
 async function boot() {
   S.index = await (await fetch("levels/index.json?v=" + BUILD)).json();
   S.zones = S.index.zones || [];
+  // pool della sfida quotidiana: opzionale, se manca la sezione sparisce
+  try {
+    S.daily = await (await fetch("levels/daily.json?v=" + BUILD)).json();
+  } catch { S.daily = null; }
   renderZones();
+}
+
+/* ---------------- sfida quotidiana ----------------
+ * Nessun server: la mappa del giorno è `ordine[(giorni dall'epoca) % N]`.
+ * Tutti i giocatori nello stesso giorno locale vedono la stessa sfida e il
+ * pool non si ripete finché non è esaurito. */
+function dailyToday() {
+  if (!S.daily || !S.daily.levels?.length) return null;
+  const day = todayString();
+  const n = dayNumber(day) - dayNumber(S.daily.epoch);
+  const list = S.daily.levels;
+  const entry = list[((n % list.length) + list.length) % list.length];
+  return { day, entry, key: Profile.dailyKey(day) };
+}
+
+function dailyLabel(day) {
+  const d = new Date(day + "T12:00:00");
+  return `${t().dayNames[d.getDay()]} ${d.getDate()}/${d.getMonth() + 1}`;
+}
+
+async function openDaily() {
+  const dd = dailyToday();
+  if (!dd) return;
+  S.zone = { id: "daily", name_it: t().daily, name_en: t().daily,
+             levels: [], daily: true };
+  S.level = await (await fetch("levels/" + dd.entry.file + "?v=" + BUILD)).json();
+  S.level.id = dd.day;                 // la chiave del progresso è la data
+  S.level.name_it = S.level.name_en = t().dailyTitle(dailyLabel(dd.day));
+  S.placements = {}; S.candidates = {}; S.marks = new Set();
+  S.selected = null; S.history = []; S.wrong = new Set();
+  S.tutStep = 0; S.tutFlash = false;
+  S.t0 = Date.now();
+  renderGame();
+  startTimer();
+}
+
+function dailyCardHTML() {
+  const dd = dailyToday();
+  if (!dd) return "";
+  const st = Profile.dailyStats(dd.day);
+  const df = dd.entry.difficulty || 2;
+  const best = Profile.best(dd.key);
+  return `<div class="daily-card ${st.todayDone ? "done" : ""}" id="dailyCard">
+    <div class="dc-left">
+      <div class="dc-day">${dailyLabel(dd.day)}</div>
+      <div class="dc-title">${t().daily}</div>
+      <div class="dc-meta">${dd.entry.size}×${dd.entry.size} · ${t().diff[df]}${
+        st.streak ? " · " + t().dailyStreak(st.streak) : ""}</div>
+    </div>
+    <div class="dc-right">${st.todayDone
+      ? `<span class="dc-done">${t().dailyDone}</span>
+         <span class="dc-time">${fmtTime(best)}</span>`
+      : `<span class="dc-play">${t().dailyPlay} ▶</span>`}</div>
+  </div>`;
 }
 
 // tutte le mappe (livelli + tutorial) di una zona, per lookup e "prossimo"
@@ -98,6 +198,10 @@ function headerHTML(sub, backTo) {
     <div class="sub">${sub || ""}</div>
     <div class="spacer"></div>
     <span id="timer"></span>
+    <button class="hprofile" id="hprofile" title="${t().profile}">${
+      Profile.user?.photo
+        ? `<img src="${Profile.user.photo}" alt="">`
+        : "👤"}</button>
     <select id="langSel">
       <option value="it" ${S.lang === "it" ? "selected" : ""}>Italiano</option>
       <option value="en" ${S.lang === "en" ? "selected" : ""}>English</option>
@@ -114,15 +218,108 @@ function wireHeader(backFn) {
   };
   const hb = $("#hback");
   if (hb && backFn) hb.onclick = backFn;
+  const hp = $("#hprofile");
+  if (hp) hp.onclick = renderProfile;
+}
+
+/* ---------------- profilo ---------------- */
+function renderProfile() {
+  const back = S.view === "profile" ? null : S.view;
+  if (back) S.profileBack = back === "game" ? "levels" : back;
+  S.view = "profile";
+  stopTimer();
+  const tot = Profile.totals(S.zones);
+  const dl = Profile.dailyStats(todayString());
+  const u = Profile.user;
+  const name = Profile.data.name || u?.name || t().pGuest;
+
+  const stat = (label, value) =>
+    `<div class="pstat"><div class="pv">${value}</div><div class="pl">${label}</div></div>`;
+
+  const zoneRows = tot.perZone.map((z) => `
+    <div class="prow">
+      <div class="pz">${S.lang === "it" ? z.zone.name_it : z.zone.name_en}</div>
+      <div class="pbar"><span style="width:${z.total ? (z.solved / z.total) * 100 : 0}%"></span></div>
+      <div class="pn">${z.solved}/${z.total}</div>
+      <div class="pt">${z.ms ? fmtTime(z.ms) : "—"}</div>
+    </div>`).join("");
+
+  // migliori tempi: i 5 casi risolti piu' in fretta
+  const lv = Profile.data.levels;
+  const named = [];
+  for (const z of S.zones)
+    for (const l of z.levels) {
+      const e = lv[z.id + ":" + l.id];
+      if (e && e.best != null)
+        named.push({ nm: S.lang === "it" ? l.name_it : l.name_en, ms: e.best });
+    }
+  named.sort((a, b) => a.ms - b.ms);
+  const bestList = named.slice(0, 5).map((x) =>
+    `<li><span>${x.nm}</span><b>${fmtTime(x.ms)}</b></li>`).join("");
+
+  let account;
+  if (!Cloud.enabled) {
+    account = `<p class="pnote">${t().pCloudOff}</p>`;
+  } else if (Profile.status === "signing") {
+    account = `<p class="pnote">${t().pSigning}</p>`;
+  } else if (u) {
+    account = `<p class="pnote">${t().pSignedAs(u.name)}</p>
+      <div class="pbtns"><button id="signOut" class="alt">${t().pSignOut}</button></div>`;
+  } else {
+    account = `<p class="pnote">${t().pSyncNote}</p>
+      <div class="pbtns">
+        <button id="signGoogle">${t().pSignInGoogle}</button>
+        <button id="signApple" class="alt">${t().pSignInApple}</button>
+      </div>`;
+  }
+
+  app.innerHTML = headerHTML(t().profile, true) + `
+    <div class="profile-wrap">
+      <div class="phead">
+        <div class="pavatar">${u?.photo ? `<img src="${u.photo}" alt="">` : "🕵️"}</div>
+        <div>
+          <h1>${name}</h1>
+          <p class="subtitle">${u ? t().profileSub : t().pLocalOnly}</p>
+        </div>
+        <button id="renameBtn" class="plink">${t().pRename}</button>
+      </div>
+      <div class="pstats">
+        ${stat(t().pSolved, `${tot.solved}<small>/${tot.available}</small>`)}
+        ${stat(t().pTime, fmtTime(tot.totalMs))}
+        ${stat(t().pAvg, tot.timed ? fmtTime(tot.avgMs) : "—")}
+      </div>
+      ${dl.solved || dl.streak ? `<div class="pcard"><h2>${t().pDaily}</h2>
+        <div class="pstats">
+          ${stat(t().pDaily, dl.solved)}
+          ${stat(t().pStreak, dl.streak ? "🔥 " + dl.streak : "—")}
+          ${stat(t().pBestStreak, dl.bestStreak || "—")}
+        </div></div>` : ""}
+      <div class="pcard"><h2>${t().zonesTitle}</h2>${zoneRows}</div>
+      <div class="pcard"><h2>${t().pBest}</h2>
+        ${bestList ? `<ul class="pbest">${bestList}</ul>`
+                   : `<p class="pnote">${t().pNothing}</p>`}</div>
+      <div class="pcard">${account}</div>
+    </div>`;
+  wireHeader();
+  const hb = $("#hback");
+  if (hb) hb.onclick = () =>
+    S.profileBack === "levels" && S.zone ? renderLevels(S.zone) : renderZones();
+  $("#renameBtn").onclick = () => {
+    const v = prompt(t().pNamePrompt, Profile.data.name || "");
+    if (v !== null) { Profile.data.name = v.trim(); Profile.save(); Cloud.push(); renderProfile(); }
+  };
+  const g = $("#signGoogle"), a = $("#signApple"), o = $("#signOut");
+  if (g) g.onclick = () => Cloud.signIn("google");
+  if (a) a.onclick = () => Cloud.signIn("apple");
+  if (o) o.onclick = async () => { await Cloud.signOut(); renderProfile(); };
 }
 
 /* ---------------- zone select ---------------- */
 function renderZones() {
   S.view = "zones";
   stopTimer();
-  const d = doneMap();
   const cards = S.zones.map((z) => {
-    const done = z.levels.filter((l) => d[z.id + ":" + l.id]).length;
+    const done = z.levels.filter((l) => isDone(z.id + ":" + l.id)).length;
     return `<div class="zone-card" data-zone="${z.id}"
       style="background-image:linear-gradient(180deg,rgba(20,16,40,.15),rgba(20,16,40,.78)),url(${z.bg})">
       <div class="zone-meta">
@@ -139,11 +336,14 @@ function renderZones() {
     <div class="zone-sub">${t().soon}</div></div></div>`;
   app.innerHTML = headerHTML("") + `
     <div class="zones-wrap">
+      ${dailyCardHTML()}
       <h1>${t().zonesTitle}</h1>
       <p class="subtitle">${t().zonesSub}</p>
       <div class="zone-grid">${cards}${soon}</div>
     </div>`;
   wireHeader();
+  const dc = $("#dailyCard");
+  if (dc) dc.onclick = openDaily;
   document.querySelectorAll(".zone-card[data-zone]").forEach((el) =>
     el.onclick = () => renderLevels(S.zones.find((z) => z.id === el.dataset.zone)));
 }
@@ -153,11 +353,10 @@ function renderLevels(zone) {
   S.view = "levels";
   S.zone = zone;
   stopTimer();
-  const d = doneMap();
   const key = (id) => zone.id + ":" + id;
   let cards = "";
   if (zone.tutorial) {
-    cards += `<div class="level-card tut ${d[key(0)] ? "done" : ""}" data-id="0">
+    cards += `<div class="level-card tut ${isDone(key(0)) ? "done" : ""}" data-id="0">
       <div class="lc-top"><span class="num">🎓</span></div>
       <div class="nm">${t().tutCard}</div>
       <div class="lc-bot"><span class="sz">6×6</span></div>
@@ -165,14 +364,15 @@ function renderLevels(zone) {
   }
   cards += zone.levels.map((l) => {
     const df = l.difficulty || 2;
-    return `<div class="level-card d${df} ${d[key(l.id)] ? "done" : ""}" data-id="${l.id}">
+    const bt = bestOf(key(l.id));
+    return `<div class="level-card d${df} ${isDone(key(l.id)) ? "done" : ""}" data-id="${l.id}">
       <div class="lc-top">
         <span class="num">#${String(l.id).padStart(2, "0")}</span>
         <span class="diff diff${df}">${"●".repeat(df)}${"○".repeat(3 - df)}</span>
       </div>
       <div class="nm">${S.lang === "it" ? l.name_it : l.name_en}</div>
       <div class="lc-bot"><span class="sz">${l.size}×${l.size}</span>
-        <span class="difftext">${t().diff[df]}</span></div>
+        <span class="difftext">${bt != null ? "⏱ " + fmtTime(bt) : t().diff[df]}</span></div>
     </div>`;
   }).join("");
   app.innerHTML = headerHTML(S.lang === "it" ? zone.name_it : zone.name_en, true) + `
@@ -454,10 +654,10 @@ function renderGame() {
   document.querySelectorAll(".cell").forEach((el) =>
     el.onclick = () => cellClick(+el.dataset.r, +el.dataset.c));
   const hb = $("#hback");
-  if (hb) hb.onclick = () => renderLevels(S.zone);
-  $("#backBtn").onclick = () => renderLevels(S.zone);
+  if (hb) hb.onclick = leaveGame;
+  $("#backBtn").onclick = leaveGame;
   const skipBtn = $("#tutSkip");
-  if (skipBtn) skipBtn.onclick = () => renderLevels(S.zone);
+  if (skipBtn) skipBtn.onclick = leaveGame;
   document.querySelectorAll(".mav").forEach((el) =>
     el.onclick = () => {
       S.selected = S.selected === +el.dataset.id ? null : +el.dataset.id;
@@ -483,6 +683,12 @@ function renderGame() {
   $("#undoBtn").onclick = undo;
   $("#hintBtn").onclick = hint;
   $("#submitBtn").onclick = submit;
+}
+
+/** Uscita dal gioco: la sfida quotidiana torna alle zone, i casi ai livelli. */
+function leaveGame() {
+  if (S.zone?.daily) renderZones();
+  else renderLevels(S.zone);
 }
 
 function cellClick(r, c) {
@@ -622,13 +828,22 @@ function submit() {
   });
   if (S.wrong.size === 0) {
     stopTimer();
-    markDone(S.zone.id + ":" + L.id);
+    const ms = S.t0 ? Date.now() - S.t0 : null;
+    const rec = Profile.recordSolve(S.zone.id + ":" + L.id, ms ?? 0);
     const m = L.suspects[L.murderer].name;
     const ids = zoneLevelList(S.zone).map((l) => l.id);
     const pos = ids.indexOf(L.id);
     const nextId = pos >= 0 && pos < ids.length - 1 ? ids[pos + 1] : null;
-    modal(t().winTitle, t().winBody(m), [
-      [t().home, () => renderLevels(S.zone)],
+    let timeLine = ms == null ? "" :
+      `<br><span class="wintime">${t().winTime(fmtTime(ms))}</span>` +
+      (rec.isRecord && !rec.first ? `<br><span class="winrec">${t().winRecord}</span>` : "");
+    if (S.zone.daily) {
+      // la sfida del giorno premia la costanza: mostra la serie aggiornata
+      const st = Profile.dailyStats(todayString());
+      timeLine += `<br><span class="winrec">${t().dailyStreak(st.streak)}</span>`;
+    }
+    modal(t().winTitle, t().winBody(m) + timeLine, [
+      [S.zone.daily ? t().homeZones : t().home, leaveGame],
       ...(nextId === null ? [] : [[t().next, () => openLevel(S.zone, nextId)]]),
     ]);
   } else {

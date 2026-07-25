@@ -1,0 +1,705 @@
+{
+ "epoch": "2026-01-01",
+ "levels": [
+  {
+   "file": "daily/daily_093.json",
+   "size": 8,
+   "theme": "spazio",
+   "hardness": 7.9,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_016.json",
+   "size": 7,
+   "theme": "marino",
+   "hardness": 5.6,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_051.json",
+   "size": 10,
+   "theme": "natale",
+   "hardness": 13.4,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_021.json",
+   "size": 7,
+   "theme": "spazio",
+   "hardness": 6.2,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_019.json",
+   "size": 9,
+   "theme": "natale",
+   "hardness": 9.09,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_059.json",
+   "size": 9,
+   "theme": "natale",
+   "hardness": 11.14,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_078.json",
+   "size": 12,
+   "theme": "fantasy",
+   "hardness": 13.6,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_045.json",
+   "size": 11,
+   "theme": "spazio",
+   "hardness": 13.3,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_083.json",
+   "size": 7,
+   "theme": "natale",
+   "hardness": 5.6,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_066.json",
+   "size": 8,
+   "theme": "fantasy",
+   "hardness": 9.4,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_040.json",
+   "size": 9,
+   "theme": "marino",
+   "hardness": 9.73,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_042.json",
+   "size": 10,
+   "theme": "fantasy",
+   "hardness": 9.8,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_072.json",
+   "size": 8,
+   "theme": "marino",
+   "hardness": 8.2,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_067.json",
+   "size": 7,
+   "theme": "natale",
+   "hardness": 5.09,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_094.json",
+   "size": 8,
+   "theme": "fantasy",
+   "hardness": 4.97,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_025.json",
+   "size": 9,
+   "theme": "spazio",
+   "hardness": 8.2,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_097.json",
+   "size": 11,
+   "theme": "spazio",
+   "hardness": 12.93,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_099.json",
+   "size": 7,
+   "theme": "natale",
+   "hardness": 5.09,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_015.json",
+   "size": 8,
+   "theme": "natale",
+   "hardness": 8.2,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_022.json",
+   "size": 9,
+   "theme": "fantasy",
+   "hardness": 9.09,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_038.json",
+   "size": 9,
+   "theme": "fantasy",
+   "hardness": 10.67,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_007.json",
+   "size": 8,
+   "theme": "natale",
+   "hardness": 7.6,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_058.json",
+   "size": 11,
+   "theme": "fantasy",
+   "hardness": 12.2,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_017.json",
+   "size": 7,
+   "theme": "spazio",
+   "hardness": 5.6,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_084.json",
+   "size": 11,
+   "theme": "marino",
+   "hardness": 14.4,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_037.json",
+   "size": 7,
+   "theme": "spazio",
+   "hardness": 2.43,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_082.json",
+   "size": 11,
+   "theme": "fantasy",
+   "hardness": 11.6,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_062.json",
+   "size": 8,
+   "theme": "fantasy",
+   "hardness": 8.88,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_075.json",
+   "size": 8,
+   "theme": "natale",
+   "hardness": 8.05,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_010.json",
+   "size": 7,
+   "theme": "fantasy",
+   "hardness": 3.03,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_005.json",
+   "size": 7,
+   "theme": "spazio",
+   "hardness": 2.43,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_055.json",
+   "size": 9,
+   "theme": "natale",
+   "hardness": 10.4,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_070.json",
+   "size": 7,
+   "theme": "fantasy",
+   "hardness": 6.8,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_057.json",
+   "size": 9,
+   "theme": "spazio",
+   "hardness": 9.6,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_027.json",
+   "size": 12,
+   "theme": "natale",
+   "hardness": 15.6,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_031.json",
+   "size": 10,
+   "theme": "natale",
+   "hardness": 10.7,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_047.json",
+   "size": 7,
+   "theme": "natale",
+   "hardness": 7.14,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_002.json",
+   "size": 10,
+   "theme": "fantasy",
+   "hardness": 11.09,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_008.json",
+   "size": 11,
+   "theme": "marino",
+   "hardness": 11.35,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_003.json",
+   "size": 12,
+   "theme": "natale",
+   "hardness": 15.09,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_043.json",
+   "size": 8,
+   "theme": "natale",
+   "hardness": 7.9,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_091.json",
+   "size": 10,
+   "theme": "natale",
+   "hardness": 10.7,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_087.json",
+   "size": 8,
+   "theme": "natale",
+   "hardness": 8.2,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_053.json",
+   "size": 10,
+   "theme": "spazio",
+   "hardness": 12.4,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_029.json",
+   "size": 11,
+   "theme": "spazio",
+   "hardness": 12.93,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_071.json",
+   "size": 9,
+   "theme": "natale",
+   "hardness": 6.93,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_046.json",
+   "size": 11,
+   "theme": "fantasy",
+   "hardness": 13.3,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_074.json",
+   "size": 8,
+   "theme": "fantasy",
+   "hardness": 7.9,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_009.json",
+   "size": 8,
+   "theme": "spazio",
+   "hardness": 7.6,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_073.json",
+   "size": 10,
+   "theme": "spazio",
+   "hardness": 11.09,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_004.json",
+   "size": 12,
+   "theme": "marino",
+   "hardness": 16.4,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_056.json",
+   "size": 11,
+   "theme": "marino",
+   "hardness": 11.35,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_039.json",
+   "size": 12,
+   "theme": "natale",
+   "hardness": 16.67,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_013.json",
+   "size": 10,
+   "theme": "spazio",
+   "hardness": 11.2,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_034.json",
+   "size": 10,
+   "theme": "fantasy",
+   "hardness": 12.4,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_095.json",
+   "size": 9,
+   "theme": "natale",
+   "hardness": 8.8,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_065.json",
+   "size": 10,
+   "theme": "spazio",
+   "hardness": 10.4,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_064.json",
+   "size": 10,
+   "theme": "marino",
+   "hardness": 11.09,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_024.json",
+   "size": 9,
+   "theme": "marino",
+   "hardness": 7.6,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_014.json",
+   "size": 9,
+   "theme": "fantasy",
+   "hardness": 7.87,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_085.json",
+   "size": 10,
+   "theme": "spazio",
+   "hardness": 10.7,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_001.json",
+   "size": 8,
+   "theme": "spazio",
+   "hardness": 4.97,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_036.json",
+   "size": 8,
+   "theme": "marino",
+   "hardness": 7.6,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_035.json",
+   "size": 8,
+   "theme": "natale",
+   "hardness": 7.6,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_006.json",
+   "size": 11,
+   "theme": "fantasy",
+   "hardness": 11.6,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_100.json",
+   "size": 9,
+   "theme": "marino",
+   "hardness": 9.2,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_041.json",
+   "size": 12,
+   "theme": "spazio",
+   "hardness": 13.7,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_061.json",
+   "size": 8,
+   "theme": "spazio",
+   "hardness": 7.6,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_086.json",
+   "size": 7,
+   "theme": "fantasy",
+   "hardness": 4.06,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_089.json",
+   "size": 12,
+   "theme": "spazio",
+   "hardness": 18.17,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_011.json",
+   "size": 9,
+   "theme": "natale",
+   "hardness": 9.09,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_044.json",
+   "size": 12,
+   "theme": "marino",
+   "hardness": 13.87,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_096.json",
+   "size": 9,
+   "theme": "marino",
+   "hardness": 9.3,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_060.json",
+   "size": 8,
+   "theme": "marino",
+   "hardness": 4.38,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_020.json",
+   "size": 8,
+   "theme": "marino",
+   "hardness": 7.6,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_081.json",
+   "size": 12,
+   "theme": "spazio",
+   "hardness": 15.09,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_090.json",
+   "size": 10,
+   "theme": "fantasy",
+   "hardness": 12.5,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_048.json",
+   "size": 8,
+   "theme": "marino",
+   "hardness": 8.8,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_028.json",
+   "size": 9,
+   "theme": "marino",
+   "hardness": 7.87,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_076.json",
+   "size": 11,
+   "theme": "marino",
+   "hardness": 11.2,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_079.json",
+   "size": 7,
+   "theme": "natale",
+   "hardness": 2.43,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_054.json",
+   "size": 7,
+   "theme": "fantasy",
+   "hardness": 4.06,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_098.json",
+   "size": 7,
+   "theme": "fantasy",
+   "hardness": 4.06,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_063.json",
+   "size": 11,
+   "theme": "natale",
+   "hardness": 11.35,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_080.json",
+   "size": 10,
+   "theme": "marino",
+   "hardness": 10.2,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_092.json",
+   "size": 8,
+   "theme": "marino",
+   "hardness": 7.6,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_069.json",
+   "size": 12,
+   "theme": "spazio",
+   "hardness": 14.7,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_088.json",
+   "size": 10,
+   "theme": "marino",
+   "hardness": 10.4,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_068.json",
+   "size": 11,
+   "theme": "marino",
+   "hardness": 11.35,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_050.json",
+   "size": 8,
+   "theme": "fantasy",
+   "hardness": 4.38,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_033.json",
+   "size": 9,
+   "theme": "spazio",
+   "hardness": 7.87,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_012.json",
+   "size": 7,
+   "theme": "marino",
+   "hardness": 6.11,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_018.json",
+   "size": 7,
+   "theme": "fantasy",
+   "hardness": 2.43,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_032.json",
+   "size": 7,
+   "theme": "marino",
+   "hardness": 3.03,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_030.json",
+   "size": 10,
+   "theme": "fantasy",
+   "hardness": 11.9,
+   "difficulty": 3
+  },
+  {
+   "file": "daily/daily_023.json",
+   "size": 8,
+   "theme": "natale",
+   "hardness": 4.38,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_077.json",
+   "size": 9,
+   "theme": "spazio",
+   "hardness": 7.87,
+   "difficulty": 2
+  },
+  {
+   "file": "daily/daily_026.json",
+   "size": 7,
+   "theme": "fantasy",
+   "hardness": 6.2,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_049.json",
+   "size": 7,
+   "theme": "spazio",
+   "hardness": 4.06,
+   "difficulty": 1
+  },
+  {
+   "file": "daily/daily_052.json",
+   "size": 11,
+   "theme": "marino",
+   "hardness": 12.93,
+   "difficulty": 3
+  }
+ ]
+}
