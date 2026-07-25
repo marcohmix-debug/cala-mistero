@@ -1735,3 +1735,84 @@ header .hprofile img { width: 100%; height: 100%; object-fit: cover; }
   .daily-card { padding: 12px; gap: 10px; }
   .dc-title { font-size: 17px; }
 }
+
+/* ---------- casi bonus ---------- */
+.bonus-sec { margin-top: 34px; }
+.bonus-sec h2 {
+  font-size: 17px; color: #e6dcff; margin: 0 0 4px;
+  display: flex; align-items: center; gap: 10px;
+}
+.bonus-sec h2 .ok {
+  font-size: 12px; font-weight: 700; color: #8fdcae;
+  border: 1px solid rgba(143,220,174,.45); border-radius: 999px; padding: 2px 9px;
+}
+.bonus-sec .subtitle { margin: 0 0 14px; font-size: 13.5px; }
+.level-card.bonus { border-left-color: #e0b64f; }
+.level-card.bonus .num { color: #e0b64f; }
+.level-card.locked {
+  opacity: .55; cursor: help;
+  filter: grayscale(.6);
+}
+.level-card.locked .nm { color: #b9aee0; font-style: italic; }
+
+/* ---------- aiuti ---------- */
+.hintleft { display: inline-block; margin-top: 10px; font-size: 13px; color: #b9aee0; }
+.shop { margin-top: 14px; }
+.shop #adBtn {
+  font: inherit; font-size: 14px; font-weight: 700; width: 100%;
+  padding: 11px 14px; border-radius: 10px; cursor: pointer;
+  border: 1px solid rgba(166,97,226,.5); color: #fff;
+  background: linear-gradient(145deg, #a86be5, #7d43bb);
+}
+.shop #adBtn:disabled { opacity: .45; cursor: not-allowed; }
+.packs { list-style: none; padding: 0; margin: 12px 0 6px; display: flex; gap: 8px; }
+.packs li {
+  flex: 1; text-align: center; padding: 10px 4px; font-size: 13px;
+  border-radius: 10px; border: 1px dashed rgba(166,97,226,.45);
+  color: #cdbff0;
+}
+.packs li b { display: block; font-size: 18px; color: #fff; }
+.packs li em { font-style: normal; font-size: 11px; color: #8fdcae; }
+.soonlabel { display: block; text-align: center; font-size: 12px; color: #9d8fc9; }
+
+/* pavimenti dei temi west / egitto / hotel (stessi gruppi per materiale) */
+.cell.floor-saloon, .cell.floor-emporio, .cell.floor-sceriffo,
+.cell.floor-stalle, .cell.floor-stazione,
+.cell.floor-hall, .cell.floor-sala_ballo, .cell.floor-ristorante,
+.cell.floor-suite, .cell.floor-biliardo_s {
+  background-image:
+    repeating-linear-gradient(0deg,
+      rgba(0,0,0,.13) 0, rgba(0,0,0,.13) 2px,
+      transparent 2px, transparent calc(var(--cs,72px) / 3)),
+    repeating-linear-gradient(90deg,
+      rgba(0,0,0,.06) 0, rgba(0,0,0,.06) 1px,
+      transparent 1px, transparent 6px);
+}
+
+.cell.floor-banca, .cell.floor-miniera,
+.cell.floor-camera_faraone, .cell.floor-offerte, .cell.floor-corridoio,
+.cell.floor-tesoro, .cell.floor-cripta, .cell.floor-colonne,
+.cell.floor-granaio, .cell.floor-cucine_h, .cell.floor-cantina {
+  background-image:
+    repeating-linear-gradient(0deg,
+      rgba(0,0,0,.10) 0, rgba(0,0,0,.10) 2px,
+      transparent 2px, transparent calc(var(--cs,72px) / 2)),
+    repeating-linear-gradient(90deg,
+      rgba(0,0,0,.10) 0, rgba(0,0,0,.10) 2px,
+      transparent 2px, transparent calc(var(--cs,72px) / 2));
+}
+
+.cell.floor-canyon, .cell.floor-cortile_t, .cell.floor-giardino_i {
+  background-image:
+    radial-gradient(rgba(0,0,0,.10) 1px, transparent 1.4px),
+    radial-gradient(rgba(255,255,255,.16) 1px, transparent 1.4px);
+  background-size:
+    calc(var(--cs,72px) / 5) calc(var(--cs,72px) / 5),
+    calc(var(--cs,72px) / 5) calc(var(--cs,72px) / 5);
+  background-position: 0 0,
+    calc(var(--cs,72px) / 10) calc(var(--cs,72px) / 10);
+}
+
+.zone-card[data-zone="west"]   { background-color: #4a3524; }
+.zone-card[data-zone="egitto"] { background-color: #4a3f1e; }
+.zone-card[data-zone="hotel"]  { background-color: #33283c; }

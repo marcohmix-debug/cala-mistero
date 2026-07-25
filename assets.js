@@ -62,6 +62,51 @@ const ASSETS = {
   nastri:     { emoji: "🎀", cat: "overlay", it: "dei nastri", en: "loose ribbons" },
   caramelle:  { emoji: "🍬", cat: "overlay", it: "delle caramelle", en: "candy canes" },
   letterine:  { emoji: "✉️", cat: "overlay", it: "un mucchio di letterine", en: "a pile of letters" },
+
+  /* --- west --- */
+  bancone:        { emoji: "🍺", cat: "block", it: "un bancone", en: "a bar counter" },
+  pianoforte:     { emoji: "🎹", cat: "block", it: "un pianoforte", en: "a piano" },
+  cavallo:        { emoji: "🐎", cat: "block", it: "un cavallo", en: "a horse" },
+  carro:          { emoji: "🛻", cat: "block", it: "un carro", en: "a wagon" },
+  cassaforte:     { emoji: "🏦", cat: "block", it: "una cassaforte", en: "a safe" },
+  abbeveratoio:   { emoji: "🪣", cat: "block", it: "un abbeveratoio", en: "a water trough" },
+  cactus:         { emoji: "🌵", cat: "block", it: "un cactus", en: "a cactus" },
+  barile_west:    { emoji: "🛢️", cat: "block", it: "un barile di whisky", en: "a whiskey barrel" },
+  cartello:       { emoji: "🪧", cat: "block", it: "un cartellone di taglia", en: "a wanted poster" },
+  sgabello_west:  { emoji: "🪑", cat: "sit", it: "uno sgabello da saloon", en: "a saloon stool" },
+  sputacchiera:   { emoji: "🥃", cat: "overlay", it: "una sputacchiera", en: "a spittoon" },
+  sella:          { emoji: "🐴", cat: "overlay", it: "una sella", en: "a saddle" },
+  fieno:          { emoji: "🌾", cat: "overlay", it: "una balla di fieno", en: "a hay bale" },
+
+  /* --- egitto --- */
+  sarcofago:    { emoji: "⚰️", cat: "block", it: "un sarcofago", en: "a sarcophagus" },
+  colonna:      { emoji: "🏛️", cat: "block", it: "una colonna", en: "a column" },
+  anubi:        { emoji: "🐕", cat: "block", it: "una statua di Anubi", en: "a statue of Anubis" },
+  urna:         { emoji: "🏺", cat: "block", it: "un'urna canopa", en: "a canopic jar" },
+  scarabeo:     { emoji: "🪲", cat: "block", it: "uno scarabeo di pietra", en: "a stone scarab" },
+  obelisco:     { emoji: "🗼", cat: "block", it: "un obelisco", en: "an obelisk" },
+  bracere:      { emoji: "🔥", cat: "block", it: "un braciere", en: "a brazier" },
+  papiri:       { emoji: "📜", cat: "block", it: "una pila di papiri", en: "a stack of papyri" },
+  grano:        { emoji: "🌾", cat: "block", it: "un sacco di grano", en: "a grain sack" },
+  trono_eg:     { emoji: "🪑", cat: "sit", it: "un seggio di pietra", en: "a stone seat" },
+  sabbia:       { emoji: "🏜️", cat: "overlay", it: "un cumulo di sabbia", en: "a sand drift" },
+  geroglifici:  { emoji: "𓂀", cat: "overlay", it: "dei geroglifici", en: "hieroglyphs" },
+  acqua_nilo:   { emoji: "💧", cat: "overlay", it: "una pozza d'acqua", en: "a water pool" },
+
+  /* --- hotel --- */
+  reception:     { emoji: "🛎️", cat: "block", it: "il bancone della reception", en: "the reception desk" },
+  pianoforte_h:  { emoji: "🎼", cat: "block", it: "un pianoforte a coda", en: "a grand piano" },
+  lampadario:    { emoji: "💡", cat: "block", it: "un lampadario", en: "a chandelier" },
+  baule:         { emoji: "🧳", cat: "block", it: "un baule da viaggio", en: "a steamer trunk" },
+  biliardo:      { emoji: "🎱", cat: "block", it: "un tavolo da biliardo", en: "a billiard table" },
+  palma:         { emoji: "🌴", cat: "block", it: "una palma in vaso", en: "a potted palm" },
+  grammofono:    { emoji: "📻", cat: "block", it: "un grammofono", en: "a gramophone" },
+  carrello:      { emoji: "🍾", cat: "block", it: "un carrello dello champagne", en: "a champagne cart" },
+  specchio:      { emoji: "🪞", cat: "block", it: "uno specchio", en: "a mirror" },
+  poltrona_h:    { emoji: "🛋️", cat: "sit", it: "una poltrona di velluto", en: "a velvet armchair" },
+  tappeto_h:     { emoji: "🟪", cat: "overlay", it: "un tappeto persiano", en: "a persian carpet" },
+  bicchieri:     { emoji: "🥂", cat: "overlay", it: "dei bicchieri rotti", en: "broken glasses" },
+  cappotto:      { emoji: "🧥", cat: "overlay", it: "un cappotto caduto", en: "a dropped coat" },
 };
 
 // Texture pavimento per tipo di stanza (chiave = key stanza).

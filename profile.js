@@ -163,6 +163,89 @@ const Profile = {
   },
 };
 
+/* ---------------- economia degli aiuti ----------------
+ * Un aiuto piazza il PROSSIMO sospettato deducibile e spiega perche'.
+ * Il saldo non e' un numero salvato e basta: si RICALCOLA come
+ *     guadagnati (di partenza + meriti + acquisti/ad) - spesi
+ * dove i meriti derivano dai progressi. Cosi' due dispositivi che si
+ * sincronizzano non si regalano aiuti a vicenda ne' se li mangiano: i
+ * contatori `spent`/`bought`/`ads` sono monotoni e in fusione vince il piu'
+ * alto. `spent` viene salvato subito, prima di mostrare l'aiuto. */
+const HINT_RULES = {
+  start: 5,          // saldo iniziale, basta per il tutorial e i primi casi
+  perDaily: 1,       // ogni sfida quotidiana completata
+  perZone: 3,        // ogni zona completata (oltre allo sblocco dei bonus)
+  adReward: 1,       // un annuncio guardato
+  adDailyCap: 3,     // ...ma non piu' di 3 al giorno
+  cost: 1,           // costo di un aiuto
+  packs: [           // acquisti (i prezzi li decidera' lo store)
+    { id: "small", hints: 5 },
+    { id: "medium", hints: 15, badge: "+3" },
+    { id: "large", hints: 50, badge: "+15" },
+  ],
+};
+
+const Hints = {
+  get state() {
+    const h = Profile.data.hints || (Profile.data.hints =
+      { spent: 0, bought: 0, ads: 0, adDay: "", adToday: 0 });
+    return h;
+  },
+
+  /** Aiuti guadagnati coi progressi: derivati, mai salvati. */
+  earned(zones) {
+    const st = Profile.dailyStats(todayString());
+    const zonesDone = (zones || []).filter((z) => {
+      const base = z.levels.filter((l) => !l.bonus);
+      return base.length && base.every((l) => Profile.solved(z.id + ":" + l.id));
+    }).length;
+    return HINT_RULES.start
+         + st.solved * HINT_RULES.perDaily
+         + zonesDone * HINT_RULES.perZone;
+  },
+
+  balance(zones) {
+    const h = this.state;
+    return Math.max(0, this.earned(zones) + h.bought + h.ads - h.spent);
+  },
+
+  spend(zones, n = HINT_RULES.cost) {
+    if (this.balance(zones) < n) return false;
+    this.state.spent += n;
+    Profile.save();
+    Cloud.push();
+    return true;
+  },
+
+  /** Annuncio visto: +1, con tetto giornaliero. -> false se il tetto e' pieno */
+  adsLeftToday() {
+    const h = this.state;
+    const today = todayString();
+    if (h.adDay !== today) { h.adDay = today; h.adToday = 0; }
+    return HINT_RULES.adDailyCap - h.adToday;
+  },
+
+  grantFromAd() {
+    if (this.adsLeftToday() <= 0) return false;
+    const h = this.state;
+    h.adToday += 1;
+    h.ads += HINT_RULES.adReward;
+    Profile.save();
+    Cloud.push();
+    return true;
+  },
+
+  /** Acquisto andato a buon fine (lo store vero arriva dopo). */
+  grantFromPurchase(packId) {
+    const pack = HINT_RULES.packs.find((p) => p.id === packId);
+    if (!pack) return false;
+    this.state.bought += pack.hints;
+    Profile.save();
+    Cloud.push();
+    return true;
+  },
+};
+
 /* ---------------- sync cloud (opzionale) ---------------- */
 const FB_VER = "10.12.2";
 
