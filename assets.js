@@ -140,6 +140,26 @@ const FLOOR_IMG = {
   torre:      "assets/floors/torre.jpg",
   cappella:   "assets/floors/cappella.jpg",
   cortile:    "assets/floors/cortile.jpg",
+
+  /* west */
+  saloon:    "assets/floors/saloon.jpg",
+  emporio:   "assets/floors/emporio.jpg",
+  sceriffo:  "assets/floors/sceriffo.jpg",
+  stalle:    "assets/floors/stalle.jpg",
+  banca:     "assets/floors/banca.jpg",
+  stazione:  "assets/floors/stazione.jpg",
+  canyon:    "assets/floors/canyon.jpg",
+  miniera:   "assets/floors/miniera.jpg",
+
+  /* hotel */
+  hall:       "assets/floors/hall.jpg",
+  sala_ballo: "assets/floors/sala_ballo.jpg",
+  ristorante: "assets/floors/ristorante.jpg",
+  suite:      "assets/floors/suite.jpg",
+  cucine_h:   "assets/floors/cucine_h.jpg",
+  giardino_i: "assets/floors/giardino_i.jpg",
+  biliardo_s: "assets/floors/biliardo_s.jpg",
+  cantina:    "assets/floors/cantina.jpg",
 };
 
 const AVATAR_COLORS = ["#7c5cbf", "#2e8b6e", "#c05a5a", "#3b7bbf",

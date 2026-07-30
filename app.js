@@ -142,7 +142,7 @@ Profile.onChange = () => {
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "28";
+const BUILD = "29";
 
 async function boot() {
   S.index = await (await fetch("levels/index.json?v=" + BUILD)).json();
