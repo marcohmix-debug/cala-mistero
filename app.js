@@ -142,7 +142,7 @@ Profile.onChange = () => {
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "24";
+const BUILD = "26";
 
 async function boot() {
   S.index = await (await fetch("levels/index.json?v=" + BUILD)).json();
@@ -585,7 +585,9 @@ function renderGame() {
           `background-size:calc(var(--cs) * 3);` +
           `background-position:calc(var(--cs) * ${-c}) calc(var(--cs) * ${-r});`
         : "";
+      const fname = f ? (S.lang === "it" ? ASSETS[f.asset].it : ASSETS[f.asset].en) : "";
       cells += `<div class="cell floor-${def.key} ${blocked ? "blocked" : ""} ${sid !== null && f ? "has-pawn-on-object" : ""} ${provisional.length ? "has-pencils" : ""}" data-r="${r}" data-c="${c}"
+        ${fname ? `title="${fname}"` : ""}
         style="--floor:${def.color};background-color:${def.color};${texStyle}
         border-top:${bw(bT)};border-left:${bw(bL)};
         border-bottom:${bw(bB)};border-right:${bw(bR)}">${inner}</div>`;
@@ -742,9 +744,29 @@ function leaveGame() {
   else renderLevels(S.zone);
 }
 
+/** Etichetta al volo col nome dell'oggetto toccato: gli indizi lo chiamano
+ *  per nome ("accanto a un calderone") e dal disegno non sempre si indovina. */
+let _nameTimer;
+function showObjectName(assetId) {
+  const a = ASSETS[assetId];
+  if (!a) return;
+  const txt = S.lang === "it" ? a.it : a.en;
+  let el = $("#objname");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "objname";
+    document.body.appendChild(el);
+  }
+  el.textContent = txt.charAt(0).toUpperCase() + txt.slice(1);
+  el.classList.add("show");
+  clearTimeout(_nameTimer);
+  _nameTimer = setTimeout(() => el.classList.remove("show"), 1600);
+}
+
 function cellClick(r, c) {
   const f = furnAt(r, c);
   const here = suspectAt(r, c);
+  if (f) showObjectName(f.asset);      // vale su qualsiasi cella con arredo
   S.wrong.clear();
   if (here !== null) {
     if (S.mode === "cross" || S.mode === "pencil") return;
