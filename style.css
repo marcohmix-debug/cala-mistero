@@ -1816,3 +1816,18 @@ header .hprofile img { width: 100%; height: 100%; object-fit: cover; }
 .zone-card[data-zone="west"]   { background-color: #4a3524; }
 .zone-card[data-zone="egitto"] { background-color: #4a3f1e; }
 .zone-card[data-zone="hotel"]  { background-color: #33283c; }
+
+/* ---------- nome dell'oggetto toccato ---------- */
+#objname {
+  position: fixed; left: 50%; bottom: 86px; transform: translate(-50%, 8px);
+  z-index: 60; pointer-events: none;
+  padding: 9px 16px; border-radius: 999px;
+  background: rgba(20, 16, 40, .93);
+  border: 1px solid rgba(166, 97, 226, .55);
+  color: #f2eefb; font-size: 14.5px; font-weight: 600;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .45);
+  opacity: 0; transition: opacity .15s ease, transform .15s ease;
+}
+#objname.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (max-width: 520px) { #objname { bottom: 120px; font-size: 13.5px; } }
