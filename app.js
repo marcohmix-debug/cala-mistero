@@ -142,7 +142,7 @@ Profile.onChange = () => {
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "26";
+const BUILD = "28";
 
 async function boot() {
   S.index = await (await fetch("levels/index.json?v=" + BUILD)).json();
@@ -500,6 +500,14 @@ function roomLabelCells(L) {
 function renderGame() {
   S.view = "game";
   const L = S.level;
+  // Ogni click ridisegna tutta la schermata: senza questo, la striscia dei
+  // sospettati (e la pagina) tornano a inizio scorrimento e su una griglia
+  // grande si perde il segno di dove si stava guardando.
+  const keepScroll = {
+    strip: $(".mstrip")?.scrollLeft || 0,
+    list: $(".suspect-list")?.scrollTop || 0,
+    page: window.scrollY || 0,
+  };
 
   // avatar: ritratto (immagine) o fallback iniziale su colore
   const avatarInner = (sp, i) => FACE_IMG[sp.name]
@@ -736,6 +744,12 @@ function renderGame() {
   $("#undoBtn").onclick = undo;
   $("#hintBtn").onclick = hint;
   $("#submitBtn").onclick = submit;
+
+  // rimette lo scorrimento dov'era prima del ridisegno
+  const stripEl = $(".mstrip"), listEl = $(".suspect-list");
+  if (stripEl && keepScroll.strip) stripEl.scrollLeft = keepScroll.strip;
+  if (listEl && keepScroll.list) listEl.scrollTop = keepScroll.list;
+  if (keepScroll.page) window.scrollTo({ top: keepScroll.page });
 }
 
 /** Uscita dal gioco: la sfida quotidiana torna alle zone, i casi ai livelli. */
