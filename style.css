@@ -454,15 +454,7 @@ header select {
 .cell .furn { pointer-events: none; }
 .cell .furn.img { width: 86%; height: 86%; object-fit: contain; }
 .cell .furn.img.overlay { width: 96%; height: 96%; }
-.cell .furn.overlay {
-  opacity: 1;
-  /* alone chiaro + ombra scura: gli overlay piatti (pozza, corda, rete)
-     restano visibili sia su texture chiare che scure */
-  filter:
-    drop-shadow(0 0 2px rgba(255,255,255,.85))
-    drop-shadow(0 0 1px rgba(255,255,255,.85))
-    drop-shadow(0 1px 1px rgba(0,0,0,.45));
-}
+.cell .furn.overlay { opacity: 1; }
 .cell .xmark {
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
@@ -1632,16 +1624,23 @@ header .hprofile img { width: 100%; height: 100%; object-fit: cover; }
 /* griglie grandi: celle piccole, servono fondi ancora piu' spenti */
 .game.large-grid .cell::after { --floor-wash: rgba(250,249,255,.40); }
 
-.cell .furn.img:not(.overlay) {
-  filter:
-    drop-shadow(0 0 1.5px rgba(255,255,255,.9))
-    drop-shadow(0 1px 2px rgba(20,16,40,.5));
-}
+/* il contorno degli arredi sta ora in un blocco unico in fondo al file
+   ("contorno degli oggetti"), valido sia per le immagini sia per gli overlay */
 
-/* etichetta stanza: leggibile sopra il velo */
+/* Etichetta stanza: contorno NERO pieno.
+   Il testo e' bianco, quindi l'alone deve essere scuro: con l'alone chiaro
+   spariva sui pavimenti chiari (sala del trono, cucine, cappella). Il tratto
+   con paint-order da' un bordo netto dove supportato; le ombre nelle otto
+   direzioni fanno da riserva ovunque. */
 .cell .room-label {
-  z-index: 2;
-  text-shadow: 0 1px 2px rgba(255,255,255,.85), 0 0 3px rgba(255,255,255,.7);
+  z-index: 3;
+  paint-order: stroke fill;
+  /* il testo e' piccolo (7-11px): oltre i 2px il tratto chiude gli occhielli
+     delle lettere */
+  -webkit-text-stroke: 2px #000;
+  text-shadow:
+    -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000,
+    0 0 4px rgba(0,0,0,.95);
 }
 
 /* la croce deve restare il segno piu' evidente della cella */
@@ -1831,3 +1830,35 @@ header .hprofile img { width: 100%; height: 100%; object-fit: cover; }
 #objname.show { opacity: 1; transform: translate(-50%, 0); }
 
 @media (max-width: 520px) { #objname { bottom: 120px; font-size: 13.5px; } }
+
+/* celle piccole: tratto piu' sottile, le lettere sono di 7-8px */
+@media (max-width: 520px) {
+  .cell .room-label { -webkit-text-stroke-width: 1.5px; }
+}
+
+/* ---------- contorno degli oggetti ----------
+   Sulle griglie grandi le celle diventano piccole e gli arredi, che ora sono
+   disegni pieni di dettaglio, si impastano col pavimento. Serve una linea di
+   contorno scura che ne stacchi la sagoma — come il bordo nero dei fumetti.
+
+   Il contorno si ottiene incatenando quattro drop-shadow a distanza zero nelle
+   quattro direzioni: ogni ombra si applica al risultato della precedente,
+   quindi il bordo cresce attorno alla figura senza sfocarla. Dopo il bordo
+   scuro c'e' un alone chiaro largo, che serve al caso opposto: oggetti scuri
+   su pavimenti scuri (segrete, torre, sala macchine).                      */
+.cell .furn {
+  --ink: #14111f;
+  --o: 1px;
+  filter:
+    drop-shadow(var(--o) 0 0 var(--ink))
+    drop-shadow(calc(var(--o) * -1) 0 0 var(--ink))
+    drop-shadow(0 var(--o) 0 var(--ink))
+    drop-shadow(0 calc(var(--o) * -1) 0 var(--ink))
+    drop-shadow(0 0 3px rgba(255,255,255,.5));
+}
+
+/* griglie grandi: celle piccole, contorno piu' marcato */
+.game.large-grid .cell .furn { --o: 1.5px; }
+
+/* l'arredo che finisce sotto una pedina e' gia' dentro un riquadro suo */
+.cell.has-pawn-on-object .furn { --o: 1px; }
