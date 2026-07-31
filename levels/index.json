@@ -7,7 +7,7 @@
    "subtitle_it": "Il vecchio porto",
    "subtitle_en": "The old harbor",
    "theme": "marino",
-   "bg": "assets/zones/cala-mistero.jpg",
+   "bg": "assets/zones/cala-mistero.webp",
    "tutorial": {
     "id": 0,
     "file": "tutorial.json"
@@ -227,7 +227,7 @@
    "subtitle_it": "Un equipaggio, nessuna via d'uscita",
    "subtitle_en": "One crew, no way out",
    "theme": "spazio",
-   "bg": "assets/zones/spazio.jpg",
+   "bg": "assets/zones/spazio.webp",
    "levels": [
     {
      "id": 1,
@@ -723,7 +723,7 @@
    "subtitle_it": "Corte, congiure e sotterranei",
    "subtitle_en": "Court, plots and dungeons",
    "theme": "fantasy",
-   "bg": "assets/zones/fantasy.jpg",
+   "bg": "assets/zones/fantasy.webp",
    "levels": [
     {
      "id": 1,
@@ -1219,7 +1219,7 @@
    "subtitle_it": "Qualcuno ha rovinato la Vigilia",
    "subtitle_en": "Someone ruined Christmas Eve",
    "theme": "natale",
-   "bg": "assets/zones/natale.jpg",
+   "bg": "assets/zones/natale.webp",
    "levels": [
     {
      "id": 1,
@@ -1715,7 +1715,7 @@
    "subtitle_it": "Una città, una legge sola",
    "subtitle_en": "One town, one law",
    "theme": "west",
-   "bg": "assets/zones/west.jpg",
+   "bg": "assets/zones/west.webp",
    "levels": [
     {
      "id": 1,
@@ -2211,7 +2211,7 @@
    "subtitle_it": "Chi entra non sempre esce",
    "subtitle_en": "Not everyone who enters leaves",
    "theme": "egitto",
-   "bg": "assets/zones/egitto.jpg",
+   "bg": "assets/zones/egitto.webp",
    "levels": [
     {
      "id": 1,
@@ -2707,7 +2707,7 @@
    "subtitle_it": "Eleganza, e qualcosa di marcio",
    "subtitle_en": "Elegance, and something rotten",
    "theme": "hotel",
-   "bg": "assets/zones/hotel.jpg",
+   "bg": "assets/zones/hotel.webp",
    "levels": [
     {
      "id": 1,
@@ -3203,7 +3203,7 @@
    "subtitle_it": "2 griglie per dimensione (6→16)",
    "subtitle_en": "2 grids per size (6→16)",
    "theme": "test",
-   "bg": "assets/zones/test.jpg",
+   "bg": "assets/zones/test.webp",
    "levels": [
     {
      "id": 1,
