@@ -39,7 +39,7 @@ const ASSETS = {
   calderone:  { emoji: "🍲", cat: "block", it: "un calderone", en: "a cauldron", img: "assets/props/calderone.webp" },
   libreria:   { emoji: "📚", cat: "block", it: "una libreria", en: "a bookcase", img: "assets/props/libreria.webp" },
   torcia:     { emoji: "🔥", cat: "block", it: "una torcia", en: "a torch", img: "assets/props/torcia.webp" },
-  statua:     { emoji: "🗿", cat: "block", it: "una statua", en: "a statue", img: "assets/props/statua.webp" },
+  gargoyle:   { emoji: "🗿", cat: "block", it: "un gargoyle", en: "a gargoyle", img: "assets/props/gargoyle.webp" },
   botte:      { emoji: "🛖", cat: "block", it: "una botte", en: "an ale barrel", img: "assets/props/botte.webp" },
   forziere:   { emoji: "💰", cat: "block", it: "un forziere", en: "a treasure chest", img: "assets/props/forziere.webp" },
   sgabello:   { emoji: "🪑", cat: "sit", it: "uno sgabello", en: "a stool", img: "assets/props/sgabello.webp" },
