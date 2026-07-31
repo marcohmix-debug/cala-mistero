@@ -15,8 +15,14 @@
 
 const PROFILE_KEY = "cm_profile";
 
+// Versione del formato dati. Alzandola i progressi per livello vengono
+// buttati UNA volta: serve quando gli id dei casi cambiano, perche' la chiave
+// e' `zona:id` e progressi vecchi punterebbero a casi diversi. Alzata a 2 in
+// v39, quando le zone sono state rinumerate in ordine di difficolta'.
+const DATA_V = 2;
+
 const Profile = {
-  data: { v: 1, name: "", levels: {}, updated: 0 },
+  data: { v: DATA_V, name: "", levels: {}, runs: {}, recovered: [], updated: 0 },
   user: null,          // {uid, name, photo, provider} se loggato
   status: "local",     // local | signing | cloud | error
   onChange: null,      // callback per ridisegnare la UI
@@ -26,6 +32,16 @@ const Profile = {
       const raw = JSON.parse(localStorage.getItem(PROFILE_KEY) || "null");
       if (raw && raw.levels) this.data = raw;
     } catch { /* profilo illeggibile: si riparte da zero */ }
+    if ((this.data.v || 1) < DATA_V) {
+      // gli id dei casi sono cambiati: tenere i progressi vecchi sarebbe
+      // peggio che perderli, perche' sbloccherebbero casi a caso
+      this.data = { v: DATA_V, name: this.data.name || "", levels: {},
+                    runs: {}, recovered: [], updated: 0 };
+      localStorage.removeItem("cm_done");
+      this.save();
+    }
+    this.data.runs = this.data.runs || {};
+    this.data.recovered = this.data.recovered || [];
     this.migrateLegacy();
     return this;
   },
@@ -56,6 +72,40 @@ const Profile = {
   solved(key) { return !!this.data.levels[key]; },
   best(key) { return this.data.levels[key]?.best ?? null; },
 
+  /* ---- cronometro in pausa ----
+   * Uscendo da un caso il tempo non si azzera e non continua a correre: si
+   * mette da parte qui e riparte da li' quando il caso viene riaperto. Sta
+   * fuori da `levels` perche' `levels` significa "risolto" — un caso lasciato
+   * a meta' non lo e'. */
+  run(key) {
+    const r = this.data.runs[key];
+    return (typeof r === "number" ? r : r?.ms) || 0;
+  },
+  /** La griglia lasciata a meta': se si conserva il tempo va conservato anche
+   *  il lavoro, se no si rientra con l'orologio avanti e la griglia vuota. */
+  draft(key) {
+    const r = this.data.runs[key];
+    return typeof r === "object" && r ? r.st || null : null;
+  },
+  saveRun(key, ms, st) {
+    if (!ms) return;
+    this.data.runs[key] = st ? { ms, st } : { ms };
+    this.save();
+  },
+  clearRun(key) {
+    if (this.data.runs[key] == null) return;
+    delete this.data.runs[key];
+    this.save();
+  },
+
+  /* ---- sfide passate recuperate ---- */
+  isRecovered(day) { return this.data.recovered.includes(day); },
+  recover(day) {
+    if (this.data.recovered.includes(day)) return;
+    this.data.recovered.push(day);
+    this.save();
+  },
+
   /** Registra una vittoria. -> {best, isRecord, first} */
   recordSolve(key, ms) {
     const prev = this.data.levels[key];
@@ -67,6 +117,7 @@ const Profile = {
       plays: (prev?.plays || 0) + 1,
       at: Date.now(),
     };
+    delete this.data.runs[key];   // risolto: il cronometro riparte da zero
     this.save();
     Cloud.push();               // best-effort, non blocca il gioco
     return { best: this.data.levels[key].best, isRecord, first };
@@ -381,3 +432,90 @@ function fmtTime(ms) {
 
 Profile.load();
 if (Cloud.enabled) Cloud.init();
+
+/* ---------------- distintivi ----------------
+ * Solo cosmetici: non danno aiuti, non sbloccano niente. Si RICALCOLANO dai
+ * progressi a ogni apertura del profilo, non sono uno stato da tenere
+ * allineato — cosi' sincronizzando due dispositivi non possono divergere.
+ * `icon` e' un emoji: non serve un asset e resta leggibile ovunque. */
+const Badges = {
+  defs: [
+    { id: "primo", icon: "🔍", it: "Prime Indagini", en: "First Case",
+      itDesc: "Risolvi il primo caso", enDesc: "Solve your first case",
+      test: (s) => s.solved >= 1 },
+    { id: "dieci", icon: "🗂️", it: "Fascicolo Aperto", en: "Open File",
+      itDesc: "10 casi risolti", enDesc: "10 cases solved",
+      test: (s) => s.solved >= 10 },
+    { id: "cinquanta", icon: "🎖️", it: "Investigatore", en: "Investigator",
+      itDesc: "50 casi risolti", enDesc: "50 cases solved",
+      test: (s) => s.solved >= 50 },
+    { id: "duecento", icon: "🏅", it: "Detective Capo", en: "Chief Detective",
+      itDesc: "200 casi risolti", enDesc: "200 cases solved",
+      test: (s) => s.solved >= 200 },
+    { id: "cinquecento", icon: "👑", it: "Leggenda", en: "Legend",
+      itDesc: "500 casi risolti", enDesc: "500 cases solved",
+      test: (s) => s.solved >= 500 },
+    { id: "zona", icon: "📍", it: "Zona Chiusa", en: "Zone Closed",
+      itDesc: "Completa una zona intera", enDesc: "Complete a whole zone",
+      test: (s) => s.zonesDone >= 1 },
+    { id: "zone3", icon: "🗺️", it: "Tre Città", en: "Three Cities",
+      itDesc: "Completa tre zone", enDesc: "Complete three zones",
+      test: (s) => s.zonesDone >= 3 },
+    { id: "zoneAll", icon: "🌍", it: "Nessun Caso Irrisolto", en: "No Case Left",
+      itDesc: "Completa tutte le zone", enDesc: "Complete every zone",
+      test: (s) => s.zones > 0 && s.zonesDone >= s.zones },
+    { id: "maestro", icon: "🧠", it: "Mente Fine", en: "Sharp Mind",
+      itDesc: "Chiudi una fascia Maestro", enDesc: "Clear a Master tier",
+      test: (s) => s.maestroDone >= 1 },
+    { id: "bonus", icon: "⭐", it: "Fuori Programma", en: "Off the Books",
+      itDesc: "Risolvi un caso bonus", enDesc: "Solve a bonus case",
+      test: (s) => s.bonusSolved >= 1 },
+    { id: "daily7", icon: "🔥", it: "Sette di Fila", en: "Seven in a Row",
+      itDesc: "7 sfide quotidiane consecutive", enDesc: "7 daily challenges in a row",
+      test: (s) => s.bestStreak >= 7 },
+    { id: "daily30", icon: "📅", it: "Un Mese Intero", en: "A Full Month",
+      itDesc: "30 sfide quotidiane consecutive", enDesc: "30 daily challenges in a row",
+      test: (s) => s.bestStreak >= 30 },
+    { id: "veloce", icon: "⚡", it: "Colpo d'Occhio", en: "Quick Eye",
+      itDesc: "Un caso 6×6 sotto il minuto", enDesc: "A 6×6 case under a minute",
+      test: (s) => s.fastSmall },
+    { id: "grande", icon: "🧩", it: "Griglia Grande", en: "Big Grid",
+      itDesc: "Risolvi un caso 14×14 o più", enDesc: "Solve a 14×14 case or bigger",
+      test: (s) => s.bigSolved >= 1 },
+  ],
+
+  /** Riassunto dei progressi su cui si valutano i distintivi. */
+  stats(zones) {
+    const lv = Profile.data.levels;
+    const out = { solved: 0, zones: 0, zonesDone: 0, maestroDone: 0,
+                  bonusSolved: 0, bigSolved: 0, fastSmall: false,
+                  bestStreak: Profile.dailyStats(todayString()).bestStreak };
+    for (const z of zones || []) {
+      if (!z.levels?.length || z.id === "test") continue;
+      out.zones++;
+      const normali = z.levels.filter((l) => !l.bonus);
+      let fatti = 0;
+      const perBanda = {};
+      for (const l of z.levels) {
+        const e = lv[z.id + ":" + l.id];
+        if (!e) continue;
+        out.solved++;
+        if (l.bonus) out.bonusSolved++;
+        else fatti++;
+        if (l.size >= 14) out.bigSolved++;
+        if (l.size <= 6 && e.best != null && e.best < 60000) out.fastSmall = true;
+        if (l.band) perBanda[l.band] = (perBanda[l.band] || 0) + 1;
+      }
+      if (normali.length && fatti >= normali.length) out.zonesDone++;
+      const maestro = normali.filter((l) => l.band === "maestro").length;
+      if (maestro && (perBanda.maestro || 0) >= maestro) out.maestroDone++;
+    }
+    return out;
+  },
+
+  /** -> [{def, ok}] nell'ordine di definizione. */
+  list(zones) {
+    const s = this.stats(zones);
+    return this.defs.map((d) => ({ def: d, ok: !!d.test(s) }));
+  },
+};

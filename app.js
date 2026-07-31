@@ -57,6 +57,23 @@ const I18N = {
     pgOf: (a, b) => `Pagina ${a} di ${b}`,
     pgRange: (a, b) => `Casi ${a}–${b}`,
     ratingTip: "Quanto è tosto rispetto a tutti i casi del gioco (1-100)",
+    bands: { principiante: "Principiante", medio: "Medio",
+             esperto: "Esperto", maestro: "Maestro" },
+    bandLocked: "Chiudi le fasce Esperto e Maestro per sbloccare i bonus",
+    resetLevel: "↺ Ricomincia", resetTitle: "Ricominciare il caso?",
+    resetBody: "La griglia torna vuota. Il cronometro NON si azzera: continua da dov'è.",
+    resetOk: "Ricomincia", cancel: "Annulla",
+    leaveTitle: "Sei sicuro di voler uscire?",
+    leaveBody: "Questo bloccherà il timer finché non torni a questo livello, ma non azzererà i tuoi progressi.",
+    leaveOk: "Esci", stay: "Resta",
+    archive: "Sfide passate", archiveSub: "Tutte le sfide quotidiane finora",
+    archiveOpen: "📅 Sfide passate",
+    archiveToday: "Oggi", archiveDone: "Risolta ✓", archiveMissed: "Persa",
+    archiveRecover: "🎬 Recupera con un video",
+    recoverTitle: "Recuperare questa sfida?",
+    recoverBody: "Guarda un breve video e potrai giocare la sfida di quel giorno.",
+    recovered: "Recuperata",
+    badges: "Distintivi", badgesSub: (a, b) => `${a} di ${b}`,
   },
   en: {
     suspects: "Suspects",
@@ -113,6 +130,23 @@ const I18N = {
     pgOf: (a, b) => `Page ${a} of ${b}`,
     pgRange: (a, b) => `Cases ${a}–${b}`,
     ratingTip: "How tough it is compared with every case in the game (1-100)",
+    bands: { principiante: "Beginner", medio: "Medium",
+             esperto: "Expert", maestro: "Master" },
+    bandLocked: "Clear the Expert and Master tiers to unlock the bonus cases",
+    resetLevel: "↺ Restart", resetTitle: "Restart the case?",
+    resetBody: "The grid goes back to empty. The clock does NOT reset: it keeps going.",
+    resetOk: "Restart", cancel: "Cancel",
+    leaveTitle: "Are you sure you want to leave?",
+    leaveBody: "This will pause the timer until you come back to this level, but it will not reset your progress.",
+    leaveOk: "Leave", stay: "Stay",
+    archive: "Past challenges", archiveSub: "Every daily challenge so far",
+    archiveOpen: "📅 Past challenges",
+    archiveToday: "Today", archiveDone: "Solved ✓", archiveMissed: "Missed",
+    archiveRecover: "🎬 Recover with a video",
+    recoverTitle: "Recover this challenge?",
+    recoverBody: "Watch a short video and you can play that day's challenge.",
+    recovered: "Recovered",
+    badges: "Badges", badgesSub: (a, b) => `${a} of ${b}`,
   },
 };
 
@@ -132,8 +166,10 @@ const S = {
   tutStep: 0, tutFlash: false,
   mode: "place",           // place | pencil | cross | erase
   t0: null, timerInt: null,
+  base: 0,                 // ms gia' accumulati su questo caso prima di ora
   profileBack: "zones",    // dove torna il ‹ dal profilo
-  pages: {},               // zona -> pagina della lista casi
+  pages: {},               // "zona:fascia" -> pagina della lista casi
+  bands: {},               // zona -> fascia di difficolta' aperta
 };
 
 // casi per pagina nella lista di una zona (4 colonne x 6 righe da desktop)
@@ -154,7 +190,7 @@ Profile.onChange = () => {
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "38";
+const BUILD = "39";
 
 async function boot() {
   S.index = await (await fetch("levels/index.json?v=" + BUILD)).json();
@@ -184,8 +220,72 @@ function dailyLabel(day) {
   return `${t().dayNames[d.getDay()]} ${d.getDate()}/${d.getMonth() + 1}`;
 }
 
-async function openDaily() {
-  const dd = dailyToday();
+/** La sfida di un giorno qualsiasi, con la stessa formula di `dailyToday`. */
+function dailyOf(day) {
+  if (!S.daily || !S.daily.levels?.length) return null;
+  const n = dayNumber(day) - dayNumber(S.daily.epoch);
+  if (n < 0) return null;
+  const list = S.daily.levels;
+  return { day, entry: list[((n % list.length) + list.length) % list.length],
+           key: Profile.dailyKey(day) };
+}
+
+/** Elenco di tutte le sfide esistite, dalla piu' recente. */
+function dailyArchive() {
+  const oggi = todayString();
+  const primo = dayNumber(S.daily?.epoch || oggi);
+  const out = [];
+  for (let d = dayNumber(oggi); d >= primo; d--) out.push(dayString(d));
+  return out;
+}
+
+function renderArchive() {
+  if (!S.daily) return renderZones();
+  S.view = "archive";
+  stopTimer();
+  const oggi = todayString();
+  const righe = dailyArchive().map((day) => {
+    const dd = dailyOf(day);
+    if (!dd) return "";
+    const fatta = Profile.solved(dd.key);
+    const best = Profile.best(dd.key);
+    const recuperabile = day !== oggi && !fatta;
+    const sbloccata = !recuperabile || Profile.isRecovered(day);
+    const stato = fatta ? `<span class="ar-done">${t().archiveDone}</span>`
+      : day === oggi ? `<span class="ar-today">${t().archiveToday}</span>`
+      : sbloccata ? `<span class="ar-open">${t().recovered}</span>`
+      : `<span class="ar-missed">${t().archiveMissed}</span>`;
+    return `<div class="ar-row ${fatta ? "done" : ""}" data-day="${day}">
+      <div class="ar-day">${dailyLabel(day)}</div>
+      <div class="ar-meta">${dd.entry.size}×${dd.entry.size}${
+        best != null ? " · ⏱ " + fmtTime(best) : ""}</div>
+      <div class="ar-state">${stato}</div>
+      <button class="ar-btn" data-day="${day}" data-lock="${sbloccata ? "" : "1"}">${
+        sbloccata ? t().dailyPlay : t().archiveRecover}</button>
+    </div>`;
+  }).join("");
+
+  app.innerHTML = headerHTML(t().archive, true) + `
+    <div class="home">
+      <h1>${t().archive}</h1>
+      <p class="subtitle">${t().archiveSub}</p>
+      <div class="archive">${righe}</div>
+    </div>`;
+  wireHeader(renderZones);
+  document.querySelectorAll(".ar-btn").forEach((el) => el.onclick = () => {
+    const day = el.dataset.day;
+    if (!el.dataset.lock) return openDaily(day);
+    // qui andra' il video pubblicitario: per ora sblocca subito, cosi' il
+    // flusso e' provabile end-to-end (stessa scelta fatta per gli aiuti)
+    modal(t().recoverTitle, t().recoverBody, [
+      [t().archiveRecover, () => { Profile.recover(day); renderArchive(); }],
+      [t().cancel, () => {}],
+    ]);
+  });
+}
+
+async function openDaily(day) {
+  const dd = day ? dailyOf(day) : dailyToday();
   if (!dd) return;
   S.zone = { id: "daily", name_it: t().daily, name_en: t().daily,
              levels: [], daily: true };
@@ -195,6 +295,8 @@ async function openDaily() {
   S.placements = {}; S.candidates = {}; S.marks = new Set();
   S.selected = null; S.history = []; S.wrong = new Set();
   S.tutStep = 0; S.tutFlash = false;
+  S.base = Profile.run("daily:" + S.level.id);
+  restoreDraft("daily:" + S.level.id);
   S.t0 = Date.now();
   renderGame();
   startTimer();
@@ -217,7 +319,8 @@ function dailyCardHTML() {
       ? `<span class="dc-done">${t().dailyDone}</span>
          <span class="dc-time">${fmtTime(best)}</span>`
       : `<span class="dc-play">${t().dailyPlay} ▶</span>`}</div>
-  </div>`;
+  </div>
+  <button class="archive-link" id="archiveBtn">${t().archiveOpen}</button>`;
 }
 
 // tutte le mappe (livelli + tutorial) di una zona, per lookup e "prossimo"
@@ -280,6 +383,17 @@ function renderProfile() {
   const u = Profile.user;
   const name = Profile.data.name || u?.name || t().pGuest;
 
+  const bl = Badges.list(S.zones);
+  const presi = bl.filter((b) => b.ok).length;
+  const badgeBlock = `<div class="pcard badges">
+      <h2>${t().badges} <span class="bg-count">${t().badgesSub(presi, bl.length)}</span></h2>
+      <div class="bg-grid">${bl.map(({ def, ok }) => `
+        <div class="bg ${ok ? "on" : ""}" title="${S.lang === "it" ? def.itDesc : def.enDesc}">
+          <span class="bg-ico">${ok ? def.icon : "🔒"}</span>
+          <span class="bg-nm">${S.lang === "it" ? def.it : def.en}</span>
+        </div>`).join("")}</div>
+    </div>`;
+
   const stat = (label, value) =>
     `<div class="pstat"><div class="pv">${value}</div><div class="pl">${label}</div></div>`;
 
@@ -330,13 +444,15 @@ function renderProfile() {
         </div>
         <button id="renameBtn" class="plink">${t().pRename}</button>
       </div>
+      ${badgeBlock}
       <div class="pstats">
         ${stat(t().pSolved, `${tot.solved}<small>/${tot.available}</small>`)}
         ${stat(t().pTime, fmtTime(tot.totalMs))}
         ${stat(t().pAvg, tot.timed ? fmtTime(tot.avgMs) : "—")}
       </div>
       ${dl.solved || dl.streak ? `<div class="pcard"><h2>${t().pDaily}</h2>
-        <div class="pstats">
+        ${badgeBlock}
+      <div class="pstats">
           ${stat(t().pDaily, dl.solved)}
           ${stat(t().pStreak, dl.streak ? "🔥 " + dl.streak : "—")}
           ${stat(t().pBestStreak, dl.bestStreak || "—")}
@@ -390,8 +506,10 @@ function renderZones() {
       <div class="zone-grid">${cards}${soon}</div>
     </div>`;
   wireHeader();
+  const ab = $("#archiveBtn");
+  if (ab) ab.onclick = renderArchive;
   const dc = $("#dailyCard");
-  if (dc) dc.onclick = openDaily;
+  if (dc) dc.onclick = () => openDaily();
   document.querySelectorAll(".zone-card[data-zone]").forEach((el) =>
     el.onclick = () => renderLevels(S.zones.find((z) => z.id === el.dataset.zone)));
 }
@@ -428,20 +546,45 @@ function renderLevels(zone) {
       ${l.rating ? `<span class="rating" title="${t().ratingTip}">${l.rating}</span>` : ""}
     </div>`;
   };
-  // Lista a pagine. Con 100 casi per zona la pagina unica diventava lunga
-  // migliaia di pixel: scomoda da scorrere e inutilmente pesante da disegnare.
-  // La pagina scelta si ricorda per zona (S.pages), cosi' tornando da un caso
-  // si riatterra dove si era; la prima volta si apre sulla pagina del primo
-  // caso ancora da risolvere, che e' quasi sempre quella che serve.
-  const pages = Math.max(1, Math.ceil(base.length / PAGE_SIZE));
-  if (S.pages[zone.id] == null) {
-    const nextIdx = base.findIndex((l) => !isDone(key(l.id)));
-    S.pages[zone.id] = nextIdx < 0 ? 0 : Math.floor(nextIdx / PAGE_SIZE);
+
+  // Fasce: i casi crescono di griglia, e mescolare un 6x6 e un 14x14 nella
+  // stessa lista non aiuta nessuno. L'ordine e' quello degli id, che dopo la
+  // rinumerazione e' gia' per difficolta' crescente.
+  const bandsOrder = ["principiante", "medio", "esperto", "maestro"];
+  const byBand = {};
+  for (const l of base) (byBand[l.band || "principiante"] ??= []).push(l);
+  const bandDone = (b) => (byBand[b] || []).every((l) => isDone(key(l.id)));
+  // i bonus si aprono chiudendo le due fasce piu' toste
+  const unlocked = bandDone("esperto") && bandDone("maestro");
+
+  if (S.bands[zone.id] == null || !byBand[S.bands[zone.id]]) {
+    // si apre sulla prima fascia non ancora finita
+    S.bands[zone.id] = bandsOrder.find((b) => byBand[b]?.length && !bandDone(b))
+                       || bandsOrder.find((b) => byBand[b]?.length);
   }
-  const page = Math.min(S.pages[zone.id], pages - 1);
-  S.pages[zone.id] = page;
-  const from = page * PAGE_SIZE;
-  const shown = base.slice(from, from + PAGE_SIZE);
+  const band = S.bands[zone.id];
+  const inBand = byBand[band] || [];
+
+  const tabs = bandsOrder.filter((b) => byBand[b]?.length).map((b) => {
+    const list = byBand[b];
+    const done = list.filter((l) => isDone(key(l.id))).length;
+    return `<button class="band-tab ${b === band ? "on" : ""} ${
+      done === list.length ? "full" : ""}" data-band="${b}">
+      <span class="bt-name">${t().bands[b]}</span>
+      <span class="bt-n">${done}/${list.length}</span>
+    </button>`;
+  }).join("");
+
+  // dentro la fascia la paginazione resta, ma quasi sempre basta una pagina
+  const pages = Math.max(1, Math.ceil(inBand.length / PAGE_SIZE));
+  const pkey = zone.id + ":" + band;
+  if (S.pages[pkey] == null) {
+    const nextIdx = inBand.findIndex((l) => !isDone(key(l.id)));
+    S.pages[pkey] = nextIdx < 0 ? 0 : Math.floor(nextIdx / PAGE_SIZE);
+  }
+  const page = Math.min(S.pages[pkey], pages - 1);
+  S.pages[pkey] = page;
+  const shown = inBand.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
   cards += shown.map((l) => cardFor(l, false)).join("");
 
   let pager = "";
@@ -456,29 +599,30 @@ function renderLevels(zone) {
         t().pgRange(shown[0].id, shown[shown.length - 1].id)}</div>
     </div>`;
   }
-  // casi bonus: le griglie piu' grandi, in fondo, chiuse finche' la zona
-  // non e' completata
+
   let bonusBlock = "";
   if (bonus.length) {
-    const left = base.filter((l) => !isDone(key(l.id))).length;
-    const unlocked = left === 0;
     bonusBlock = `<div class="bonus-sec ${unlocked ? "open" : ""}">
       <h2>${t().bonusTitle} ${unlocked ? `<span class="ok">${t().bonusUnlocked}</span>` : ""}</h2>
-      <p class="subtitle">${unlocked ? "" : t().bonusHow(base.length)}</p>
+      <p class="subtitle">${unlocked ? "" : t().bandLocked}</p>
       <div class="level-grid">${bonus.map((l) => cardFor(l, !unlocked)).join("")}</div>
     </div>`;
   }
+
   app.innerHTML = headerHTML(S.lang === "it" ? zone.name_it : zone.name_en, true) + `
     <div class="home">
       <h1>${S.lang === "it" ? zone.name_it : zone.name_en}</h1>
       <p class="subtitle">${S.lang === "it" ? zone.subtitle_it : zone.subtitle_en}</p>
+      <div class="band-tabs">${tabs}</div>
       <div class="level-grid">${cards}</div>
       ${pager}
       ${bonusBlock}
     </div>`;
   wireHeader(renderZones);
+  document.querySelectorAll(".band-tab").forEach((el) =>
+    el.onclick = () => { S.bands[zone.id] = el.dataset.band; renderLevels(zone); });
   const goPage = (p) => {
-    S.pages[zone.id] = Math.max(0, Math.min(p, pages - 1));
+    S.pages[pkey] = Math.max(0, Math.min(p, pages - 1));
     renderLevels(zone);
     // si riparte dall'inizio della lista: restare a meta' pagina dopo aver
     // cambiato pagina disorienta
@@ -491,7 +635,7 @@ function renderLevels(zone) {
   document.querySelectorAll(".level-card").forEach((el) =>
     el.onclick = () => {
       if (el.classList.contains("locked")) {
-        modal(t().bonusTitle, t().bonusHow(base.length), [[t().ok, () => {}]]);
+        modal(t().bonusTitle, t().bandLocked, [[t().ok, () => {}]]);
         return;
       }
       openLevel(zone, +el.dataset.id);
@@ -510,19 +654,55 @@ async function openLevel(zone, id) {
   S.wrong = new Set();
   S.tutStep = 0;
   S.tutFlash = false;
+  S.base = Profile.run(zone.id + ":" + S.level.id);
+  restoreDraft(zone.id + ":" + S.level.id);
   S.t0 = Date.now();
   renderGame();
   startTimer();
 }
 
 /* ---------------- game ---------------- */
+/** Chiave con cui questo caso salva progressi e tempo accumulato. */
+function levelKey() { return S.zone ? S.zone.id + ":" + S.level.id : null; }
+
+/** Millisecondi giocati su questo caso, comprese le sessioni precedenti. */
+function elapsedNow() {
+  return (S.base || 0) + (S.t0 ? Date.now() - S.t0 : 0);
+}
+
+/** Mette via il tempo accumulato: uscendo il cronometro non riparte da zero
+ *  al rientro, ma nemmeno continua a correre mentre sei altrove. */
+function pauseRun() {
+  const k = levelKey();
+  if (k && S.t0) {
+    Profile.saveRun(k, elapsedNow(), {
+      pl: S.placements,
+      ca: S.candidates,
+      mk: [...S.marks],
+    });
+  }
+  stopTimer();
+  S.t0 = null;
+}
+
+/** Rimette in griglia quello che c'era quando si e' usciti. */
+function restoreDraft(key) {
+  const st = Profile.draft(key);
+  if (!st) return;
+  S.placements = st.pl || {};
+  S.candidates = st.ca || {};
+  S.marks = new Set(st.mk || []);
+}
+
 function startTimer() {
   stopTimer();
   S.timerInt = setInterval(() => {
-    const s = Math.floor((Date.now() - S.t0) / 1000);
+    const s = Math.floor(elapsedNow() / 1000);
+    const txt = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
     const el = $("#timer");
-    if (el) el.textContent =
-      `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+    if (el) el.textContent = txt;
+    const big = $("#bigTimer");
+    if (big) big.textContent = txt;
   }, 500);
 }
 function stopTimer() { if (S.timerInt) clearInterval(S.timerInt); S.timerInt = null; }
@@ -745,6 +925,10 @@ function renderGame() {
         border:2px solid #c9cdde;background:#fff;cursor:pointer">${t().back}</button>
     </div>
     <div class="board-zone">
+      <div class="playbar">
+        <span class="pb-name">${nm}</span>
+        <span class="pb-timer" id="bigTimer">${fmtTime(elapsedNow())}</span>
+      </div>
       ${mobileGenBar}
       <div class="board-wrap">
         <div class="board" style="--n:${L.size};grid-template-columns:repeat(${L.size},var(--cs))">
@@ -758,6 +942,7 @@ function renderGame() {
         <button id="mErase" class="${S.mode === "erase" ? "active" : ""}">🧹<span>${t().mErase}</span></button>
         <button id="mUndo" ${S.history.length ? "" : "disabled"}>↩<span>${t().mUndo}</span></button>
         <button id="mHint">💡<span>${t().mHint} (${Hints.balance(S.zones)})</span></button>
+        <button id="mReset">↺<span>${t().resetLevel.replace("↺ ", "")}</span></button>
       </div>
       <div class="mstrip">${strip}</div>
       <div class="mclue ${S.selected !== null && L.clues.find((c) => c.suspect === S.selected).victim ? "victim" : ""}">${selClue}</div>
@@ -766,6 +951,7 @@ function renderGame() {
     <div class="tools">
       <button id="pencilBtn" class="${S.mode === "pencil" ? "mode-active" : ""}">${S.mode === "pencil" ? t().pencilOn : t().pencilOff}</button>
       <button id="clearBtn">${t().clear}</button>
+      <button id="resetBtn">${t().resetLevel}</button>
       <button id="undoBtn" ${S.history.length ? "" : "disabled"}>${t().undo}</button>
       <button id="hintBtn">${t().hint} (${Hints.balance(S.zones)})</button>
       <button id="submitBtn" class="primary" ${allPlaced ? "" : "disabled"}>
@@ -811,6 +997,8 @@ function renderGame() {
     S.placements = {}; S.candidates = {}; S.marks.clear(); S.wrong.clear(); renderGame();
   };
   $("#undoBtn").onclick = undo;
+  $("#resetBtn").onclick = resetLevel;
+  $("#mReset").onclick = resetLevel;
   $("#hintBtn").onclick = hint;
   $("#submitBtn").onclick = submit;
 
@@ -822,9 +1010,18 @@ function renderGame() {
 }
 
 /** Uscita dal gioco: la sfida quotidiana torna alle zone, i casi ai livelli. */
-function leaveGame() {
-  if (S.zone?.daily) renderZones();
-  else renderLevels(S.zone);
+/** Uscita dal caso. Il tempo si ferma e resta da parte, i progressi no: e'
+ *  esattamente quello che il messaggio promette, quindi va detto. */
+function leaveGame(skipAsk) {
+  const esci = () => {
+    pauseRun();
+    if (S.zone?.daily) renderZones();
+    else renderLevels(S.zone);
+  };
+  const iniziato = Object.keys(S.placements).length || Object.keys(S.candidates).length
+                   || S.marks.size;
+  if (skipAsk === true || !iniziato) return esci();
+  modal(t().leaveTitle, t().leaveBody, [[t().leaveOk, esci], [t().stay, () => {}]]);
 }
 
 /** Etichetta al volo col nome dell'oggetto toccato: gli indizi lo chiamano
@@ -1026,6 +1223,19 @@ function hintShop() {
   };
 }
 
+/** Svuota la griglia ma NON il cronometro: ricominciare il ragionamento non
+ *  vuol dire non aver speso quel tempo. */
+function resetLevel() {
+  modal(t().resetTitle, t().resetBody, [
+    [t().resetOk, () => {
+      S.placements = {}; S.candidates = {}; S.marks = new Set();
+      S.selected = null; S.history = []; S.wrong = new Set();
+      renderGame();
+    }],
+    [t().cancel, () => {}],
+  ]);
+}
+
 function submit() {
   const L = S.level;
   S.wrong = new Set();
@@ -1034,8 +1244,9 @@ function submit() {
     if (!p || p[0] !== s[0] || p[1] !== s[1]) S.wrong.add(i);
   });
   if (S.wrong.size === 0) {
+    const ms = elapsedNow() || null;
     stopTimer();
-    const ms = S.t0 ? Date.now() - S.t0 : null;
+    S.t0 = null;
     const rec = Profile.recordSolve(S.zone.id + ":" + L.id, ms ?? 0);
     const m = L.suspects[L.murderer].name;
     const ids = zoneLevelList(S.zone).map((l) => l.id);
