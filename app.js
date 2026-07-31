@@ -142,7 +142,7 @@ Profile.onChange = () => {
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "34";
+const BUILD = "35";
 
 async function boot() {
   S.index = await (await fetch("levels/index.json?v=" + BUILD)).json();
@@ -217,6 +217,12 @@ function zoneLevelList(zone) {
 }
 
 /* ---------------- header ---------------- */
+// L'emoji 👤 la colora il sistema operativo e non si puo' rendere bianca:
+// serve un disegno nostro, che prende il colore dal bottone (currentColor).
+const PERSON_ICON = `<svg class="picon" viewBox="0 0 24 24" aria-hidden="true">
+  <circle cx="12" cy="8" r="4"/>
+  <path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>`;
+
 function headerHTML(sub, backTo) {
   return `<header>
     ${backTo ? `<button class="hback" id="hback">‹</button>` : ""}
@@ -229,7 +235,7 @@ function headerHTML(sub, backTo) {
     <button class="hprofile" id="hprofile" title="${t().profile}">${
       Profile.user?.photo
         ? `<img src="${Profile.user.photo}" alt="">`
-        : "👤"}</button>
+        : PERSON_ICON}</button>
     <select id="langSel">
       <option value="it" ${S.lang === "it" ? "selected" : ""}>Italiano</option>
       <option value="en" ${S.lang === "en" ? "selected" : ""}>English</option>
@@ -601,7 +607,11 @@ function renderGame() {
           `background-position:calc(var(--cs) * ${-c}) calc(var(--cs) * ${-r});`
         : "";
       const fname = f ? (S.lang === "it" ? ASSETS[f.asset].it : ASSETS[f.asset].en) : "";
-      cells += `<div class="cell floor-${def.key} ${blocked ? "blocked" : ""} ${sid !== null && f ? "has-pawn-on-object" : ""} ${provisional.length ? "has-pencils" : ""}" data-r="${r}" data-c="${c}"
+      // le ipotesi del sospettato selezionato: sulle griglie grandi le
+      // faccine sono minuscole e si perdono, quindi la cella intera si
+      // accende del verde della carta selezionata
+      const mine = S.selected !== null && provisional.includes(S.selected);
+      cells += `<div class="cell floor-${def.key} ${blocked ? "blocked" : ""} ${sid !== null && f ? "has-pawn-on-object" : ""} ${provisional.length ? "has-pencils" : ""} ${mine ? "cand-sel" : ""}" data-r="${r}" data-c="${c}"
         ${fname ? `title="${fname}"` : ""}
         style="--floor:${def.color};background-color:${def.color};${texStyle}
         border-top:${bw(bT)};border-left:${bw(bL)};

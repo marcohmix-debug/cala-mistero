@@ -344,11 +344,22 @@ header select {
 .suspect-card .txt .clue { font-size: 12.5px; color: #334; margin-top: 2px; }
 
 /* board */
-.board-wrap { display: flex; justify-content: center; overflow-x: auto; }
+.board-wrap {
+  display: flex; justify-content: center; overflow-x: auto;
+  /* la cella si misura su QUESTO contenitore (100cqi), non sul viewport:
+     con 100vw bisognava indovinare a mano quanto tolgono padding, bordi e
+     safe-area, e bastava sbagliare di pochi pixel perche' la griglia uscisse
+     dallo schermo. Cosi' invece il conto e' esatto su ogni dispositivo. */
+  container-type: inline-size;
+}
 .board {
-  /* dimensione cella fluida: si adatta a larghezza E altezza del viewport.
-     --n (numero colonne) arriva dall'inline style */
-  --cs: clamp(30px, min(calc((100vw - 560px) / var(--n, 6)),
+  /* dimensione cella fluida: si adatta alla larghezza del contenitore E
+     all'altezza del viewport. --n (numero colonne) arriva dall'inline style;
+     --bx e' quanto si mangiano bordo e padding della griglia stessa. */
+  /* bordo (4px per lato) piu' l'anello mint del tema, che sta fuori dal bordo
+     e verrebbe tagliato dallo scorrimento se non gli si lasciasse il posto */
+  --bx: 12px;
+  --cs: clamp(30px, min(calc((100cqi - var(--bx)) / var(--n, 6)),
                         calc((100vh - 180px) / var(--n, 6))), 78px);
   display: grid;
   border: 4px solid #101420;
@@ -359,7 +370,7 @@ header select {
 }
 @media (max-width: 980px) {
   .board {
-    --cs: clamp(26px, min(calc((100vw - 34px) / var(--n, 6)),
+    --cs: clamp(26px, min(calc((100cqi - var(--bx)) / var(--n, 6)),
                           calc((100vh - 400px) / var(--n, 6))), 78px);
   }
 }
@@ -814,7 +825,7 @@ header select {
 }
 
 .board {
-  --cs: clamp(30px, min(calc((100vw - 590px) / var(--n, 6)),
+  --cs: clamp(30px, min(calc((100cqi - var(--bx)) / var(--n, 6)),
                         calc((100vh - 210px) / var(--n, 6))), 82px);
   overflow: hidden;
   border-radius: 11px;
@@ -895,7 +906,8 @@ header select {
   }
 
   .board {
-    --cs: clamp(24px, min(calc((100vw - 30px) / var(--n, 6)),
+    --bx: 10px;              /* qui il bordo e' 3px per lato */
+    --cs: clamp(24px, min(calc((100cqi - var(--bx)) / var(--n, 6)),
                           calc((100svh - 350px) / var(--n, 6))), 72px);
     border-width: 3px;
     border-radius: 8px;
@@ -984,7 +996,7 @@ header select {
 
   .board-wrap { justify-content: flex-start; }
   .board {
-    --cs: clamp(22px, calc((100vw - 31px) / var(--n, 6)), 60px);
+    --cs: clamp(22px, calc((100cqi - var(--bx)) / var(--n, 6)), 60px);
     flex: 0 0 auto;
   }
 
@@ -1439,7 +1451,7 @@ button:active {
   }
 
   .game.large-grid .board {
-    --cs: clamp(24px, min(calc((100vw - 690px) / var(--n, 12)),
+    --cs: clamp(24px, min(calc((100cqi - var(--bx)) / var(--n, 12)),
                           calc((100svh - 135px) / var(--n, 12))), 54px);
   }
 
@@ -1534,6 +1546,15 @@ header .hprofile {
   display: flex; align-items: center; justify-content: center;
 }
 header .hprofile img { width: 100%; height: 100%; object-fit: cover; }
+header .hprofile .picon {
+  width: 60%; height: 60%;
+  color: #fff;                 /* l'icona e' bianca, non del colore del bottone */
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+header .hprofile .picon path { fill: none; }
 
 .profile-wrap { max-width: 720px; margin: 26px auto 60px; padding: 0 16px; }
 .profile-wrap h1 { font-size: 26px; color: #fff; margin: 0; }
@@ -2120,6 +2141,29 @@ header .hinstall[hidden] { display: none; }
   box-shadow: 0 0 0 2px var(--mint), 0 10px 0 #03101b, 0 18px 36px rgba(0,8,18,.5);
 }
 
+/* Ipotesi del sospettato selezionato: cornice dello stesso verde della sua
+   carta, che pulsa piano. Il riquadro e' `inset`, non `outline`, perche' la
+   griglia ha `overflow: hidden` e un contorno esterno verrebbe tagliato sui
+   bordi. Anima solo il box-shadow: niente reflow a ogni fotogramma. */
+.cell.cand-sel {
+  z-index: 3;
+  animation: candPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes candPulse {
+  0%, 100% { box-shadow: inset 0 0 0 3px var(--lime), inset 0 0 12px rgba(183,245,91,.25); }
+  50%      { box-shadow: inset 0 0 0 3px rgba(183,245,91,.45), inset 0 0 4px rgba(183,245,91,.12); }
+}
+
+/* chi ha chiesto meno animazioni si tiene la cornice ferma, non nessuna
+   cornice: qui l'informazione sta nel riquadro, non nel lampeggio */
+@media (prefers-reduced-motion: reduce) {
+  .cell.cand-sel {
+    animation: none;
+    box-shadow: inset 0 0 0 3px var(--lime);
+  }
+}
+
 .cell .pawn {
   border-color: #071523;
   box-shadow: 0 3px 0 #071523, 0 0 0 2px rgba(183,245,91,.8);
@@ -2165,12 +2209,21 @@ header .hinstall[hidden] { display: none; }
   box-shadow: 0 5px 0 #071523;
 }
 
-.profile-wrap .phead,
 .profile-wrap .pcard,
 .profile-wrap .pstat {
   background: rgba(8, 34, 50, .86);
   border-color: rgba(99,239,208,.28);
   box-shadow: 0 10px 28px rgba(0,8,18,.32);
+}
+
+/* il nome del detective sta sullo sfondo della pagina: il riquadro sotto
+   faceva a pugni con le schede vere sotto di lui */
+.profile-wrap .phead {
+  background: none;
+  border: 0;
+  box-shadow: none;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .profile-wrap .pv,
