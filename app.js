@@ -53,6 +53,9 @@ const I18N = {
     bonusTitle: "Casi bonus", bonusLocked: "🔒 Bloccato",
     bonusHow: (n) => `Risolvi tutti i ${n} casi della zona per sbloccare le 5 griglie più grandi.`,
     bonusUnlocked: "Sbloccati!",
+    pgPrev: "‹ Precedenti", pgNext: "Successivi ›",
+    pgOf: (a, b) => `Pagina ${a} di ${b}`,
+    pgRange: (a, b) => `Casi ${a}–${b}`,
   },
   en: {
     suspects: "Suspects",
@@ -105,6 +108,9 @@ const I18N = {
     bonusTitle: "Bonus cases", bonusLocked: "🔒 Locked",
     bonusHow: (n) => `Solve all ${n} cases in the zone to unlock the 5 largest grids.`,
     bonusUnlocked: "Unlocked!",
+    pgPrev: "‹ Previous", pgNext: "Next ›",
+    pgOf: (a, b) => `Page ${a} of ${b}`,
+    pgRange: (a, b) => `Cases ${a}–${b}`,
   },
 };
 
@@ -125,7 +131,11 @@ const S = {
   mode: "place",           // place | pencil | cross | erase
   t0: null, timerInt: null,
   profileBack: "zones",    // dove torna il ‹ dal profilo
+  pages: {},               // zona -> pagina della lista casi
 };
+
+// casi per pagina nella lista di una zona (4 colonne x 6 righe da desktop)
+const PAGE_SIZE = 24;
 
 const $ = (sel) => document.querySelector(sel);
 const t = () => I18N[S.lang];
@@ -142,7 +152,7 @@ Profile.onChange = () => {
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "36";
+const BUILD = "37";
 
 async function boot() {
   S.index = await (await fetch("levels/index.json?v=" + BUILD)).json();
@@ -415,7 +425,34 @@ function renderLevels(zone) {
         <span class="difftext">${bt != null ? "⏱ " + fmtTime(bt) : t().diff[df]}</span></div>
     </div>`;
   };
-  cards += base.map((l) => cardFor(l, false)).join("");
+  // Lista a pagine. Con 100 casi per zona la pagina unica diventava lunga
+  // migliaia di pixel: scomoda da scorrere e inutilmente pesante da disegnare.
+  // La pagina scelta si ricorda per zona (S.pages), cosi' tornando da un caso
+  // si riatterra dove si era; la prima volta si apre sulla pagina del primo
+  // caso ancora da risolvere, che e' quasi sempre quella che serve.
+  const pages = Math.max(1, Math.ceil(base.length / PAGE_SIZE));
+  if (S.pages[zone.id] == null) {
+    const nextIdx = base.findIndex((l) => !isDone(key(l.id)));
+    S.pages[zone.id] = nextIdx < 0 ? 0 : Math.floor(nextIdx / PAGE_SIZE);
+  }
+  const page = Math.min(S.pages[zone.id], pages - 1);
+  S.pages[zone.id] = page;
+  const from = page * PAGE_SIZE;
+  const shown = base.slice(from, from + PAGE_SIZE);
+  cards += shown.map((l) => cardFor(l, false)).join("");
+
+  let pager = "";
+  if (pages > 1) {
+    const dots = Array.from({ length: pages }, (_, i) =>
+      `<button class="pg-dot ${i === page ? "on" : ""}" data-page="${i}">${i + 1}</button>`).join("");
+    pager = `<div class="pager">
+      <button class="pg-arrow" id="pgPrev" ${page === 0 ? "disabled" : ""}>${t().pgPrev}</button>
+      <div class="pg-dots">${dots}</div>
+      <button class="pg-arrow" id="pgNext" ${page === pages - 1 ? "disabled" : ""}>${t().pgNext}</button>
+      <div class="pg-info">${t().pgOf(page + 1, pages)} · ${
+        t().pgRange(shown[0].id, shown[shown.length - 1].id)}</div>
+    </div>`;
+  }
   // casi bonus: le griglie piu' grandi, in fondo, chiuse finche' la zona
   // non e' completata
   let bonusBlock = "";
@@ -433,9 +470,21 @@ function renderLevels(zone) {
       <h1>${S.lang === "it" ? zone.name_it : zone.name_en}</h1>
       <p class="subtitle">${S.lang === "it" ? zone.subtitle_it : zone.subtitle_en}</p>
       <div class="level-grid">${cards}</div>
+      ${pager}
       ${bonusBlock}
     </div>`;
   wireHeader(renderZones);
+  const goPage = (p) => {
+    S.pages[zone.id] = Math.max(0, Math.min(p, pages - 1));
+    renderLevels(zone);
+    // si riparte dall'inizio della lista: restare a meta' pagina dopo aver
+    // cambiato pagina disorienta
+    document.querySelector(".level-grid")?.scrollIntoView({ block: "start" });
+  };
+  $("#pgPrev")?.addEventListener("click", () => goPage(page - 1));
+  $("#pgNext")?.addEventListener("click", () => goPage(page + 1));
+  document.querySelectorAll(".pg-dot").forEach((el) =>
+    el.onclick = () => goPage(+el.dataset.page));
   document.querySelectorAll(".level-card").forEach((el) =>
     el.onclick = () => {
       if (el.classList.contains("locked")) {
