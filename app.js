@@ -142,7 +142,7 @@ Profile.onChange = () => {
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "33";
+const BUILD = "34";
 
 async function boot() {
   S.index = await (await fetch("levels/index.json?v=" + BUILD)).json();
@@ -224,6 +224,8 @@ function headerHTML(sub, backTo) {
     <div class="sub">${sub || ""}</div>
     <div class="spacer"></div>
     <span id="timer"></span>
+    <button class="hinstall" id="hinstall" hidden
+      title="${S.lang === "it" ? "Installa l'app" : "Install app"}">⇩</button>
     <button class="hprofile" id="hprofile" title="${t().profile}">${
       Profile.user?.photo
         ? `<img src="${Profile.user.photo}" alt="">`
@@ -246,6 +248,7 @@ function wireHeader(backFn) {
   if (hb && backFn) hb.onclick = backFn;
   const hp = $("#hprofile");
   if (hp) hp.onclick = renderProfile;
+  wireInstallButton();
 }
 
 /* ---------------- profilo ---------------- */
@@ -1013,5 +1016,53 @@ window.addEventListener("resize", () => {
   clearTimeout(_rsz);
   _rsz = setTimeout(() => { if (S.view === "game") renderGame(); }, 150);
 });
+
+/* ---------------- installable app ---------------- */
+let installPrompt = null;
+
+function isStandalone() {
+  return window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true;
+}
+
+function wireInstallButton() {
+  const btn = $("#hinstall");
+  if (!btn) return;
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  btn.hidden = isStandalone() || (!installPrompt && !ios);
+  btn.onclick = async () => {
+    if (installPrompt) {
+      installPrompt.prompt();
+      await installPrompt.userChoice;
+      installPrompt = null;
+      wireInstallButton();
+      return;
+    }
+    modal(
+      S.lang === "it" ? "Installa SUSoku" : "Install SUSoku",
+      S.lang === "it"
+        ? "In Safari tocca Condividi, poi “Aggiungi alla schermata Home”."
+        : "In Safari tap Share, then “Add to Home Screen”.",
+      [["OK", () => {}]]
+    );
+  };
+}
+
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  installPrompt = event;
+  wireInstallButton();
+});
+
+window.addEventListener("appinstalled", () => {
+  installPrompt = null;
+  wireInstallButton();
+});
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js?v=" + BUILD).catch(() => {});
+  });
+}
 
 boot();
