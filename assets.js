@@ -160,6 +160,26 @@ const FLOOR_IMG = {
   giardino_i: "assets/floors/giardino_i.jpg",
   biliardo_s: "assets/floors/biliardo_s.jpg",
   cantina:    "assets/floors/cantina.jpg",
+
+  /* natale */
+  officina:   "assets/floors/officina.jpg",
+  stalla:     "assets/floors/stalla.jpg",
+  cucina_nat: "assets/floors/cucina_nat.jpg",
+  magazzino:  "assets/floors/magazzino.jpg",
+  salotto:    "assets/floors/salotto.jpg",
+  ufficio:    "assets/floors/ufficio.jpg",
+  giardino:   "assets/floors/giardino.jpg",
+  lettere:    "assets/floors/lettere.jpg",
+
+  /* egitto */
+  camera_faraone: "assets/floors/camera_faraone.jpg",
+  offerte:        "assets/floors/offerte.jpg",
+  corridoio:      "assets/floors/corridoio.jpg",
+  tesoro:         "assets/floors/tesoro.jpg",
+  cripta:         "assets/floors/cripta.jpg",
+  colonne:        "assets/floors/colonne.jpg",
+  cortile_t:      "assets/floors/cortile_t.jpg",
+  granaio:        "assets/floors/granaio.jpg",
 };
 
 const AVATAR_COLORS = ["#7c5cbf", "#2e8b6e", "#c05a5a", "#3b7bbf",
