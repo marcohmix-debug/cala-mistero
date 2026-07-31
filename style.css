@@ -32,8 +32,7 @@ header {
   align-items: center;
   gap: 12px;
   padding: 10px 16px;
-  background: rgba(15, 11, 33, .82);
-  backdrop-filter: blur(6px);
+  background: rgba(15, 11, 33, .95);
   border-bottom: 1px solid rgba(166, 97, 226, .35);
   position: sticky; top: 0; z-index: 20;
 }
@@ -594,10 +593,9 @@ button:focus-visible, select:focus-visible, .zone-card:focus-visible,
 header {
   min-height: 64px;
   padding: 10px clamp(14px, 3vw, 38px);
-  background: rgba(9, 6, 23, .78);
+  background: rgba(9, 6, 23, .95);
   border-bottom: 1px solid var(--line);
   box-shadow: 0 8px 28px rgba(3, 2, 12, .16);
-  backdrop-filter: blur(16px) saturate(1.2);
 }
 
 header .logo {
@@ -1934,10 +1932,14 @@ body::before {
 header {
   min-height: calc(58px + env(safe-area-inset-top));
   padding: calc(8px + env(safe-area-inset-top)) clamp(11px, 3vw, 34px) 8px;
-  background: rgba(5, 20, 34, .88);
+  /* Fondo QUASI opaco invece di `backdrop-filter: blur()`. L'header e' sticky:
+     con la sfocatura il telefono deve rifare il blur di quello che ci scorre
+     dietro a OGNI fotogramma, ed e' la causa classica dello scorrimento a
+     scatti. A .96 di opacita' la differenza a occhio e' minima, il costo per
+     fotogramma sparisce. Stesso motivo per .board-wrap piu' sotto. */
+  background: rgba(5, 20, 34, .96);
   border-bottom: 1px solid rgba(99,239,208,.28);
   box-shadow: 0 8px 28px rgba(0,8,18,.32);
-  backdrop-filter: blur(18px) saturate(1.25);
 }
 
 header .logo {
@@ -2093,10 +2095,9 @@ header .hinstall[hidden] { display: none; }
 .suspects,
 .tools,
 .board-wrap {
-  background: rgba(5, 23, 38, .78);
+  background: rgba(5, 23, 38, .93);
   border-color: rgba(99,239,208,.28);
   box-shadow: 0 12px 34px rgba(0,8,18,.35);
-  backdrop-filter: blur(10px);
 }
 
 .suspects .hint-line { color: #9fc5c2; }
@@ -2291,7 +2292,7 @@ header .hinstall[hidden] { display: none; }
     border-radius: 20px;
     background: rgba(5, 21, 35, .94);
     box-shadow: 0 12px 36px rgba(0,8,18,.6), inset 0 1px rgba(255,255,255,.06);
-    backdrop-filter: blur(18px) saturate(1.3);
+    /* niente blur: la barra sta ferma sopra la griglia che scorre */
   }
 
   .mbar button {
@@ -2350,4 +2351,36 @@ header .hinstall[hidden] { display: none; }
   body { user-select: none; -webkit-user-select: none; }
   header { position: sticky; top: 0; }
   header .hinstall { display: none !important; }
+}
+
+/* ---------- lista casi a pagine (v37) ---------- */
+.pager {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 8px; margin: 18px 0 4px;
+}
+.pager .pg-arrow {
+  font: inherit; font-weight: 700; font-size: 14px;
+  padding: 9px 14px; border-radius: 13px; cursor: pointer;
+  color: #effffa; background: rgba(14, 60, 75, .72);
+  border: 1px solid rgba(99,239,208,.48);
+}
+.pager .pg-arrow[disabled] { opacity: .38; cursor: default; }
+.pg-dots { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.pg-dot {
+  font: inherit; font-weight: 800; font-size: 13px;
+  min-width: 36px; min-height: 36px; padding: 0 6px;
+  border-radius: 11px; cursor: pointer;
+  color: #d7fff5; background: rgba(99,239,208,.10);
+  border: 1px solid rgba(99,239,208,.28);
+}
+.pg-dot.on {
+  color: #071523; background: var(--lime); border-color: var(--lime);
+}
+/* la riga con "Pagina 2 di 5" va a capo da sola e resta sotto ai comandi */
+.pg-info { flex-basis: 100%; text-align: center; font-size: 13px; color: #a5cbc7; }
+
+@media (max-width: 520px) {
+  .pager { gap: 6px; }
+  .pager .pg-arrow { padding: 8px 11px; font-size: 13px; }
+  .pg-dot { min-width: 34px; min-height: 34px; }
 }
