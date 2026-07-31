@@ -49,64 +49,64 @@ const ASSETS = {
   runa:       { emoji: "✨", cat: "overlay", it: "una runa", en: "a glowing rune", img: "assets/props/runa.png" },
 
   /* --- natale --- */
-  albero:     { emoji: "🎄", cat: "block", it: "un albero di Natale", en: "a Christmas tree" },
-  regalo:     { emoji: "🎁", cat: "block", it: "un regalo", en: "a present" },
-  camino:     { emoji: "🧱", cat: "block", it: "un camino", en: "a fireplace" },
-  slitta:     { emoji: "🛷", cat: "block", it: "una slitta", en: "a sleigh" },
-  pupazzo:    { emoji: "⛄", cat: "block", it: "un pupazzo di neve", en: "a snowman" },
-  calza:      { emoji: "🧦", cat: "block", it: "una calza", en: "a stocking" },
-  biscotti:   { emoji: "🍪", cat: "block", it: "un vassoio di biscotti", en: "a tray of cookies" },
-  campana:    { emoji: "🔔", cat: "block", it: "una campana", en: "a bell" },
-  dondolo:    { emoji: "🪑", cat: "sit", it: "una sedia a dondolo", en: "a rocking chair" },
-  neve:       { emoji: "❄️", cat: "overlay", it: "un cumulo di neve", en: "a snow pile" },
-  nastri:     { emoji: "🎀", cat: "overlay", it: "dei nastri", en: "loose ribbons" },
-  caramelle:  { emoji: "🍬", cat: "overlay", it: "delle caramelle", en: "candy canes" },
-  letterine:  { emoji: "✉️", cat: "overlay", it: "un mucchio di letterine", en: "a pile of letters" },
+  albero:     { emoji: "🎄", cat: "block", it: "un albero di Natale", en: "a Christmas tree", img: "assets/props/albero.png" },
+  regalo:     { emoji: "🎁", cat: "block", it: "un regalo", en: "a present", img: "assets/props/regalo.png" },
+  camino:     { emoji: "🧱", cat: "block", it: "un camino", en: "a fireplace", img: "assets/props/camino.png" },
+  slitta:     { emoji: "🛷", cat: "block", it: "una slitta", en: "a sleigh", img: "assets/props/slitta.png" },
+  pupazzo:    { emoji: "⛄", cat: "block", it: "un pupazzo di neve", en: "a snowman", img: "assets/props/pupazzo.png" },
+  calza:      { emoji: "🧦", cat: "block", it: "una calza", en: "a stocking", img: "assets/props/calza.png" },
+  biscotti:   { emoji: "🍪", cat: "block", it: "un vassoio di biscotti", en: "a tray of cookies", img: "assets/props/biscotti.png" },
+  campana:    { emoji: "🔔", cat: "block", it: "una campana", en: "a bell", img: "assets/props/campana.png" },
+  dondolo:    { emoji: "🪑", cat: "sit", it: "una sedia a dondolo", en: "a rocking chair", img: "assets/props/dondolo.png" },
+  neve:       { emoji: "❄️", cat: "overlay", it: "un cumulo di neve", en: "a snow pile", img: "assets/props/neve.png" },
+  nastri:     { emoji: "🎀", cat: "overlay", it: "dei nastri", en: "loose ribbons", img: "assets/props/nastri.png" },
+  caramelle:  { emoji: "🍬", cat: "overlay", it: "delle caramelle", en: "candy canes", img: "assets/props/caramelle.png" },
+  letterine:  { emoji: "✉️", cat: "overlay", it: "un mucchio di letterine", en: "a pile of letters", img: "assets/props/letterine.png" },
 
   /* --- west --- */
-  bancone:        { emoji: "🍺", cat: "block", it: "un bancone", en: "a bar counter" },
-  pianoforte:     { emoji: "🎹", cat: "block", it: "un pianoforte", en: "a piano" },
-  cavallo:        { emoji: "🐎", cat: "block", it: "un cavallo", en: "a horse" },
-  carro:          { emoji: "🛻", cat: "block", it: "un carro", en: "a wagon" },
-  cassaforte:     { emoji: "🏦", cat: "block", it: "una cassaforte", en: "a safe" },
-  abbeveratoio:   { emoji: "🪣", cat: "block", it: "un abbeveratoio", en: "a water trough" },
-  cactus:         { emoji: "🌵", cat: "block", it: "un cactus", en: "a cactus" },
-  barile_west:    { emoji: "🛢️", cat: "block", it: "un barile di whisky", en: "a whiskey barrel" },
-  cartello:       { emoji: "🪧", cat: "block", it: "un cartellone di taglia", en: "a wanted poster" },
-  sgabello_west:  { emoji: "🪑", cat: "sit", it: "uno sgabello da saloon", en: "a saloon stool" },
-  sputacchiera:   { emoji: "🥃", cat: "overlay", it: "una sputacchiera", en: "a spittoon" },
-  sella:          { emoji: "🐴", cat: "overlay", it: "una sella", en: "a saddle" },
-  fieno:          { emoji: "🌾", cat: "overlay", it: "una balla di fieno", en: "a hay bale" },
+  bancone:        { emoji: "🍺", cat: "block", it: "un bancone", en: "a bar counter", img: "assets/props/bancone.png" },
+  pianoforte:     { emoji: "🎹", cat: "block", it: "un pianoforte", en: "a piano", img: "assets/props/pianoforte.png" },
+  cavallo:        { emoji: "🐎", cat: "block", it: "un cavallo", en: "a horse", img: "assets/props/cavallo.png" },
+  carro:          { emoji: "🛻", cat: "block", it: "un carro", en: "a wagon", img: "assets/props/carro.png" },
+  cassaforte:     { emoji: "🏦", cat: "block", it: "una cassaforte", en: "a safe", img: "assets/props/cassaforte.png" },
+  abbeveratoio:   { emoji: "🪣", cat: "block", it: "un abbeveratoio", en: "a water trough", img: "assets/props/abbeveratoio.png" },
+  cactus:         { emoji: "🌵", cat: "block", it: "un cactus", en: "a cactus", img: "assets/props/cactus.png" },
+  barile_west:    { emoji: "🛢️", cat: "block", it: "un barile di whisky", en: "a whiskey barrel", img: "assets/props/barile_west.png" },
+  cartello:       { emoji: "🪧", cat: "block", it: "un cartellone di taglia", en: "a wanted poster", img: "assets/props/cartello.png" },
+  sgabello_west:  { emoji: "🪑", cat: "sit", it: "uno sgabello da saloon", en: "a saloon stool", img: "assets/props/sgabello_west.png" },
+  sputacchiera:   { emoji: "🥃", cat: "overlay", it: "una sputacchiera", en: "a spittoon", img: "assets/props/sputacchiera.png" },
+  sella:          { emoji: "🐴", cat: "overlay", it: "una sella", en: "a saddle", img: "assets/props/sella.png" },
+  fieno:          { emoji: "🌾", cat: "overlay", it: "una balla di fieno", en: "a hay bale", img: "assets/props/fieno.png" },
 
   /* --- egitto --- */
-  sarcofago:    { emoji: "⚰️", cat: "block", it: "un sarcofago", en: "a sarcophagus" },
-  colonna:      { emoji: "🏛️", cat: "block", it: "una colonna", en: "a column" },
-  anubi:        { emoji: "🐕", cat: "block", it: "una statua di Anubi", en: "a statue of Anubis" },
-  urna:         { emoji: "🏺", cat: "block", it: "un'urna canopa", en: "a canopic jar" },
-  scarabeo:     { emoji: "🪲", cat: "block", it: "uno scarabeo di pietra", en: "a stone scarab" },
-  obelisco:     { emoji: "🗼", cat: "block", it: "un obelisco", en: "an obelisk" },
-  bracere:      { emoji: "🔥", cat: "block", it: "un braciere", en: "a brazier" },
-  papiri:       { emoji: "📜", cat: "block", it: "una pila di papiri", en: "a stack of papyri" },
-  grano:        { emoji: "🌾", cat: "block", it: "un sacco di grano", en: "a grain sack" },
-  trono_eg:     { emoji: "🪑", cat: "sit", it: "un seggio di pietra", en: "a stone seat" },
-  sabbia:       { emoji: "🏜️", cat: "overlay", it: "un cumulo di sabbia", en: "a sand drift" },
-  geroglifici:  { emoji: "𓂀", cat: "overlay", it: "dei geroglifici", en: "hieroglyphs" },
-  acqua_nilo:   { emoji: "💧", cat: "overlay", it: "una pozza d'acqua", en: "a water pool" },
+  sarcofago:    { emoji: "⚰️", cat: "block", it: "un sarcofago", en: "a sarcophagus", img: "assets/props/sarcofago.png" },
+  colonna:      { emoji: "🏛️", cat: "block", it: "una colonna", en: "a column", img: "assets/props/colonna.png" },
+  anubi:        { emoji: "🐕", cat: "block", it: "una statua di Anubi", en: "a statue of Anubis", img: "assets/props/anubi.png" },
+  urna:         { emoji: "🏺", cat: "block", it: "un'urna canopa", en: "a canopic jar", img: "assets/props/urna.png" },
+  scarabeo:     { emoji: "🪲", cat: "block", it: "uno scarabeo di pietra", en: "a stone scarab", img: "assets/props/scarabeo.png" },
+  obelisco:     { emoji: "🗼", cat: "block", it: "un obelisco", en: "an obelisk", img: "assets/props/obelisco.png" },
+  bracere:      { emoji: "🔥", cat: "block", it: "un braciere", en: "a brazier", img: "assets/props/bracere.png" },
+  papiri:       { emoji: "📜", cat: "block", it: "una pila di papiri", en: "a stack of papyri", img: "assets/props/papiri.png" },
+  grano:        { emoji: "🌾", cat: "block", it: "un sacco di grano", en: "a grain sack", img: "assets/props/grano.png" },
+  trono_eg:     { emoji: "🪑", cat: "sit", it: "un seggio di pietra", en: "a stone seat", img: "assets/props/trono_eg.png" },
+  sabbia:       { emoji: "🏜️", cat: "overlay", it: "un cumulo di sabbia", en: "a sand drift", img: "assets/props/sabbia.png" },
+  geroglifici:  { emoji: "𓂀", cat: "overlay", it: "dei geroglifici", en: "hieroglyphs", img: "assets/props/geroglifici.png" },
+  acqua_nilo:   { emoji: "💧", cat: "overlay", it: "una pozza d'acqua", en: "a water pool", img: "assets/props/acqua_nilo.png" },
 
   /* --- hotel --- */
-  reception:     { emoji: "🛎️", cat: "block", it: "il bancone della reception", en: "the reception desk" },
-  pianoforte_h:  { emoji: "🎼", cat: "block", it: "un pianoforte a coda", en: "a grand piano" },
-  lampadario:    { emoji: "💡", cat: "block", it: "un lampadario", en: "a chandelier" },
-  baule:         { emoji: "🧳", cat: "block", it: "un baule da viaggio", en: "a steamer trunk" },
-  biliardo:      { emoji: "🎱", cat: "block", it: "un tavolo da biliardo", en: "a billiard table" },
-  palma:         { emoji: "🌴", cat: "block", it: "una palma in vaso", en: "a potted palm" },
-  grammofono:    { emoji: "📻", cat: "block", it: "un grammofono", en: "a gramophone" },
-  carrello:      { emoji: "🍾", cat: "block", it: "un carrello dello champagne", en: "a champagne cart" },
-  specchio:      { emoji: "🪞", cat: "block", it: "uno specchio", en: "a mirror" },
-  poltrona_h:    { emoji: "🛋️", cat: "sit", it: "una poltrona di velluto", en: "a velvet armchair" },
-  tappeto_h:     { emoji: "🟪", cat: "overlay", it: "un tappeto persiano", en: "a persian carpet" },
-  bicchieri:     { emoji: "🥂", cat: "overlay", it: "dei bicchieri rotti", en: "broken glasses" },
-  cappotto:      { emoji: "🧥", cat: "overlay", it: "un cappotto caduto", en: "a dropped coat" },
+  reception:     { emoji: "🛎️", cat: "block", it: "il bancone della reception", en: "the reception desk", img: "assets/props/reception.png" },
+  pianoforte_h:  { emoji: "🎼", cat: "block", it: "un pianoforte a coda", en: "a grand piano", img: "assets/props/pianoforte_h.png" },
+  lampadario:    { emoji: "💡", cat: "block", it: "un lampadario", en: "a chandelier", img: "assets/props/lampadario.png" },
+  baule:         { emoji: "🧳", cat: "block", it: "un baule da viaggio", en: "a steamer trunk", img: "assets/props/baule.png" },
+  biliardo:      { emoji: "🎱", cat: "block", it: "un tavolo da biliardo", en: "a billiard table", img: "assets/props/biliardo.png" },
+  palma:         { emoji: "🌴", cat: "block", it: "una palma in vaso", en: "a potted palm", img: "assets/props/palma.png" },
+  grammofono:    { emoji: "📻", cat: "block", it: "un grammofono", en: "a gramophone", img: "assets/props/grammofono.png" },
+  carrello:      { emoji: "🍾", cat: "block", it: "un carrello dello champagne", en: "a champagne cart", img: "assets/props/carrello.png" },
+  specchio:      { emoji: "🪞", cat: "block", it: "uno specchio", en: "a mirror", img: "assets/props/specchio.png" },
+  poltrona_h:    { emoji: "🛋️", cat: "sit", it: "una poltrona di velluto", en: "a velvet armchair", img: "assets/props/poltrona_h.png" },
+  tappeto_h:     { emoji: "🟪", cat: "overlay", it: "un tappeto persiano", en: "a persian carpet", img: "assets/props/tappeto_h.png" },
+  bicchieri:     { emoji: "🥂", cat: "overlay", it: "dei bicchieri rotti", en: "broken glasses", img: "assets/props/bicchieri.png" },
+  cappotto:      { emoji: "🧥", cat: "overlay", it: "un cappotto caduto", en: "a dropped coat", img: "assets/props/cappotto.png" },
 };
 
 // Texture pavimento per tipo di stanza (chiave = key stanza).
@@ -197,3 +197,23 @@ const FACE_IMG = {
   Rosa: "assets/faces/rosa.jpg", Sergio: "assets/faces/sergio.jpg",
   Tea: "assets/faces/tea.jpg", Vito: "assets/faces/vito.jpg",
 };
+
+// Ritratti a tema: gli stessi 16 personaggi ridisegnati per ogni zona
+// (tools/split_avatars.py ritaglia le griglie 4x4 in Avatar/).
+// I file sono assets/faces/<tema>/<nome minuscolo>.png.
+const FACE_THEMES = ["marino", "spazio", "fantasy", "natale",
+                     "west", "egitto", "hotel"];
+const FACE_NAMES = ["Bruno", "Anna", "Dario", "Carla",
+                    "Fabio", "Elena", "Ugo", "Giada",
+                    "Irene", "Luca", "Marta", "Nino",
+                    "Paolo", "Sergio", "Olga", "Rosa"];
+const FACE_SETS = Object.fromEntries(FACE_THEMES.map((th) => [
+  th, Object.fromEntries(FACE_NAMES.map((n) =>
+    [n, `assets/faces/${th}/${n.toLowerCase()}.png`])),
+]));
+
+// Ritratto di un sospettato nel tema corrente; ripiega sul set generico
+// (livelli vecchi con nomi fuori dai 16, zone senza avatar dedicati).
+function faceFor(name, theme) {
+  return (FACE_SETS[theme] && FACE_SETS[theme][name]) || FACE_IMG[name] || null;
+}

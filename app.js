@@ -142,7 +142,7 @@ Profile.onChange = () => {
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "30";
+const BUILD = "31";
 
 async function boot() {
   S.index = await (await fetch("levels/index.json?v=" + BUILD)).json();
@@ -509,11 +509,15 @@ function renderGame() {
     page: window.scrollY || 0,
   };
 
-  // avatar: ritratto (immagine) o fallback iniziale su colore
-  const avatarInner = (sp, i) => FACE_IMG[sp.name]
-    ? `<img src="${FACE_IMG[sp.name]}" alt="${sp.name}">`
+  // avatar: ritratto (immagine) o fallback iniziale su colore.
+  // I ritratti sono a tema: ogni zona ha i suoi 16 (la sfida quotidiana usa
+  // il tema del livello, che porta il campo `theme`).
+  const faceTheme = L.theme || S.zone?.theme;
+  const face = (sp) => faceFor(sp.name, faceTheme);
+  const avatarInner = (sp, i) => face(sp)
+    ? `<img src="${face(sp)}" alt="${sp.name}">`
     : sp.name[0];
-  const avatarBg = (sp, i) => FACE_IMG[sp.name]
+  const avatarBg = (sp, i) => face(sp)
     ? "" : `background:${AVATAR_COLORS[i % AVATAR_COLORS.length]};`;
 
   // suspect cards
@@ -566,7 +570,7 @@ function renderGame() {
       const provisional = candidatesAt(r, c);
       if (sid !== null) {
         const sp = L.suspects[sid];
-        inner += `<span class="pawn ${FACE_IMG[sp.name] ? "hasface" : ""} ${S.wrong.has(sid) ? "wrong" : ""}"
+        inner += `<span class="pawn ${face(sp) ? "hasface" : ""} ${S.wrong.has(sid) ? "wrong" : ""}"
           style="${avatarBg(sp, sid)}">${avatarInner(sp, sid)}</span>`;
       }
       if (provisional.length) {
