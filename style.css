@@ -2384,3 +2384,17 @@ header .hinstall[hidden] { display: none; }
   .pager .pg-arrow { padding: 8px 11px; font-size: 13px; }
   .pg-dot { min-width: 34px; min-height: 34px; }
 }
+
+/* punteggio 1-100 del caso: percentile della durezza su tutto il catalogo.
+   Sta in un angolo e non ruba spazio al nome, che resta la cosa da leggere. */
+.level-card { position: relative; }
+.level-card .rating {
+  position: absolute; top: 6px; right: 8px;
+  font-size: 11px; font-weight: 800; line-height: 1;
+  padding: 3px 5px; border-radius: 7px;
+  color: #d7fff5; background: rgba(7,21,35,.55);
+  border: 1px solid rgba(99,239,208,.30);
+  pointer-events: none;
+}
+.level-card.d3 .rating { color: #ffe9a8; border-color: rgba(255,214,110,.4); }
+.level-card.locked .rating { display: none; }

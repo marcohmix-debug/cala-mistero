@@ -56,6 +56,7 @@ const I18N = {
     pgPrev: "‹ Precedenti", pgNext: "Successivi ›",
     pgOf: (a, b) => `Pagina ${a} di ${b}`,
     pgRange: (a, b) => `Casi ${a}–${b}`,
+    ratingTip: "Quanto è tosto rispetto a tutti i casi del gioco (1-100)",
   },
   en: {
     suspects: "Suspects",
@@ -111,6 +112,7 @@ const I18N = {
     pgPrev: "‹ Previous", pgNext: "Next ›",
     pgOf: (a, b) => `Page ${a} of ${b}`,
     pgRange: (a, b) => `Cases ${a}–${b}`,
+    ratingTip: "How tough it is compared with every case in the game (1-100)",
   },
 };
 
@@ -152,7 +154,7 @@ Profile.onChange = () => {
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "37";
+const BUILD = "38";
 
 async function boot() {
   S.index = await (await fetch("levels/index.json?v=" + BUILD)).json();
@@ -423,6 +425,7 @@ function renderLevels(zone) {
                                : (S.lang === "it" ? l.name_it : l.name_en)}</div>
       <div class="lc-bot"><span class="sz">${l.size}×${l.size}</span>
         <span class="difftext">${bt != null ? "⏱ " + fmtTime(bt) : t().diff[df]}</span></div>
+      ${l.rating ? `<span class="rating" title="${t().ratingTip}">${l.rating}</span>` : ""}
     </div>`;
   };
   // Lista a pagine. Con 100 casi per zona la pagina unica diventava lunga
