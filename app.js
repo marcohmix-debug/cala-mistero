@@ -1028,6 +1028,11 @@ window.addEventListener("resize", () => {
 });
 
 /* ---------------- installable app ---------------- */
+// Impacchettato con Capacitor il gioco NON gira su un sito: i file stanno gia'
+// sul telefono. Li' il service worker e il bottone "installa" non solo sono
+// inutili, sono dannosi — il worker metterebbe una cache davanti a file locali
+// e il bottone proporrebbe di installare un'app gia' installata.
+const NATIVE = !!window.Capacitor?.isNativePlatform?.();
 let installPrompt = null;
 
 function isStandalone() {
@@ -1039,7 +1044,7 @@ function wireInstallButton() {
   const btn = $("#hinstall");
   if (!btn) return;
   const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  btn.hidden = isStandalone() || (!installPrompt && !ios);
+  btn.hidden = NATIVE || isStandalone() || (!installPrompt && !ios);
   btn.onclick = async () => {
     if (installPrompt) {
       installPrompt.prompt();
@@ -1069,7 +1074,7 @@ window.addEventListener("appinstalled", () => {
   wireInstallButton();
 });
 
-if ("serviceWorker" in navigator) {
+if (!NATIVE && "serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("./sw.js?v=" + BUILD).catch(() => {});
   });
