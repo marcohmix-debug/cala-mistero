@@ -1,0 +1,28 @@
+{
+  "name": "SUSoku — Misteri a griglia",
+  "short_name": "SUSoku",
+  "description": "Il puzzle investigativo a griglia: usa gli indizi e scopri l'assassino.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#071523",
+  "theme_color": "#071523",
+  "lang": "it",
+  "categories": ["games", "puzzle"],
+  "icons": [
+    {
+      "src": "assets/brand/icon-tropical-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/brand/icon-tropical-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
