@@ -57,6 +57,16 @@ const I18N = {
     pgOf: (a, b) => `Pagina ${a} di ${b}`,
     pgRange: (a, b) => `Casi ${a}–${b}`,
     ratingTip: "Quanto è tosto rispetto a tutti i casi del gioco (1-100)",
+    againTitle: "L'hai già risolto",
+    againBody: (tm) => `Il tuo tempo è ${tm}. Puoi rigiocarlo: il cronometro riparte, ma il tempo che conta resta il primo.`,
+    againOk: "Rigioca", replayNote: "Ripetizione · il record non cambia",
+    rules: "Come si gioca", rulesBtn: "📖 Regole",
+    sound: "Suoni", music: "Musica",
+    tipTitle: "Novità in questo caso",
+    tipDont: "Non mostrare più", gotIt: "Ho capito",
+    tip9: "Da 9×9 in su cambiano due cose. Ogni sospettato può avere <b>più di un indizio</b>, uniti in una frase sola. E compaiono gli <b>indizi generali</b>: non parlano di una persona ma contano quante ne sono in una stanza, in una metà della mappa, sedute o accanto a un oggetto. Servono eccome: spesso è da lì che riparte la deduzione quando sembri bloccato.",
+    tip12: "Da 12×12 la griglia non ci sta più tutta comoda: si scorre, e la barra in basso resta sempre raggiungibile. Consiglio pratico: usa le <b>ipotesi</b> (✏️) invece di piazzare e togliere. Con un sospettato selezionato, le celle dove l'hai ipotizzato si accendono di verde.",
+    tip15: "I casi bonus sono 15×15 e 16×16, le griglie più grandi del gioco. Nessuna regola nuova, solo molto più da tenere insieme: prenditi il tempo e appoggiati alle ipotesi.",
     bands: { principiante: "Principiante", medio: "Medio",
              esperto: "Esperto", maestro: "Maestro" },
     bandLocked: "Chiudi le fasce Esperto e Maestro per sbloccare i bonus",
@@ -130,6 +140,16 @@ const I18N = {
     pgOf: (a, b) => `Page ${a} of ${b}`,
     pgRange: (a, b) => `Cases ${a}–${b}`,
     ratingTip: "How tough it is compared with every case in the game (1-100)",
+    againTitle: "You already solved this",
+    againBody: (tm) => `Your time is ${tm}. You can replay it: the clock restarts, but the time that counts stays the first one.`,
+    againOk: "Replay", replayNote: "Replay · your record won't change",
+    rules: "How to play", rulesBtn: "📖 Rules",
+    sound: "Sound", music: "Music",
+    tipTitle: "New in this case",
+    tipDont: "Don't show again", gotIt: "Got it",
+    tip9: "From 9×9 on, two things change. A suspect can have <b>more than one clue</b>, merged into a single sentence. And <b>general clues</b> appear: they don't name anyone, they count how many people are in a room, in half the map, seated, or beside an object. They matter — that's often where the deduction restarts when you feel stuck.",
+    tip12: "From 12×12 the grid no longer fits comfortably: it scrolls, and the bottom bar stays reachable. Practical tip: use <b>notes</b> (✏️) instead of placing and removing. With a suspect selected, the squares where you noted them light up green.",
+    tip15: "Bonus cases are 15×15 and 16×16, the biggest grids in the game. No new rules, just much more to hold together: take your time and lean on notes.",
     bands: { principiante: "Beginner", medio: "Medium",
              esperto: "Expert", maestro: "Master" },
     bandLocked: "Clear the Expert and Master tiers to unlock the bonus cases",
@@ -163,6 +183,8 @@ const S = {
   selected: null,
   history: [],
   wrong: new Set(),
+  done: false,             // caso appena risolto in questa sessione
+  replay: false,           // ripetizione: il cronometro e' solo estetico
   tutStep: 0, tutFlash: false,
   mode: "place",           // place | pencil | cross | erase
   t0: null, timerInt: null,
@@ -190,9 +212,12 @@ Profile.onChange = () => {
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "39";
+const BUILD = "40";
 
 async function boot() {
+  // l'interruttore della musica compare solo se un brano c'e' davvero:
+  // un bottone che non fa niente e' peggio di nessun bottone
+  Audio.has(S.zones?.[0]?.theme || "marino").then((v) => { S.musicAvail = v; });
   S.index = await (await fetch("levels/index.json?v=" + BUILD)).json();
   S.zones = S.index.zones || [];
   // pool della sfida quotidiana: opzionale, se manca la sezione sparisce
@@ -320,7 +345,10 @@ function dailyCardHTML() {
          <span class="dc-time">${fmtTime(best)}</span>`
       : `<span class="dc-play">${t().dailyPlay} ▶</span>`}</div>
   </div>
-  <button class="archive-link" id="archiveBtn">${t().archiveOpen}</button>`;
+  <div class="home-links">
+    <button class="archive-link" id="archiveBtn">${t().archiveOpen}</button>
+    <button class="archive-link" id="rulesBtn">${t().rulesBtn}</button>
+  </div>`;
 }
 
 // tutte le mappe (livelli + tutorial) di una zona, per lookup e "prossimo"
@@ -444,6 +472,17 @@ function renderProfile() {
         </div>
         <button id="renameBtn" class="plink">${t().pRename}</button>
       </div>
+      <div class="pcard">
+        <h2>${t().sound}</h2>
+        <div class="sw-row">
+          <label class="sw"><input type="checkbox" id="sfxSw" ${Audio.sfxOn ? "checked" : ""}>
+            <span>${t().sound}</span></label>
+          <label class="sw ${S.musicAvail ? "" : "off"}">
+            <input type="checkbox" id="musSw" ${Audio.musicOn ? "checked" : ""}
+              ${S.musicAvail ? "" : "disabled"}>
+            <span>${t().music}${S.musicAvail ? "" : " —"}</span></label>
+        </div>
+      </div>
       ${badgeBlock}
       <div class="pstats">
         ${stat(t().pSolved, `${tot.solved}<small>/${tot.available}</small>`)}
@@ -451,7 +490,18 @@ function renderProfile() {
         ${stat(t().pAvg, tot.timed ? fmtTime(tot.avgMs) : "—")}
       </div>
       ${dl.solved || dl.streak ? `<div class="pcard"><h2>${t().pDaily}</h2>
-        ${badgeBlock}
+        <div class="pcard">
+        <h2>${t().sound}</h2>
+        <div class="sw-row">
+          <label class="sw"><input type="checkbox" id="sfxSw" ${Audio.sfxOn ? "checked" : ""}>
+            <span>${t().sound}</span></label>
+          <label class="sw ${S.musicAvail ? "" : "off"}">
+            <input type="checkbox" id="musSw" ${Audio.musicOn ? "checked" : ""}
+              ${S.musicAvail ? "" : "disabled"}>
+            <span>${t().music}${S.musicAvail ? "" : " —"}</span></label>
+        </div>
+      </div>
+      ${badgeBlock}
       <div class="pstats">
           ${stat(t().pDaily, dl.solved)}
           ${stat(t().pStreak, dl.streak ? "🔥 " + dl.streak : "—")}
@@ -467,6 +517,14 @@ function renderProfile() {
   const hb = $("#hback");
   if (hb) hb.onclick = () =>
     S.profileBack === "levels" && S.zone ? renderLevels(S.zone) : renderZones();
+  const sfx = $("#sfxSw");
+  if (sfx) sfx.onchange = () => { Audio.sfxOn = sfx.checked; Audio.play("pick"); };
+  const mus = $("#musSw");
+  if (mus) mus.onchange = () => {
+    Audio.musicOn = mus.checked;
+    if (mus.checked) Audio.start(S.zone?.theme || S.zones[0]?.theme);
+    else Audio.stop();
+  };
   $("#renameBtn").onclick = () => {
     const v = prompt(t().pNamePrompt, Profile.data.name || "");
     if (v !== null) { Profile.data.name = v.trim(); Profile.save(); Cloud.push(); renderProfile(); }
@@ -479,6 +537,7 @@ function renderProfile() {
 
 /* ---------------- zone select ---------------- */
 function renderZones() {
+  Audio.stop();
   S.view = "zones";
   stopTimer();
   const cards = S.zones.map((z) => {
@@ -508,6 +567,8 @@ function renderZones() {
   wireHeader();
   const ab = $("#archiveBtn");
   if (ab) ab.onclick = renderArchive;
+  const rb = $("#rulesBtn");
+  if (rb) rb.onclick = renderRules;
   const dc = $("#dailyCard");
   if (dc) dc.onclick = () => openDaily();
   document.querySelectorAll(".zone-card[data-zone]").forEach((el) =>
@@ -518,6 +579,7 @@ function renderZones() {
 function renderLevels(zone) {
   S.view = "levels";
   S.zone = zone;
+  Audio.start(zone.theme);
   stopTimer();
   const key = (id) => zone.id + ":" + id;
   let cards = "";
@@ -642,8 +704,28 @@ function renderLevels(zone) {
     });
 }
 
-async function openLevel(zone, id) {
+async function openLevel(zone, id, replay) {
+  const key = zone.id + ":" + id;
+  // caso gia' chiuso: si puo' rigiocare, ma il tempo buono resta il primo —
+  // se no basterebbe ripetere un caso che si sa gia' risolvere per farsi il
+  // record, e la classifica di domani nascerebbe gia' falsa
+  if (!replay && Profile.solved(key)) {
+    const bt = Profile.best(key);
+    return modal(t().againTitle, t().againBody(bt != null ? fmtTime(bt) : "—"), [
+      [t().againOk, () => openLevel(zone, id, true)],
+      [t().cancel, () => {}],
+    ]);
+  }
+  const meta0 = zoneLevelList(zone).find((l) => l.id === id);
+  if (meta0 && !S._tipDone) {
+    return maybeTip(meta0.size, () => {
+      S._tipDone = true;
+      openLevel(zone, id, replay).finally(() => { S._tipDone = false; });
+    });
+  }
   S.zone = zone;
+  S.replay = !!replay;
+  S.done = false;
   const meta = zoneLevelList(zone).find((l) => l.id === id);
   S.level = await (await fetch("levels/" + meta.file + "?v=" + BUILD)).json();
   S.placements = {};
@@ -659,6 +741,74 @@ async function openLevel(zone, id) {
   S.t0 = Date.now();
   renderGame();
   startTimer();
+}
+
+/* ---------------- avvisi e regole ---------------- */
+const TIPS_KEY = "cm_tips";        // fasce gia' viste, o "off" per zittirli
+
+function tipsState() {
+  try { return JSON.parse(localStorage.getItem(TIPS_KEY) || "[]"); }
+  catch { return []; }
+}
+
+/** Mostra una volta sola l'avviso della fascia, la prima volta che ci si
+ *  arriva. Il tutorial copre le basi, non i formati che compaiono dopo: senza
+ *  questo, chi apre il primo 9x9 trova gli indizi generali senza spiegazione. */
+function maybeTip(size, then) {
+  const st = tipsState();
+  const tier = size >= 15 ? "15" : size >= 12 ? "12" : size >= 9 ? "9" : null;
+  if (!tier || st.includes("off") || st.includes(tier)) return then();
+  const salva = () => {
+    const cur = tipsState();
+    if (!cur.includes(tier)) cur.push(tier);
+    localStorage.setItem(TIPS_KEY, JSON.stringify(cur));
+  };
+  modal(t().tipTitle, t()["tip" + tier], [
+    [t().gotIt, () => { salva(); then(); }],
+    [t().tipDont, () => {
+      localStorage.setItem(TIPS_KEY, JSON.stringify(["off"]));
+      then();
+    }],
+  ]);
+}
+
+function rulesHTML() {
+  const it = S.lang === "it";
+  const R = it ? [
+    ["L'obiettivo", "In ogni caso c'è una vittima e un assassino. Devi capire <b>dove si trovava ciascun sospettato</b> al momento del delitto: quando la disposizione è quella giusta, l'assassino salta fuori da solo."],
+    ["La griglia", "La mappa è divisa in <b>stanze</b> colorate. Ogni sospettato occupa una casella, e vale una regola ferrea: <b>uno per riga e uno per colonna</b>, come in un sudoku. Le caselle occupate da un ingombro (un armadio, una statua) non sono calpestabili."],
+    ["La vittima", "La vittima era <b>sola con l'assassino</b>: nella sua stanza c'è lei e una persona sola, ed è il colpevole. La sua carta è marcata e il suo indizio lo dice."],
+    ["Gli indizi", "Ogni sospettato ha almeno un indizio, che parla di righe, colonne, stanze, oggetti vicini, o della posizione rispetto a un altro (\"due righe a nord di Bruno\"). Sono <b>tutti veri</b> e insieme bastano: la soluzione è sempre una sola e si trova per deduzione, mai tirando a indovinare."],
+    ["Indizi generali", "Dal 9×9 in su compaiono indizi che non nominano nessuno ma <b>contano</b>: quante persone in una stanza, in una metà della mappa, sedute, o accanto a un certo oggetto. Sono nel pannello a parte."],
+    ["Gli strumenti", "<b>Piazza</b> mette il sospettato selezionato. <b>Croci</b> segna le caselle che hai escluso. <b>Ipotesi</b> (✏️) appunta un sospettato in più caselle senza deciderlo: selezionandolo, le sue ipotesi si accendono. <b>Cancella</b>, <b>Annulla</b> e <b>Ricomincia</b> tornano indietro — Ricomincia svuota la griglia ma non il cronometro."],
+    ["Gli aiuti", "Un aiuto <b>piazza il prossimo sospettato deducibile e spiega perché</b>: non è una risposta a caso, è il passo che avresti dovuto fare. Se ne guadagnano risolvendo la sfida del giorno e completando le zone."],
+    ["Fasce e bonus", "I 100 casi di una zona sono divisi in Principiante, Medio, Esperto e Maestro, per dimensione crescente. Chiudendo Esperto e Maestro si aprono i <b>5 casi bonus</b>, i più grandi."],
+    ["Il punteggio 1-100", "Il numero sull'angolo della card dice quanto è tosto quel caso <b>rispetto a tutti gli altri del gioco</b>: lo calcola il solver contando quanto è lunga la catena di deduzioni. Non è il tempo che ci metterai, è quanto ragionamento serve."],
+    ["Sfida del giorno", "Una mappa uguale per tutti, che cambia ogni giorno. Le sfide passate restano nell'archivio e si possono recuperare."],
+  ] : [
+    ["The goal", "Every case has a victim and a murderer. You must work out <b>where each suspect was</b> when it happened: once the arrangement is right, the murderer falls out by itself."],
+    ["The grid", "The map is split into coloured <b>rooms</b>. Each suspect takes one square, with one iron rule: <b>one per row and one per column</b>, like a sudoku. Squares taken by a bulky object aren't walkable."],
+    ["The victim", "The victim was <b>alone with the murderer</b>: their room holds them and exactly one other person, and that's the culprit. Their card is marked and their clue says so."],
+    ["The clues", "Every suspect has at least one clue about rows, columns, rooms, nearby objects, or their position relative to someone else (\"two rows north of Bruno\"). They are <b>all true</b> and together they're enough: there is always exactly one solution, reachable by deduction and never by guessing."],
+    ["General clues", "From 9×9 on, clues appear that name nobody but <b>count</b>: how many people are in a room, in half the map, seated, or beside a given object. They live in their own panel."],
+    ["The tools", "<b>Place</b> puts down the selected suspect. <b>Crosses</b> marks squares you've ruled out. <b>Notes</b> (✏️) pencils a suspect into several squares without committing: select them and their notes light up. <b>Erase</b>, <b>Undo</b> and <b>Restart</b> walk it back — Restart empties the grid but not the clock."],
+    ["Hints", "A hint <b>places the next deducible suspect and explains why</b>: it's not a random answer, it's the step you were meant to take. You earn them by solving the daily challenge and completing zones."],
+    ["Tiers and bonus", "A zone's 100 cases are split into Beginner, Medium, Expert and Master by grid size. Clear Expert and Master to open the <b>5 bonus cases</b>, the largest ones."],
+    ["The 1-100 score", "The number in the corner of a card says how tough that case is <b>compared with every other case in the game</b>: the solver works it out from how long the chain of deductions runs. It isn't how long you'll take, it's how much reasoning it needs."],
+    ["Daily challenge", "One map, the same for everyone, changing every day. Past challenges stay in the archive and can be recovered."],
+  ];
+  return R.map(([h, b]) => `<div class="rule"><h3>${h}</h3><p>${b}</p></div>`).join("");
+}
+
+function renderRules() {
+  S.view = "rules";
+  stopTimer();
+  app.innerHTML = headerHTML(t().rules, true) + `
+    <div class="home">
+      <h1>${t().rules}</h1>
+      <div class="rules">${rulesHTML()}</div>
+    </div>`;
+  wireHeader(renderZones);
 }
 
 /* ---------------- game ---------------- */
@@ -925,8 +1075,8 @@ function renderGame() {
         border:2px solid #c9cdde;background:#fff;cursor:pointer">${t().back}</button>
     </div>
     <div class="board-zone">
-      <div class="playbar">
-        <span class="pb-name">${nm}</span>
+      <div class="playbar ${S.replay ? "replay" : ""}">
+        <span class="pb-name">${nm}${S.replay ? ` <em>${t().replayNote}</em>` : ""}</span>
         <span class="pb-timer" id="bigTimer">${fmtTime(elapsedNow())}</span>
       </div>
       ${mobileGenBar}
@@ -965,6 +1115,7 @@ function renderGame() {
     el.onclick = () => {
       const id = +el.dataset.id;
       S.selected = S.selected === id ? null : id;
+      Audio.play("pick");
       renderGame();
     });
   document.querySelectorAll(".cell").forEach((el) =>
@@ -978,6 +1129,7 @@ function renderGame() {
     el.onclick = () => {
       S.selected = S.selected === +el.dataset.id ? null : +el.dataset.id;
       S.mode = "place";
+      Audio.play("pick");
       renderGame();
     });
   $("#mCross").onclick = () => { S.mode = "cross"; renderGame(); };
@@ -1020,7 +1172,9 @@ function leaveGame(skipAsk) {
   };
   const iniziato = Object.keys(S.placements).length || Object.keys(S.candidates).length
                    || S.marks.size;
-  if (skipAsk === true || !iniziato) return esci();
+  // appena risolto la griglia e' piena per forza: chiedere "sei sicuro?"
+  // dopo aver vinto non ha senso
+  if (skipAsk === true || S.done || !iniziato) return esci();
   modal(t().leaveTitle, t().leaveBody, [[t().leaveOk, esci], [t().stay, () => {}]]);
 }
 
@@ -1053,6 +1207,7 @@ function cellClick(r, c) {
     S.history.push({ type: "remove", id: here, cell: S.placements[here] });
     delete S.placements[here];
     S.selected = S.mode === "erase" ? S.selected : here;
+    Audio.play("erase");
     renderGame();
     return;
   }
@@ -1062,6 +1217,7 @@ function cellClick(r, c) {
     const k = r + "," + c;
     S.marks.has(k) ? S.marks.delete(k) : S.marks.add(k);
     S.history.push({ type: "mark", cell: k });
+    Audio.play("cross");
     renderGame();
     return;
   }
@@ -1078,6 +1234,7 @@ function cellClick(r, c) {
       if (next.length) S.candidates[S.selected] = next;
       else delete S.candidates[S.selected];
     }
+    Audio.play(added ? "cross" : "erase");
     renderGame();
     return;
   }
@@ -1107,12 +1264,14 @@ function cellClick(r, c) {
     const k = r + "," + c;
     S.marks.has(k) ? S.marks.delete(k) : S.marks.add(k);
     S.history.push({ type: "mark", cell: k });
+    Audio.play("cross");
     renderGame();
     return;
   }
   const prev = S.placements[S.selected] || null;
   const prevCandidates = [...(S.candidates[S.selected] || [])];
   S.history.push({ type: "place", id: S.selected, prev, prevCandidates });
+  Audio.play("place");
   S.marks.delete(r + "," + c);
   S.placements[S.selected] = [r, c];
   delete S.candidates[S.selected];
@@ -1176,6 +1335,7 @@ function nextStep() {
 function applyStep(st) {
   const occ = suspectAt(st.cell[0], st.cell[1]);   // libera la casella
   if (occ !== null && occ !== st.suspect) delete S.placements[occ];
+  Audio.play("hint");
   S.history.push({ type: "place", id: st.suspect,
     prev: S.placements[st.suspect] || null,
     prevCandidates: [...(S.candidates[st.suspect] || [])] });
@@ -1243,11 +1403,17 @@ function submit() {
     const p = S.placements[i], s = L.solution[i];
     if (!p || p[0] !== s[0] || p[1] !== s[1]) S.wrong.add(i);
   });
+  if (S.wrong.size) Audio.play("wrong");
   if (S.wrong.size === 0) {
     const ms = elapsedNow() || null;
     stopTimer();
     S.t0 = null;
-    const rec = Profile.recordSolve(S.zone.id + ":" + L.id, ms ?? 0);
+    S.done = true;
+    Audio.play("win");
+    // ripetizione: il cronometro e' solo estetico, il record non si tocca
+    const rec = S.replay
+      ? { best: Profile.best(S.zone.id + ":" + L.id), isRecord: false, first: false }
+      : Profile.recordSolve(S.zone.id + ":" + L.id, ms ?? 0);
     const m = L.suspects[L.murderer].name;
     const ids = zoneLevelList(S.zone).map((l) => l.id);
     const pos = ids.indexOf(L.id);

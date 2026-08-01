@@ -1867,20 +1867,23 @@ header .hprofile .picon path { fill: none; }
    su pavimenti scuri (segrete, torre, sala macchine).                      */
 .cell .furn {
   --ink: #14111f;
-  --o: 1px;
+  /* Il contorno si misura sulla CELLA, non in pixel fissi: su una griglia
+     16x16 la cella scende sotto i 25px e un bordo da 1,5px e' il 6% del
+     disegno. Ma soprattutto le ombre sono SFOCATE e centrate, non spostate
+     nelle quattro direzioni: quattro ombre dure incatenate si sommano in
+     diagonale e sulle sagome sottili (le gambe di un pianoforte, il leggio)
+     diventavano punte, non un bordo. Due ombre sfocate sovrapposte danno una
+     linea piena e uniforme, che rimpicciolendosi si assottiglia invece di
+     sfrangiarsi. */
+  --o: clamp(.5px, calc(var(--cs, 60px) * .022), 1.5px);
   filter:
-    drop-shadow(var(--o) 0 0 var(--ink))
-    drop-shadow(calc(var(--o) * -1) 0 0 var(--ink))
-    drop-shadow(0 var(--o) 0 var(--ink))
-    drop-shadow(0 calc(var(--o) * -1) 0 var(--ink))
-    drop-shadow(0 0 3px rgba(255,255,255,.5));
+    drop-shadow(0 0 var(--o) var(--ink))
+    drop-shadow(0 0 var(--o) var(--ink))
+    drop-shadow(0 0 calc(var(--o) * 2.4) rgba(255,255,255,.45));
 }
 
-/* griglie grandi: celle piccole, contorno piu' marcato */
-.game.large-grid .cell .furn { --o: 1.5px; }
-
 /* l'arredo che finisce sotto una pedina e' gia' dentro un riquadro suo */
-.cell.has-pawn-on-object .furn { --o: 1px; }
+.cell.has-pawn-on-object .furn { --o: .6px; }
 
 /* ==========================================================================
    Notte tropicale + installable app v34
@@ -2510,3 +2513,37 @@ header .hinstall[hidden] { display: none; }
   .playbar .pb-timer { font-size: 17px; }
   .bg-grid { grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); }
 }
+
+/* casi già chiusi: spenti nella lista, così l'occhio va su quelli da fare */
+.level-card.done {
+  opacity: .62;
+  filter: saturate(.35);
+}
+.level-card.done .nm { color: #cfe3de; }
+.level-card.done::after {
+  content: "✓";
+  position: absolute; bottom: 6px; right: 8px;
+  font-size: 13px; font-weight: 900; color: var(--lime); opacity: .9;
+}
+.playbar.replay { border-color: rgba(255,214,110,.45); }
+.playbar .pb-name em {
+  font-style: normal; font-weight: 600; font-size: 11px;
+  color: #ffd66e; opacity: .9;
+}
+
+/* regole, interruttori audio, link in home */
+.home-links { display: flex; gap: 8px; margin-top: 10px; }
+.home-links .archive-link { margin: 0; flex: 1; }
+.rules { display: flex; flex-direction: column; gap: 12px; }
+.rule {
+  padding: 13px 15px; border-radius: 15px;
+  background: rgba(8, 34, 50, .82);
+  border: 1px solid rgba(99,239,208,.22);
+}
+.rule h3 { margin: 0 0 5px; font-size: 15px; color: var(--lime); }
+.rule p { margin: 0; font-size: 14px; line-height: 1.5; color: #d7e9e5; }
+.rule b { color: #effff9; }
+.sw-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.sw { display: flex; align-items: center; gap: 7px; font-size: 14px; color: #d7fff5; cursor: pointer; }
+.sw input { width: 18px; height: 18px; accent-color: var(--lime); cursor: pointer; }
+.sw.off { opacity: .45; cursor: default; }

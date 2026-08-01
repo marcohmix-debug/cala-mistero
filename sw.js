@@ -11,6 +11,7 @@ const APP_SHELL = [
   `./style.css?v=${V}`,
   `./app.js?v=${V}`,
   `./assets.js?v=${V}`,
+  `./audio.js?v=${V}`,
   `./profile.js?v=${V}`,
   `./firebase-config.js?v=${V}`,
   `./manifest.webmanifest?v=${V}`,
