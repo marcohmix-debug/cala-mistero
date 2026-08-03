@@ -44,7 +44,7 @@ const Ads = {
       await p.initialize({
         // niente pubblicita' personalizzata finche' il consenso non c'e':
         // e' il default corretto in Europa, e alza solo di poco il ricavo
-        initializeForTesting: !window.ADMOB_IDS,
+        initializeForTesting: this.testing,
         tagForChildDirectedTreatment: false,
       });
       await this.consent();
@@ -70,11 +70,20 @@ const Ads = {
     this.consentDone = true;
   },
 
+  /** true finche' si devono mostrare annunci finti. */
+  get testing() {
+    const ids = window.ADMOB_IDS;
+    return !ids || ids.testing !== false;
+  },
+
   unitId() {
     const ids = window.ADMOB_IDS;
     const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
-    if (ids) return ios ? ids.rewardedIos : ids.rewardedAndroid;
-    return ios ? ADMOB_TEST.rewardedIos : ADMOB_TEST.rewardedAndroid;
+    const test = ios ? ADMOB_TEST.rewardedIos : ADMOB_TEST.rewardedAndroid;
+    if (this.testing) return test;
+    // se la piattaforma non ha ancora un'unita' sua (iOS oggi) si resta sui
+    // finti: un id vuoto farebbe fallire la richiesta e basta
+    return (ios ? ids.rewardedIos : ids.rewardedAndroid) || test;
   },
 
   /** Mostra un video con premio. -> true se il premio va dato.
