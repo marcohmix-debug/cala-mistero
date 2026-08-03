@@ -63,6 +63,7 @@ const I18N = {
     againBody: (tm) => `Il tuo tempo è ${tm}. Puoi rigiocarlo: il cronometro riparte, ma il tempo che conta resta il primo.`,
     againOk: "Rigioca", replayNote: "Ripetizione · il record non cambia",
     rules: "Come si gioca", rulesBtn: "📖 Regole",
+    privacy: "Informativa sulla privacy",
     adLoading: "Carico il video…",
     adSkipTitle: "Video non completato",
     adSkipBody: "Il premio si sblocca guardando il video fino alla fine.",
@@ -151,6 +152,7 @@ const I18N = {
     againBody: (tm) => `Your time is ${tm}. You can replay it: the clock restarts, but the time that counts stays the first one.`,
     againOk: "Replay", replayNote: "Replay · your record won't change",
     rules: "How to play", rulesBtn: "📖 Rules",
+    privacy: "Privacy policy",
     adLoading: "Loading the video…",
     adSkipTitle: "Video not finished",
     adSkipBody: "The reward unlocks by watching the video to the end.",
@@ -222,7 +224,7 @@ Profile.onChange = () => {
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "44";
+const BUILD = "45";
 
 async function boot() {
   // l'interruttore della musica compare solo se un brano c'e' davvero:
@@ -532,7 +534,9 @@ function renderProfile() {
       <div class="pcard"><h2>${t().pBest}</h2>
         ${bestList ? `<ul class="pbest">${bestList}</ul>`
                    : `<p class="pnote">${t().pNothing}</p>`}</div>
-      <div class="pcard">${account}</div>
+      <div class="pcard">${account}
+        <p class="privacy-link"><a href="privacy.html" target="_blank" rel="noopener">${t().privacy}</a></p>
+      </div>
     </div>`;
   wireHeader();
   const hb = $("#hback");
@@ -828,6 +832,7 @@ function renderRules() {
     <div class="home">
       <h1>${t().rules}</h1>
       <div class="rules">${rulesHTML()}</div>
+      <p class="privacy-link"><a href="privacy.html" target="_blank" rel="noopener">${t().privacy}</a></p>
     </div>`;
   wireHeader(renderZones);
 }

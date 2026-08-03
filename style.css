@@ -2547,3 +2547,6 @@ header .hinstall[hidden] { display: none; }
 .sw { display: flex; align-items: center; gap: 7px; font-size: 14px; color: #d7fff5; cursor: pointer; }
 .sw input { width: 18px; height: 18px; accent-color: var(--lime); cursor: pointer; }
 .sw.off { opacity: .45; cursor: default; }
+
+.privacy-link { margin: 14px 0 0; text-align: center; font-size: 13px; }
+.privacy-link a { color: #9fc5c2; }
