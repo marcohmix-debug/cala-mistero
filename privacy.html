@@ -18,7 +18,11 @@
   a { color: #63efd0; }
   ul { padding-left: 20px; }
   li { margin-bottom: 6px; }
-  table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 15px; }
+  /* la tabella su un telefono stretto non ci sta: scorre DENTRO il suo
+     riquadro, cosi' la pagina non si sposta di lato */
+  .tw { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { border-collapse: collapse; width: 100%; min-width: 460px;
+          margin: 10px 0; font-size: 15px; }
   th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid rgba(99,239,208,.2); vertical-align: top; }
   th { color: #effff9; }
   .box { background: rgba(8,34,50,.75); border: 1px solid rgba(99,239,208,.22);
@@ -43,6 +47,7 @@ comunque dietro le quinte, in modo che tu possa deciderlo.</p>
 all'indirizzo <a href="mailto:susoku.app@gmail.com">susoku.app@gmail.com</a>.</p>
 
 <h2>Cosa viene raccolto</h2>
+<div class="tw">
 <table>
   <tr><th>Dato</th><th>Perché</th><th>Dove sta</th></tr>
   <tr>
@@ -75,6 +80,7 @@ all'indirizzo <a href="mailto:susoku.app@gmail.com">susoku.app@gmail.com</a>.</p
     <td>Google</td>
   </tr>
 </table>
+</div>
 
 <div class="box">
   <strong>Cosa NON viene raccolto:</strong> posizione, rubrica, foto, microfono,
