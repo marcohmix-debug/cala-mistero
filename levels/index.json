@@ -17,8 +17,8 @@
      "id": 1,
      "file": "cala-mistero_001.json",
      "size": 6,
-     "name_it": "La Barca a Vela",
-     "name_en": "The Sailboat",
+     "name_it": "Il Circolo Nautico",
+     "name_en": "The Yacht Club",
      "difficulty": 1,
      "rating": 1,
      "band": "principiante"
@@ -27,8 +27,8 @@
      "id": 2,
      "file": "cala-mistero_002.json",
      "size": 6,
-     "name_it": "La Cambusa",
-     "name_en": "The Galley",
+     "name_it": "Lanterne sul Pontile",
+     "name_en": "Lanterns on the Pier",
      "difficulty": 1,
      "rating": 1,
      "band": "principiante"
@@ -37,20 +37,20 @@
      "id": 3,
      "file": "cala-mistero_003.json",
      "size": 6,
-     "name_it": "La Stiva del Mercantile",
-     "name_en": "The Freighter Hold",
+     "name_it": "Corda e Catrame",
+     "name_en": "Rope and Tar",
      "difficulty": 1,
-     "rating": 1,
+     "rating": 3,
      "band": "principiante"
     },
     {
      "id": 4,
      "file": "cala-mistero_004.json",
      "size": 6,
-     "name_it": "Il Circolo Nautico",
-     "name_en": "The Yacht Club",
+     "name_it": "La Cambusa",
+     "name_en": "The Galley",
      "difficulty": 1,
-     "rating": 1,
+     "rating": 9,
      "band": "principiante"
     },
     {
@@ -60,45 +60,45 @@
      "name_it": "La Notte al Porto",
      "name_en": "Night at the Harbor",
      "difficulty": 1,
-     "rating": 1,
+     "rating": 9,
      "band": "principiante"
     },
     {
      "id": 6,
      "file": "cala-mistero_006.json",
      "size": 6,
-     "name_it": "Lanterne sul Pontile",
-     "name_en": "Lanterns on the Pier",
+     "name_it": "Il Turno di Guardia",
+     "name_en": "The Night Watch",
      "difficulty": 1,
-     "rating": 2,
+     "rating": 9,
      "band": "principiante"
     },
     {
      "id": 7,
      "file": "cala-mistero_007.json",
      "size": 6,
-     "name_it": "Corda e Catrame",
-     "name_en": "Rope and Tar",
+     "name_it": "La Cassa Numero Nove",
+     "name_en": "Crate Number Nine",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 9,
      "band": "principiante"
     },
     {
      "id": 8,
      "file": "cala-mistero_008.json",
      "size": 6,
-     "name_it": "Il Turno di Guardia",
-     "name_en": "The Night Watch",
+     "name_it": "Vele Ammainate",
+     "name_en": "Sails Lowered",
      "difficulty": 1,
-     "rating": 11,
+     "rating": 9,
      "band": "principiante"
     },
     {
      "id": 9,
      "file": "cala-mistero_009.json",
      "size": 6,
-     "name_it": "La Cassa Numero Nove",
-     "name_en": "Crate Number Nine",
+     "name_it": "La Barca a Vela",
+     "name_en": "The Sailboat",
      "difficulty": 1,
      "rating": 11,
      "band": "principiante"
@@ -107,8 +107,8 @@
      "id": 10,
      "file": "cala-mistero_010.json",
      "size": 6,
-     "name_it": "Vele Ammainate",
-     "name_en": "Sails Lowered",
+     "name_it": "La Stiva del Mercantile",
+     "name_en": "The Freighter Hold",
      "difficulty": 1,
      "rating": 11,
      "band": "principiante"
@@ -120,7 +120,7 @@
      "name_it": "Sale sulle Labbra",
      "name_en": "Salt on the Lips",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -130,7 +130,7 @@
      "name_it": "Acqua in Sentina",
      "name_en": "Water in the Bilge",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -140,7 +140,7 @@
      "name_it": "Il Nodo Sbagliato",
      "name_en": "The Wrong Knot",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -150,7 +150,7 @@
      "name_it": "Il Carico Fantasma",
      "name_en": "The Ghost Cargo",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -160,7 +160,7 @@
      "name_it": "Onda di Ritorno",
      "name_en": "Backwash",
      "difficulty": 1,
-     "rating": 18,
+     "rating": 17,
      "band": "principiante"
     },
     {
@@ -170,7 +170,7 @@
      "name_it": "Nebbia sul Canale",
      "name_en": "Fog on the Channel",
      "difficulty": 1,
-     "rating": 22,
+     "rating": 21,
      "band": "principiante"
     },
     {
@@ -180,7 +180,7 @@
      "name_it": "Il Molo Vecchio",
      "name_en": "The Old Dock",
      "difficulty": 1,
-     "rating": 24,
+     "rating": 26,
      "band": "principiante"
     },
     {
@@ -190,7 +190,7 @@
      "name_it": "Il Faro di Ponente",
      "name_en": "The West Lighthouse",
      "difficulty": 1,
-     "rating": 24,
+     "rating": 26,
      "band": "principiante"
     },
     {
@@ -200,7 +200,7 @@
      "name_it": "Marea di Sangue",
      "name_en": "Blood Tide",
      "difficulty": 1,
-     "rating": 27,
+     "rating": 26,
      "band": "principiante"
     },
     {
@@ -210,7 +210,7 @@
      "name_it": "Il Chiosco sulla Spiaggia",
      "name_en": "The Beach Kiosk",
      "difficulty": 1,
-     "rating": 34,
+     "rating": 33,
      "band": "principiante"
     },
     {
@@ -230,7 +230,7 @@
      "name_it": "La Rete Strappata",
      "name_en": "The Torn Net",
      "difficulty": 1,
-     "rating": 40,
+     "rating": 39,
      "band": "principiante"
     },
     {
@@ -260,7 +260,7 @@
      "name_it": "Il Guardiano del Molo",
      "name_en": "The Dock Keeper",
      "difficulty": 1,
-     "rating": 56,
+     "rating": 55,
      "band": "principiante"
     },
     {
@@ -270,115 +270,115 @@
      "name_it": "Ancore nel Fango",
      "name_en": "Anchors in the Mud",
      "difficulty": 1,
-     "rating": 61,
+     "rating": 60,
      "band": "principiante"
     },
     {
      "id": 27,
      "file": "cala-mistero_027.json",
      "size": 7,
-     "name_it": "Il Mercato del Pesce",
-     "name_en": "The Fish Market",
+     "name_it": "Vento di Scirocco",
+     "name_en": "Sirocco Wind",
      "difficulty": 1,
-     "rating": 1,
+     "rating": 7,
      "band": "principiante"
     },
     {
      "id": 28,
      "file": "cala-mistero_028.json",
      "size": 7,
-     "name_it": "La Regata",
-     "name_en": "The Regatta",
+     "name_it": "Il Timone Bloccato",
+     "name_en": "The Jammed Helm",
      "difficulty": 1,
-     "rating": 1,
+     "rating": 7,
      "band": "principiante"
     },
     {
      "id": 29,
      "file": "cala-mistero_029.json",
      "size": 7,
-     "name_it": "L'Isola dei Gabbiani",
-     "name_en": "Gull Island",
+     "name_it": "Il Salvagente Tagliato",
+     "name_en": "The Cut Life Ring",
      "difficulty": 1,
-     "rating": 1,
+     "rating": 11,
      "band": "principiante"
     },
     {
      "id": 30,
      "file": "cala-mistero_030.json",
      "size": 7,
-     "name_it": "Il Cantiere Navale",
-     "name_en": "The Shipyard",
+     "name_it": "Il Mercato del Pesce",
+     "name_en": "The Fish Market",
      "difficulty": 1,
-     "rating": 1,
+     "rating": 17,
      "band": "principiante"
     },
     {
      "id": 31,
      "file": "cala-mistero_031.json",
      "size": 7,
-     "name_it": "Vento di Scirocco",
-     "name_en": "Sirocco Wind",
+     "name_it": "Pesce Marcio",
+     "name_en": "Rotten Fish",
      "difficulty": 1,
-     "rating": 9,
+     "rating": 17,
      "band": "principiante"
     },
     {
      "id": 32,
      "file": "cala-mistero_032.json",
      "size": 7,
-     "name_it": "Il Timone Bloccato",
-     "name_en": "The Jammed Helm",
+     "name_it": "La Chiglia Graffiata",
+     "name_en": "The Scratched Keel",
      "difficulty": 1,
-     "rating": 9,
+     "rating": 19,
      "band": "principiante"
     },
     {
      "id": 33,
      "file": "cala-mistero_033.json",
      "size": 7,
-     "name_it": "Il Salvagente Tagliato",
-     "name_en": "The Cut Life Ring",
+     "name_it": "Conchiglie e Bugie",
+     "name_en": "Shells and Lies",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 24,
      "band": "principiante"
     },
     {
      "id": 34,
      "file": "cala-mistero_034.json",
      "size": 7,
-     "name_it": "Pesce Marcio",
-     "name_en": "Rotten Fish",
+     "name_it": "Il Faro Non Risponde",
+     "name_en": "The Lighthouse Won't Answer",
      "difficulty": 2,
-     "rating": 19,
+     "rating": 24,
      "band": "principiante"
     },
     {
      "id": 35,
      "file": "cala-mistero_035.json",
      "size": 7,
-     "name_it": "La Chiglia Graffiata",
-     "name_en": "The Scratched Keel",
+     "name_it": "Un Nome sulla Prua",
+     "name_en": "A Name on the Bow",
      "difficulty": 2,
-     "rating": 20,
+     "rating": 24,
      "band": "principiante"
     },
     {
      "id": 36,
      "file": "cala-mistero_036.json",
      "size": 7,
-     "name_it": "Il Traghetto delle 7",
-     "name_en": "The 7 O'Clock Ferry",
+     "name_it": "L'Isola dei Gabbiani",
+     "name_en": "Gull Island",
      "difficulty": 2,
-     "rating": 24,
+     "rating": 26,
      "band": "principiante"
     },
     {
      "id": 37,
      "file": "cala-mistero_037.json",
      "size": 7,
-     "name_it": "Conchiglie e Bugie",
-     "name_en": "Shells and Lies",
+     "name_it": "Il Cantiere Navale",
+     "name_en": "The Shipyard",
      "difficulty": 2,
      "rating": 26,
      "band": "principiante"
@@ -387,55 +387,45 @@
      "id": 38,
      "file": "cala-mistero_038.json",
      "size": 7,
-     "name_it": "Il Faro Non Risponde",
-     "name_en": "The Lighthouse Won't Answer",
+     "name_it": "Reti a Strascico",
+     "name_en": "Trawling Nets",
      "difficulty": 2,
-     "rating": 26,
+     "rating": 28,
      "band": "principiante"
     },
     {
      "id": 39,
      "file": "cala-mistero_039.json",
      "size": 7,
-     "name_it": "Un Nome sulla Prua",
-     "name_en": "A Name on the Bow",
+     "name_it": "Il Registro del Porto",
+     "name_en": "The Harbour Log",
      "difficulty": 2,
-     "rating": 26,
+     "rating": 28,
      "band": "principiante"
     },
     {
      "id": 40,
      "file": "cala-mistero_040.json",
      "size": 7,
-     "name_it": "Reti a Strascico",
-     "name_en": "Trawling Nets",
+     "name_it": "Alghe sul Ponte",
+     "name_en": "Weed on the Deck",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
      "id": 41,
      "file": "cala-mistero_041.json",
      "size": 7,
-     "name_it": "Il Registro del Porto",
-     "name_en": "The Harbour Log",
+     "name_it": "La Regata",
+     "name_en": "The Regatta",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 37,
      "band": "principiante"
     },
     {
      "id": 42,
      "file": "cala-mistero_042.json",
-     "size": 7,
-     "name_it": "Alghe sul Ponte",
-     "name_en": "Weed on the Deck",
-     "difficulty": 2,
-     "rating": 29,
-     "band": "principiante"
-    },
-    {
-     "id": 43,
-     "file": "cala-mistero_043.json",
      "size": 7,
      "name_it": "Bassa Marea",
      "name_en": "Low Tide",
@@ -444,48 +434,48 @@
      "band": "principiante"
     },
     {
-     "id": 44,
-     "file": "cala-mistero_044.json",
+     "id": 43,
+     "file": "cala-mistero_043.json",
      "size": 7,
      "name_it": "La Cuccetta Vuota",
      "name_en": "The Empty Bunk",
      "difficulty": 2,
-     "rating": 41,
+     "rating": 40,
+     "band": "principiante"
+    },
+    {
+     "id": 44,
+     "file": "cala-mistero_044.json",
+     "size": 7,
+     "name_it": "Il Traghetto delle 7",
+     "name_en": "The 7 O'Clock Ferry",
+     "difficulty": 2,
+     "rating": 42,
      "band": "principiante"
     },
     {
      "id": 45,
      "file": "cala-mistero_045.json",
      "size": 7,
-     "name_it": "La Baia Nascosta",
-     "name_en": "The Hidden Bay",
+     "name_it": "Il Molo Sud",
+     "name_en": "South Pier",
      "difficulty": 2,
-     "rating": 43,
+     "rating": 42,
      "band": "principiante"
     },
     {
      "id": 46,
      "file": "cala-mistero_046.json",
      "size": 7,
-     "name_it": "Il Molo Sud",
-     "name_en": "South Pier",
+     "name_it": "L'Ora della Partenza",
+     "name_en": "Departure Hour",
      "difficulty": 2,
-     "rating": 43,
+     "rating": 45,
      "band": "principiante"
     },
     {
      "id": 47,
      "file": "cala-mistero_047.json",
-     "size": 7,
-     "name_it": "L'Ora della Partenza",
-     "name_en": "Departure Hour",
-     "difficulty": 2,
-     "rating": 46,
-     "band": "principiante"
-    },
-    {
-     "id": 48,
-     "file": "cala-mistero_048.json",
      "size": 7,
      "name_it": "Sirene alle Cinque",
      "name_en": "Sirens at Five",
@@ -494,88 +484,68 @@
      "band": "principiante"
     },
     {
+     "id": 48,
+     "file": "cala-mistero_048.json",
+     "size": 7,
+     "name_it": "La Baia Nascosta",
+     "name_en": "The Hidden Bay",
+     "difficulty": 2,
+     "rating": 65,
+     "band": "principiante"
+    },
+    {
      "id": 49,
      "file": "cala-mistero_049.json",
      "size": 8,
-     "name_it": "La Nave da Crociera",
-     "name_en": "The Cruise Ship",
+     "name_it": "La Tempesta",
+     "name_en": "The Storm",
      "difficulty": 2,
-     "rating": 1,
+     "rating": 28,
      "band": "medio"
     },
     {
      "id": 50,
      "file": "cala-mistero_050.json",
      "size": 8,
-     "name_it": "Il Relitto",
-     "name_en": "The Wreck",
+     "name_it": "Gabbiani sul Relitto",
+     "name_en": "Gulls on the Wreck",
      "difficulty": 2,
-     "rating": 1,
+     "rating": 33,
      "band": "medio"
     },
     {
      "id": 51,
      "file": "cala-mistero_051.json",
      "size": 8,
-     "name_it": "L'Ultimo Traghetto",
-     "name_en": "The Last Ferry",
+     "name_it": "La Nave da Crociera",
+     "name_en": "The Cruise Ship",
      "difficulty": 2,
-     "rating": 1,
+     "rating": 34,
      "band": "medio"
     },
     {
      "id": 52,
      "file": "cala-mistero_052.json",
      "size": 8,
-     "name_it": "La Tempesta",
-     "name_en": "The Storm",
+     "name_it": "Acqua Salata",
+     "name_en": "Salt Water",
      "difficulty": 2,
-     "rating": 2,
+     "rating": 35,
      "band": "medio"
     },
     {
      "id": 53,
      "file": "cala-mistero_053.json",
      "size": 8,
-     "name_it": "Il Porto Franco",
-     "name_en": "The Free Port",
+     "name_it": "Fondale Basso",
+     "name_en": "Shallow Bottom",
      "difficulty": 2,
-     "rating": 24,
+     "rating": 35,
      "band": "medio"
     },
     {
      "id": 54,
      "file": "cala-mistero_054.json",
-     "size": 8,
-     "name_it": "Gabbiani sul Relitto",
-     "name_en": "Gulls on the Wreck",
-     "difficulty": 2,
-     "rating": 34,
-     "band": "medio"
-    },
-    {
-     "id": 55,
-     "file": "cala-mistero_055.json",
-     "size": 8,
-     "name_it": "Acqua Salata",
-     "name_en": "Salt Water",
-     "difficulty": 2,
-     "rating": 36,
-     "band": "medio"
-    },
-    {
-     "id": 56,
-     "file": "cala-mistero_056.json",
-     "size": 8,
-     "name_it": "Fondale Basso",
-     "name_en": "Shallow Bottom",
-     "difficulty": 2,
-     "rating": 36,
-     "band": "medio"
-    },
-    {
-     "id": 57,
-     "file": "cala-mistero_057.json",
      "size": 8,
      "name_it": "Il Pontile Chiuso",
      "name_en": "The Closed Jetty",
@@ -584,18 +554,28 @@
      "band": "medio"
     },
     {
-     "id": 58,
-     "file": "cala-mistero_058.json",
+     "id": 55,
+     "file": "cala-mistero_055.json",
      "size": 8,
      "name_it": "Nodi e Sospetti",
      "name_en": "Knots and Suspicions",
      "difficulty": 2,
-     "rating": 45,
+     "rating": 44,
      "band": "medio"
     },
     {
-     "id": 59,
-     "file": "cala-mistero_059.json",
+     "id": 56,
+     "file": "cala-mistero_056.json",
+     "size": 8,
+     "name_it": "L'Ultimo Traghetto",
+     "name_en": "The Last Ferry",
+     "difficulty": 2,
+     "rating": 46,
+     "band": "medio"
+    },
+    {
+     "id": 57,
+     "file": "cala-mistero_057.json",
      "size": 8,
      "name_it": "Il Passeggero Senza Nome",
      "name_en": "The Nameless Passenger",
@@ -604,8 +584,8 @@
      "band": "medio"
     },
     {
-     "id": 60,
-     "file": "cala-mistero_060.json",
+     "id": 58,
+     "file": "cala-mistero_058.json",
      "size": 8,
      "name_it": "Fari nella Nebbia",
      "name_en": "Beams in the Fog",
@@ -614,8 +594,8 @@
      "band": "medio"
     },
     {
-     "id": 61,
-     "file": "cala-mistero_061.json",
+     "id": 59,
+     "file": "cala-mistero_059.json",
      "size": 8,
      "name_it": "Il Diario del Nostromo",
      "name_en": "The Bosun's Diary",
@@ -624,8 +604,8 @@
      "band": "medio"
     },
     {
-     "id": 62,
-     "file": "cala-mistero_062.json",
+     "id": 60,
+     "file": "cala-mistero_060.json",
      "size": 8,
      "name_it": "Il Motore Fermo",
      "name_en": "The Dead Engine",
@@ -634,28 +614,28 @@
      "band": "medio"
     },
     {
-     "id": 63,
-     "file": "cala-mistero_063.json",
+     "id": 61,
+     "file": "cala-mistero_061.json",
      "size": 8,
      "name_it": "La Cima Recisa",
      "name_en": "The Severed Line",
      "difficulty": 2,
-     "rating": 61,
+     "rating": 60,
      "band": "medio"
     },
     {
-     "id": 64,
-     "file": "cala-mistero_064.json",
+     "id": 62,
+     "file": "cala-mistero_062.json",
      "size": 8,
      "name_it": "La Barca di Nessuno",
      "name_en": "Nobody's Boat",
      "difficulty": 2,
-     "rating": 61,
+     "rating": 60,
      "band": "medio"
     },
     {
-     "id": 65,
-     "file": "cala-mistero_065.json",
+     "id": 63,
+     "file": "cala-mistero_063.json",
      "size": 8,
      "name_it": "Corrente Contraria",
      "name_en": "Against the Current",
@@ -664,8 +644,8 @@
      "band": "medio"
     },
     {
-     "id": 66,
-     "file": "cala-mistero_066.json",
+     "id": 64,
+     "file": "cala-mistero_064.json",
      "size": 8,
      "name_it": "Silenzio in Banchina",
      "name_en": "Silence on the Quay",
@@ -674,21 +654,41 @@
      "band": "medio"
     },
     {
-     "id": 67,
-     "file": "cala-mistero_067.json",
+     "id": 65,
+     "file": "cala-mistero_065.json",
+     "size": 8,
+     "name_it": "Il Porto Franco",
+     "name_en": "The Free Port",
+     "difficulty": 2,
+     "rating": 63,
+     "band": "medio"
+    },
+    {
+     "id": 66,
+     "file": "cala-mistero_066.json",
      "size": 8,
      "name_it": "Il Gozzo Affondato",
      "name_en": "The Sunken Skiff",
-     "difficulty": 3,
+     "difficulty": 2,
      "rating": 63,
+     "band": "medio"
+    },
+    {
+     "id": 67,
+     "file": "cala-mistero_067.json",
+     "size": 8,
+     "name_it": "Il Segreto del Capitano",
+     "name_en": "The Captain's Secret",
+     "difficulty": 3,
+     "rating": 64,
      "band": "medio"
     },
     {
      "id": 68,
      "file": "cala-mistero_068.json",
      "size": 8,
-     "name_it": "Il Segreto del Capitano",
-     "name_en": "The Captain's Secret",
+     "name_it": "Il Relitto",
+     "name_en": "The Wreck",
      "difficulty": 3,
      "rating": 64,
      "band": "medio"
@@ -750,7 +750,7 @@
      "name_it": "Rotta a Nord",
      "name_en": "Course North",
      "difficulty": 3,
-     "rating": 55,
+     "rating": 54,
      "band": "medio"
     },
     {
@@ -1086,7 +1086,7 @@
      "name_it": "Micrometeoriti",
      "name_en": "Micrometeorites",
      "difficulty": 1,
-     "rating": 2,
+     "rating": 1,
      "band": "principiante"
     },
     {
@@ -1096,7 +1096,7 @@
      "name_it": "Turno Saltato",
      "name_en": "Missed Shift",
      "difficulty": 1,
-     "rating": 4,
+     "rating": 2,
      "band": "principiante"
     },
     {
@@ -1106,7 +1106,7 @@
      "name_it": "Freddo nel Modulo",
      "name_en": "Cold in the Module",
      "difficulty": 1,
-     "rating": 4,
+     "rating": 2,
      "band": "principiante"
     },
     {
@@ -1116,7 +1116,7 @@
      "name_it": "Ossigeno in Calo",
      "name_en": "Oxygen Falling",
      "difficulty": 1,
-     "rating": 4,
+     "rating": 2,
      "band": "principiante"
     },
     {
@@ -1126,7 +1126,7 @@
      "name_it": "La Capsula Vuota",
      "name_en": "The Empty Pod",
      "difficulty": 1,
-     "rating": 4,
+     "rating": 2,
      "band": "principiante"
     },
     {
@@ -1136,7 +1136,7 @@
      "name_it": "Rotta Sconosciuta",
      "name_en": "Unknown Heading",
      "difficulty": 1,
-     "rating": 4,
+     "rating": 2,
      "band": "principiante"
     },
     {
@@ -1146,7 +1146,7 @@
      "name_it": "Il Droide Testimone",
      "name_en": "The Droid Witness",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -1156,7 +1156,7 @@
      "name_it": "Silenzio Radio",
      "name_en": "Radio Silence",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -1166,7 +1166,7 @@
      "name_it": "Codice Rosso",
      "name_en": "Code Red",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -1176,7 +1176,7 @@
      "name_it": "Il Log Cancellato",
      "name_en": "The Erased Log",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -1186,7 +1186,7 @@
      "name_it": "L'Ultimo Rifornimento",
      "name_en": "The Last Refuel",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -1196,7 +1196,7 @@
      "name_it": "Gravità Zero",
      "name_en": "Zero Gravity",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -1206,7 +1206,7 @@
      "name_it": "Ossigeno Razionato",
      "name_en": "Rationed Oxygen",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -1216,7 +1216,7 @@
      "name_it": "Il Braccio Robotico",
      "name_en": "The Robotic Arm",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -1226,7 +1226,7 @@
      "name_it": "La Serra Sigillata",
      "name_en": "The Sealed Greenhouse",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -1236,7 +1236,7 @@
      "name_it": "La Tuta Forata",
      "name_en": "The Punctured Suit",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -1246,7 +1246,7 @@
      "name_it": "Il Portello Aperto",
      "name_en": "The Open Hatch",
      "difficulty": 1,
-     "rating": 22,
+     "rating": 21,
      "band": "principiante"
     },
     {
@@ -1256,7 +1256,7 @@
      "name_it": "La Serra Buia",
      "name_en": "The Dark Greenhouse",
      "difficulty": 1,
-     "rating": 34,
+     "rating": 33,
      "band": "principiante"
     },
     {
@@ -1276,7 +1276,7 @@
      "name_it": "Il Turno di Notte",
      "name_en": "The Night Shift",
      "difficulty": 1,
-     "rating": 40,
+     "rating": 39,
      "band": "principiante"
     },
     {
@@ -1286,7 +1286,7 @@
      "name_it": "Assenza di Peso",
      "name_en": "Weightless",
      "difficulty": 1,
-     "rating": 40,
+     "rating": 39,
      "band": "principiante"
     },
     {
@@ -1306,7 +1306,7 @@
      "name_it": "Il Reattore Freddo",
      "name_en": "The Cold Reactor",
      "difficulty": 1,
-     "rating": 8,
+     "rating": 6,
      "band": "principiante"
     },
     {
@@ -1316,7 +1316,7 @@
      "name_it": "Rotta di Rientro",
      "name_en": "Return Trajectory",
      "difficulty": 1,
-     "rating": 9,
+     "rating": 7,
      "band": "principiante"
     },
     {
@@ -1326,7 +1326,7 @@
      "name_it": "L'Ombra nell'Hangar",
      "name_en": "Shadow in the Hangar",
      "difficulty": 1,
-     "rating": 9,
+     "rating": 7,
      "band": "principiante"
     },
     {
@@ -1336,7 +1336,7 @@
      "name_it": "Il Silenzio della Terra",
      "name_en": "Earth Is Silent",
      "difficulty": 1,
-     "rating": 19,
+     "rating": 17,
      "band": "principiante"
     },
     {
@@ -1346,7 +1346,7 @@
      "name_it": "La Mensa Deserta",
      "name_en": "The Empty Mess",
      "difficulty": 1,
-     "rating": 22,
+     "rating": 21,
      "band": "principiante"
     },
     {
@@ -1356,7 +1356,7 @@
      "name_it": "Turno Doppio",
      "name_en": "Double Shift",
      "difficulty": 1,
-     "rating": 25,
+     "rating": 24,
      "band": "principiante"
     },
     {
@@ -1366,7 +1366,7 @@
      "name_it": "Il Codice Sbagliato",
      "name_en": "The Wrong Code",
      "difficulty": 1,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -1376,7 +1376,7 @@
      "name_it": "Quarantena",
      "name_en": "Quarantine",
      "difficulty": 1,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -1386,7 +1386,7 @@
      "name_it": "Orbita Decadente",
      "name_en": "Decaying Orbit",
      "difficulty": 1,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -1396,7 +1396,7 @@
      "name_it": "Pressione in Calo",
      "name_en": "Falling Pressure",
      "difficulty": 1,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -1406,7 +1406,7 @@
      "name_it": "Antenna Piegata",
      "name_en": "Bent Antenna",
      "difficulty": 1,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -1416,7 +1416,7 @@
      "name_it": "Acqua Riciclata",
      "name_en": "Recycled Water",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -1426,7 +1426,7 @@
      "name_it": "Scudi Abbassati",
      "name_en": "Shields Down",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -1436,7 +1436,7 @@
      "name_it": "Razioni Contate",
      "name_en": "Counted Rations",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -1446,7 +1446,7 @@
      "name_it": "Perdita di Refrigerante",
      "name_en": "Coolant Leak",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -1476,7 +1476,7 @@
      "name_it": "Segnale dal Nulla",
      "name_en": "Signal from Nowhere",
      "difficulty": 2,
-     "rating": 43,
+     "rating": 42,
      "band": "principiante"
     },
     {
@@ -1486,7 +1486,7 @@
      "name_it": "Il Turno Fantasma",
      "name_en": "The Ghost Shift",
      "difficulty": 2,
-     "rating": 43,
+     "rating": 42,
      "band": "principiante"
     },
     {
@@ -1516,7 +1516,7 @@
      "name_it": "Fuori Turno",
      "name_en": "Off Shift",
      "difficulty": 2,
-     "rating": 34,
+     "rating": 33,
      "band": "medio"
     },
     {
@@ -1526,7 +1526,7 @@
      "name_it": "Un Battito Anomalo",
      "name_en": "An Odd Heartbeat",
      "difficulty": 2,
-     "rating": 36,
+     "rating": 35,
      "band": "medio"
     },
     {
@@ -1546,7 +1546,7 @@
      "name_it": "Sabotaggio",
      "name_en": "Sabotage",
      "difficulty": 2,
-     "rating": 45,
+     "rating": 44,
      "band": "medio"
     },
     {
@@ -1556,7 +1556,7 @@
      "name_it": "La Stazione Dorme",
      "name_en": "The Station Sleeps",
      "difficulty": 2,
-     "rating": 46,
+     "rating": 45,
      "band": "medio"
     },
     {
@@ -1606,7 +1606,7 @@
      "name_it": "Ombre nel Corridoio",
      "name_en": "Shadows in the Corridor",
      "difficulty": 2,
-     "rating": 56,
+     "rating": 55,
      "band": "medio"
     },
     {
@@ -1616,7 +1616,7 @@
      "name_it": "Il Modulo Perduto",
      "name_en": "The Lost Module",
      "difficulty": 2,
-     "rating": 56,
+     "rating": 55,
      "band": "medio"
     },
     {
@@ -1626,7 +1626,7 @@
      "name_it": "Carburante Mancante",
      "name_en": "Missing Fuel",
      "difficulty": 2,
-     "rating": 56,
+     "rating": 55,
      "band": "medio"
     },
     {
@@ -1636,7 +1636,7 @@
      "name_it": "Frequenza Proibita",
      "name_en": "Forbidden Frequency",
      "difficulty": 2,
-     "rating": 61,
+     "rating": 60,
      "band": "medio"
     },
     {
@@ -1646,7 +1646,7 @@
      "name_it": "Il Guanto Perduto",
      "name_en": "The Lost Glove",
      "difficulty": 2,
-     "rating": 61,
+     "rating": 60,
      "band": "medio"
     },
     {
@@ -1716,7 +1716,7 @@
      "name_it": "Il Portello Numero Quattro",
      "name_en": "Hatch Number Four",
      "difficulty": 2,
-     "rating": 60,
+     "rating": 59,
      "band": "medio"
     },
     {
@@ -1736,7 +1736,7 @@
      "name_it": "La Serra Avvelenata",
      "name_en": "The Poisoned Greenhouse",
      "difficulty": 2,
-     "rating": 61,
+     "rating": 60,
      "band": "medio"
     },
     {
@@ -1746,7 +1746,7 @@
      "name_it": "Semi Rubati",
      "name_en": "Stolen Seeds",
      "difficulty": 3,
-     "rating": 61,
+     "rating": 60,
      "band": "medio"
     },
     {
@@ -2152,7 +2152,7 @@
      "name_it": "Sangue nelle Segrete",
      "name_en": "Blood in the Dungeon",
      "difficulty": 1,
-     "rating": 2,
+     "rating": 1,
      "band": "principiante"
     },
     {
@@ -2162,7 +2162,7 @@
      "name_it": "Il Debito del Fabbro",
      "name_en": "The Smith's Debt",
      "difficulty": 1,
-     "rating": 2,
+     "rating": 1,
      "band": "principiante"
     },
     {
@@ -2172,7 +2172,7 @@
      "name_it": "Cenere nel Camino",
      "name_en": "Ash in the Hearth",
      "difficulty": 1,
-     "rating": 2,
+     "rating": 1,
      "band": "principiante"
     },
     {
@@ -2182,7 +2182,7 @@
      "name_it": "Il Falso Sigillo",
      "name_en": "The False Seal",
      "difficulty": 1,
-     "rating": 2,
+     "rating": 1,
      "band": "principiante"
     },
     {
@@ -2192,7 +2192,7 @@
      "name_it": "Il Libro Proibito",
      "name_en": "The Forbidden Book",
      "difficulty": 1,
-     "rating": 4,
+     "rating": 2,
      "band": "principiante"
     },
     {
@@ -2202,7 +2202,7 @@
      "name_it": "La Torcia Spenta",
      "name_en": "The Snuffed Torch",
      "difficulty": 1,
-     "rating": 4,
+     "rating": 2,
      "band": "principiante"
     },
     {
@@ -2212,7 +2212,7 @@
      "name_it": "Un Corvo Bianco",
      "name_en": "A White Raven",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -2222,7 +2222,7 @@
      "name_it": "Il Voto Infranto",
      "name_en": "The Broken Vow",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -2232,7 +2232,7 @@
      "name_it": "Il Cavaliere Silenzioso",
      "name_en": "The Silent Knight",
      "difficulty": 1,
-     "rating": 11,
+     "rating": 9,
      "band": "principiante"
     },
     {
@@ -2242,7 +2242,7 @@
      "name_it": "Veleno nel Calderone",
      "name_en": "Poison in the Cauldron",
      "difficulty": 1,
-     "rating": 11,
+     "rating": 9,
      "band": "principiante"
     },
     {
@@ -2252,7 +2252,7 @@
      "name_it": "Il Gargoyle che Guarda",
      "name_en": "The Watching Gargoyle",
      "difficulty": 1,
-     "rating": 11,
+     "rating": 9,
      "band": "principiante"
     },
     {
@@ -2262,7 +2262,7 @@
      "name_it": "Fiaccole nel Chiostro",
      "name_en": "Torches in the Cloister",
      "difficulty": 1,
-     "rating": 11,
+     "rating": 9,
      "band": "principiante"
     },
     {
@@ -2272,7 +2272,7 @@
      "name_it": "Il Sigillo di Cera",
      "name_en": "The Wax Seal",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -2282,7 +2282,7 @@
      "name_it": "Il Forziere Vuoto",
      "name_en": "The Empty Chest",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -2292,7 +2292,7 @@
      "name_it": "Runa di Sangue",
      "name_en": "Rune of Blood",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -2302,7 +2302,7 @@
      "name_it": "L'Ospite del Re",
      "name_en": "The King's Guest",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -2312,7 +2312,7 @@
      "name_it": "Sangue sul Tappeto",
      "name_en": "Blood on the Rug",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -2322,7 +2322,7 @@
      "name_it": "Il Passaggio Segreto",
      "name_en": "The Secret Passage",
      "difficulty": 1,
-     "rating": 22,
+     "rating": 21,
      "band": "principiante"
     },
     {
@@ -2332,7 +2332,7 @@
      "name_it": "La Corda della Campana",
      "name_en": "The Bell Rope",
      "difficulty": 1,
-     "rating": 24,
+     "rating": 23,
      "band": "principiante"
     },
     {
@@ -2342,7 +2342,7 @@
      "name_it": "La Corona Scomparsa",
      "name_en": "The Missing Crown",
      "difficulty": 1,
-     "rating": 24,
+     "rating": 23,
      "band": "principiante"
     },
     {
@@ -2352,7 +2352,7 @@
      "name_it": "La Terza Torre",
      "name_en": "The Third Tower",
      "difficulty": 1,
-     "rating": 27,
+     "rating": 26,
      "band": "principiante"
     },
     {
@@ -2362,7 +2362,7 @@
      "name_it": "Il Banchetto Interrotto",
      "name_en": "The Interrupted Feast",
      "difficulty": 1,
-     "rating": 40,
+     "rating": 39,
      "band": "principiante"
     },
     {
@@ -2372,7 +2372,7 @@
      "name_it": "Il Cancello Aperto",
      "name_en": "The Open Gate",
      "difficulty": 1,
-     "rating": 8,
+     "rating": 6,
      "band": "principiante"
     },
     {
@@ -2382,7 +2382,7 @@
      "name_it": "Il Mago non Risponde",
      "name_en": "The Wizard Is Silent",
      "difficulty": 1,
-     "rating": 9,
+     "rating": 7,
      "band": "principiante"
     },
     {
@@ -2392,7 +2392,7 @@
      "name_it": "Armatura Vuota",
      "name_en": "Hollow Armor",
      "difficulty": 1,
-     "rating": 19,
+     "rating": 17,
      "band": "principiante"
     },
     {
@@ -2402,7 +2402,7 @@
      "name_it": "Nebbia sui Bastioni",
      "name_en": "Mist on the Ramparts",
      "difficulty": 1,
-     "rating": 19,
+     "rating": 17,
      "band": "principiante"
     },
     {
@@ -2412,7 +2412,7 @@
      "name_it": "Il Corvo della Torre",
      "name_en": "The Tower Raven",
      "difficulty": 1,
-     "rating": 20,
+     "rating": 19,
      "band": "principiante"
     },
     {
@@ -2422,7 +2422,7 @@
      "name_it": "Ferro e Preghiera",
      "name_en": "Iron and Prayer",
      "difficulty": 1,
-     "rating": 20,
+     "rating": 19,
      "band": "principiante"
     },
     {
@@ -2432,7 +2432,7 @@
      "name_it": "Lame nel Buio",
      "name_en": "Blades in the Dark",
      "difficulty": 1,
-     "rating": 25,
+     "rating": 24,
      "band": "principiante"
     },
     {
@@ -2442,7 +2442,7 @@
      "name_it": "Il Banchetto Freddo",
      "name_en": "The Cold Banquet",
      "difficulty": 1,
-     "rating": 26,
+     "rating": 24,
      "band": "principiante"
     },
     {
@@ -2452,7 +2452,7 @@
      "name_it": "Debito di Sangue",
      "name_en": "Blood Debt",
      "difficulty": 1,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -2462,7 +2462,7 @@
      "name_it": "La Cappella Profanata",
      "name_en": "The Desecrated Chapel",
      "difficulty": 1,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -2472,7 +2472,7 @@
      "name_it": "La Dama Velata",
      "name_en": "The Veiled Lady",
      "difficulty": 1,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -2532,7 +2532,7 @@
      "name_it": "Notte di Luna Nuova",
      "name_en": "New Moon Night",
      "difficulty": 2,
-     "rating": 43,
+     "rating": 42,
      "band": "principiante"
     },
     {
@@ -2542,7 +2542,7 @@
      "name_it": "Il Prigioniero Fuggito",
      "name_en": "The Escaped Prisoner",
      "difficulty": 2,
-     "rating": 46,
+     "rating": 45,
      "band": "principiante"
     },
     {
@@ -2582,7 +2582,7 @@
      "name_it": "Sussurri nella Biblioteca",
      "name_en": "Whispers in the Library",
      "difficulty": 2,
-     "rating": 23,
+     "rating": 22,
      "band": "medio"
     },
     {
@@ -2632,7 +2632,7 @@
      "name_it": "Ombre nel Cortile",
      "name_en": "Shadows in the Courtyard",
      "difficulty": 2,
-     "rating": 45,
+     "rating": 44,
      "band": "medio"
     },
     {
@@ -2682,7 +2682,7 @@
      "name_it": "La Chiave del Maniero",
      "name_en": "The Manor Key",
      "difficulty": 2,
-     "rating": 55,
+     "rating": 54,
      "band": "medio"
     },
     {
@@ -2692,7 +2692,7 @@
      "name_it": "Il Menestrello Muto",
      "name_en": "The Mute Minstrel",
      "difficulty": 2,
-     "rating": 56,
+     "rating": 55,
      "band": "medio"
     },
     {
@@ -2702,7 +2702,7 @@
      "name_it": "La Runa Cancellata",
      "name_en": "The Erased Rune",
      "difficulty": 2,
-     "rating": 56,
+     "rating": 55,
      "band": "medio"
     },
     {
@@ -2712,7 +2712,7 @@
      "name_it": "Vino e Veleno",
      "name_en": "Wine and Poison",
      "difficulty": 2,
-     "rating": 56,
+     "rating": 55,
      "band": "medio"
     },
     {
@@ -2722,7 +2722,7 @@
      "name_it": "La Spada Spezzata",
      "name_en": "The Broken Sword",
      "difficulty": 2,
-     "rating": 56,
+     "rating": 55,
      "band": "medio"
     },
     {
@@ -2812,7 +2812,7 @@
      "name_it": "Il Guardiano Addormentato",
      "name_en": "The Sleeping Guard",
      "difficulty": 3,
-     "rating": 60,
+     "rating": 59,
      "band": "medio"
     },
     {
@@ -2872,7 +2872,7 @@
      "name_it": "Il Prezzo del Mago",
      "name_en": "The Wizard's Price",
      "difficulty": 3,
-     "rating": 63,
+     "rating": 62,
      "band": "esperto"
     },
     {
@@ -3218,7 +3218,7 @@
      "name_it": "Il Nastro Rosso",
      "name_en": "The Red Ribbon",
      "difficulty": 1,
-     "rating": 2,
+     "rating": 1,
      "band": "principiante"
     },
     {
@@ -3228,7 +3228,7 @@
      "name_it": "Neve in Officina",
      "name_en": "Snow in the Workshop",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -3238,7 +3238,7 @@
      "name_it": "La Renna Nervosa",
      "name_en": "The Restless Reindeer",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -3248,7 +3248,7 @@
      "name_it": "Il Registro dei Doni",
      "name_en": "The Gift Ledger",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -3258,7 +3258,7 @@
      "name_it": "Il Fornaio Nervoso",
      "name_en": "The Nervous Baker",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -3268,7 +3268,7 @@
      "name_it": "Zenzero e Cannella",
      "name_en": "Ginger and Cinnamon",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -3278,7 +3278,7 @@
      "name_it": "Campanelli Rotti",
      "name_en": "Broken Bells",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -3288,7 +3288,7 @@
      "name_it": "La Slitta Graffiata",
      "name_en": "The Scratched Sleigh",
      "difficulty": 1,
-     "rating": 9,
+     "rating": 7,
      "band": "principiante"
     },
     {
@@ -3298,7 +3298,7 @@
      "name_it": "Lettere Fuori Posto",
      "name_en": "Misfiled Letters",
      "difficulty": 1,
-     "rating": 11,
+     "rating": 9,
      "band": "principiante"
     },
     {
@@ -3308,7 +3308,7 @@
      "name_it": "Il Turno di Mezzanotte",
      "name_en": "The Midnight Shift",
      "difficulty": 1,
-     "rating": 11,
+     "rating": 9,
      "band": "principiante"
     },
     {
@@ -3318,7 +3318,7 @@
      "name_it": "Il Campanello Muto",
      "name_en": "The Silent Bell",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -3328,7 +3328,7 @@
      "name_it": "Fuliggine sul Tappeto",
      "name_en": "Soot on the Rug",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -3338,7 +3338,7 @@
      "name_it": "La Lista Alterata",
      "name_en": "The Altered List",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -3348,7 +3348,7 @@
      "name_it": "Il Fiocco Sbagliato",
      "name_en": "The Wrong Bow",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -3358,7 +3358,7 @@
      "name_it": "Pacchi Bagnati",
      "name_en": "Wet Parcels",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -3368,7 +3368,7 @@
      "name_it": "Un Elfo di Troppo",
      "name_en": "One Elf Too Many",
      "difficulty": 1,
-     "rating": 22,
+     "rating": 21,
      "band": "principiante"
     },
     {
@@ -3378,7 +3378,7 @@
      "name_it": "Neve sul Davanzale",
      "name_en": "Snow on the Sill",
      "difficulty": 1,
-     "rating": 22,
+     "rating": 21,
      "band": "principiante"
     },
     {
@@ -3388,7 +3388,7 @@
      "name_it": "Biscotti Contati",
      "name_en": "Counted Cookies",
      "difficulty": 1,
-     "rating": 24,
+     "rating": 23,
      "band": "principiante"
     },
     {
@@ -3398,7 +3398,7 @@
      "name_it": "La Renna Numero Sette",
      "name_en": "Reindeer Number Seven",
      "difficulty": 1,
-     "rating": 27,
+     "rating": 26,
      "band": "principiante"
     },
     {
@@ -3408,7 +3408,7 @@
      "name_it": "Ghiaccio in Cortile",
      "name_en": "Ice in the Yard",
      "difficulty": 1,
-     "rating": 27,
+     "rating": 26,
      "band": "principiante"
     },
     {
@@ -3438,7 +3438,7 @@
      "name_it": "Pacchi senza Nome",
      "name_en": "Nameless Parcels",
      "difficulty": 1,
-     "rating": 19,
+     "rating": 17,
      "band": "principiante"
     },
     {
@@ -3448,7 +3448,7 @@
      "name_it": "L'Albero Caduto",
      "name_en": "The Fallen Tree",
      "difficulty": 1,
-     "rating": 19,
+     "rating": 17,
      "band": "principiante"
     },
     {
@@ -3458,7 +3458,7 @@
      "name_it": "Il Pupazzo Testimone",
      "name_en": "The Snowman Witness",
      "difficulty": 1,
-     "rating": 19,
+     "rating": 17,
      "band": "principiante"
     },
     {
@@ -3468,7 +3468,7 @@
      "name_it": "La Letterina Anonima",
      "name_en": "The Anonymous Letter",
      "difficulty": 1,
-     "rating": 19,
+     "rating": 17,
      "band": "principiante"
     },
     {
@@ -3478,7 +3478,7 @@
      "name_it": "Il Sacco Numero Due",
      "name_en": "Sack Number Two",
      "difficulty": 1,
-     "rating": 19,
+     "rating": 17,
      "band": "principiante"
     },
     {
@@ -3488,7 +3488,7 @@
      "name_it": "Un Elfo in Ritardo",
      "name_en": "A Late Elf",
      "difficulty": 1,
-     "rating": 19,
+     "rating": 17,
      "band": "principiante"
     },
     {
@@ -3498,7 +3498,7 @@
      "name_it": "L'Officina Silenziosa",
      "name_en": "The Silent Workshop",
      "difficulty": 1,
-     "rating": 20,
+     "rating": 19,
      "band": "principiante"
     },
     {
@@ -3508,7 +3508,7 @@
      "name_it": "Fiocchi di Neve Contati",
      "name_en": "Counted Snowflakes",
      "difficulty": 1,
-     "rating": 20,
+     "rating": 19,
      "band": "principiante"
     },
     {
@@ -3518,7 +3518,7 @@
      "name_it": "Il Camino Freddo",
      "name_en": "The Cold Fireplace",
      "difficulty": 1,
-     "rating": 22,
+     "rating": 21,
      "band": "principiante"
     },
     {
@@ -3528,7 +3528,7 @@
      "name_it": "Luci nella Stalla",
      "name_en": "Lights in the Stable",
      "difficulty": 1,
-     "rating": 24,
+     "rating": 23,
      "band": "principiante"
     },
     {
@@ -3538,7 +3538,7 @@
      "name_it": "Orme nella Neve",
      "name_en": "Footprints in the Snow",
      "difficulty": 1,
-     "rating": 26,
+     "rating": 24,
      "band": "principiante"
     },
     {
@@ -3548,7 +3548,7 @@
      "name_it": "Il Camino Otturato",
      "name_en": "The Blocked Chimney",
      "difficulty": 2,
-     "rating": 26,
+     "rating": 24,
      "band": "principiante"
     },
     {
@@ -3558,7 +3558,7 @@
      "name_it": "Turno in Magazzino",
      "name_en": "Warehouse Shift",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -3568,7 +3568,7 @@
      "name_it": "La Chiave dell'Ufficio",
      "name_en": "The Office Key",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -3578,7 +3578,7 @@
      "name_it": "La Slitta Scarica",
      "name_en": "The Empty Sleigh",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -3588,7 +3588,7 @@
      "name_it": "Zucchero Filato",
      "name_en": "Spun Sugar",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -3608,7 +3608,7 @@
      "name_it": "La Notte del 23",
      "name_en": "The Night of the 23rd",
      "difficulty": 2,
-     "rating": 43,
+     "rating": 42,
      "band": "principiante"
     },
     {
@@ -3618,7 +3618,7 @@
      "name_it": "Nastri Tagliati",
      "name_en": "Cut Ribbons",
      "difficulty": 2,
-     "rating": 43,
+     "rating": 42,
      "band": "principiante"
     },
     {
@@ -3648,7 +3648,7 @@
      "name_it": "Il Grande Freddo",
      "name_en": "The Deep Freeze",
      "difficulty": 2,
-     "rating": 25,
+     "rating": 24,
      "band": "medio"
     },
     {
@@ -3658,7 +3658,7 @@
      "name_it": "Il Nastro dell'Ultimo Pacco",
      "name_en": "The Last Parcel's Ribbon",
      "difficulty": 2,
-     "rating": 25,
+     "rating": 24,
      "band": "medio"
     },
     {
@@ -3668,7 +3668,7 @@
      "name_it": "La Lista Nera",
      "name_en": "The Naughty List",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 28,
      "band": "medio"
     },
     {
@@ -3678,7 +3678,7 @@
      "name_it": "Silenzio alla Vigilia",
      "name_en": "Silence on the Eve",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 28,
      "band": "medio"
     },
     {
@@ -3698,7 +3698,7 @@
      "name_it": "Le Letterine Bruciate",
      "name_en": "The Burned Letters",
      "difficulty": 2,
-     "rating": 36,
+     "rating": 35,
      "band": "medio"
     },
     {
@@ -3708,7 +3708,7 @@
      "name_it": "Un Pupazzo di Troppo",
      "name_en": "One Snowman Too Many",
      "difficulty": 2,
-     "rating": 36,
+     "rating": 35,
      "band": "medio"
     },
     {
@@ -3718,7 +3718,7 @@
      "name_it": "Cioccolata Fredda",
      "name_en": "Cold Cocoa",
      "difficulty": 2,
-     "rating": 36,
+     "rating": 35,
      "band": "medio"
     },
     {
@@ -3758,7 +3758,7 @@
      "name_it": "Calze Bucate",
      "name_en": "Holed Stockings",
      "difficulty": 2,
-     "rating": 56,
+     "rating": 55,
      "band": "medio"
     },
     {
@@ -3768,7 +3768,7 @@
      "name_it": "Campanelle nella Notte",
      "name_en": "Bells in the Night",
      "difficulty": 2,
-     "rating": 56,
+     "rating": 55,
      "band": "medio"
     },
     {
@@ -3778,7 +3778,7 @@
      "name_it": "La Chiave del Magazzino",
      "name_en": "The Storeroom Key",
      "difficulty": 2,
-     "rating": 56,
+     "rating": 55,
      "band": "medio"
     },
     {
@@ -3868,7 +3868,7 @@
      "name_it": "Il Turno dell'Alba",
      "name_en": "The Dawn Shift",
      "difficulty": 2,
-     "rating": 55,
+     "rating": 54,
      "band": "medio"
     },
     {
@@ -3878,7 +3878,7 @@
      "name_it": "Vetri Appannati",
      "name_en": "Fogged Windows",
      "difficulty": 3,
-     "rating": 56,
+     "rating": 55,
      "band": "medio"
     },
     {
@@ -4284,7 +4284,7 @@
      "name_it": "Il Cavallo Sbagliato",
      "name_en": "The Wrong Horse",
      "difficulty": 1,
-     "rating": 2,
+     "rating": 1,
      "band": "principiante"
     },
     {
@@ -4294,7 +4294,7 @@
      "name_it": "Sabbia nel Barile",
      "name_en": "Sand in the Barrel",
      "difficulty": 1,
-     "rating": 2,
+     "rating": 1,
      "band": "principiante"
     },
     {
@@ -4304,7 +4304,7 @@
      "name_it": "Taglia da Mille Dollari",
      "name_en": "A Thousand Dollar Bounty",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -4314,7 +4314,7 @@
      "name_it": "La Campana della Missione",
      "name_en": "The Mission Bell",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -4324,7 +4324,7 @@
      "name_it": "La Sella Rubata",
      "name_en": "The Stolen Saddle",
      "difficulty": 1,
-     "rating": 11,
+     "rating": 9,
      "band": "principiante"
     },
     {
@@ -4334,7 +4334,7 @@
      "name_it": "L'Ultimo Bicchiere",
      "name_en": "The Last Drink",
      "difficulty": 1,
-     "rating": 11,
+     "rating": 9,
      "band": "principiante"
     },
     {
@@ -4344,7 +4344,7 @@
      "name_it": "Carte Truccate",
      "name_en": "Marked Cards",
      "difficulty": 1,
-     "rating": 11,
+     "rating": 9,
      "band": "principiante"
     },
     {
@@ -4354,7 +4354,7 @@
      "name_it": "La Stella dello Sceriffo",
      "name_en": "The Sheriff's Star",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -4364,7 +4364,7 @@
      "name_it": "Sabbia negli Occhi",
      "name_en": "Sand in the Eyes",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -4374,7 +4374,7 @@
      "name_it": "Il Pozzo Avvelenato",
      "name_en": "The Poisoned Well",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -4384,7 +4384,7 @@
      "name_it": "Il Pianista Muto",
      "name_en": "The Silent Piano Player",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -4394,7 +4394,7 @@
      "name_it": "Il Vagone Postale",
      "name_en": "The Mail Car",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -4404,7 +4404,7 @@
      "name_it": "Fango e Piombo",
      "name_en": "Mud and Lead",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -4414,7 +4414,7 @@
      "name_it": "Tre Assi e un Morto",
      "name_en": "Three Aces and a Dead Man",
      "difficulty": 1,
-     "rating": 22,
+     "rating": 21,
      "band": "principiante"
     },
     {
@@ -4424,7 +4424,7 @@
      "name_it": "Ferri di Cavallo",
      "name_en": "Horseshoes",
      "difficulty": 1,
-     "rating": 24,
+     "rating": 23,
      "band": "principiante"
     },
     {
@@ -4434,7 +4434,7 @@
      "name_it": "Il Recinto Aperto",
      "name_en": "The Open Corral",
      "difficulty": 1,
-     "rating": 26,
+     "rating": 24,
      "band": "principiante"
     },
     {
@@ -4444,7 +4444,7 @@
      "name_it": "Rapina alle Tre",
      "name_en": "Three O'Clock Robbery",
      "difficulty": 1,
-     "rating": 27,
+     "rating": 26,
      "band": "principiante"
     },
     {
@@ -4454,7 +4454,7 @@
      "name_it": "Polvere sul Bancone",
      "name_en": "Dust on the Counter",
      "difficulty": 1,
-     "rating": 27,
+     "rating": 26,
      "band": "principiante"
     },
     {
@@ -4464,7 +4464,7 @@
      "name_it": "Whisky Annacquato",
      "name_en": "Watered Whiskey",
      "difficulty": 1,
-     "rating": 40,
+     "rating": 39,
      "band": "principiante"
     },
     {
@@ -4484,7 +4484,7 @@
      "name_it": "Il Treno delle Sei",
      "name_en": "The Six O'Clock Train",
      "difficulty": 1,
-     "rating": 46,
+     "rating": 45,
      "band": "principiante"
     },
     {
@@ -4504,7 +4504,7 @@
      "name_it": "Il Mandante",
      "name_en": "The Man Who Paid",
      "difficulty": 1,
-     "rating": 9,
+     "rating": 7,
      "band": "principiante"
     },
     {
@@ -4514,7 +4514,7 @@
      "name_it": "Sangue nel Canyon",
      "name_en": "Blood in the Canyon",
      "difficulty": 1,
-     "rating": 9,
+     "rating": 7,
      "band": "principiante"
     },
     {
@@ -4524,7 +4524,7 @@
      "name_it": "La Cassaforte Aperta",
      "name_en": "The Open Safe",
      "difficulty": 1,
-     "rating": 9,
+     "rating": 7,
      "band": "principiante"
     },
     {
@@ -4534,7 +4534,7 @@
      "name_it": "Il Prezzo dell'Acqua",
      "name_en": "The Price of Water",
      "difficulty": 1,
-     "rating": 9,
+     "rating": 7,
      "band": "principiante"
     },
     {
@@ -4544,7 +4544,7 @@
      "name_it": "Sette Dollari",
      "name_en": "Seven Dollars",
      "difficulty": 1,
-     "rating": 9,
+     "rating": 7,
      "band": "principiante"
     },
     {
@@ -4554,7 +4554,7 @@
      "name_it": "La Corriera in Ritardo",
      "name_en": "The Late Stage",
      "difficulty": 1,
-     "rating": 9,
+     "rating": 7,
      "band": "principiante"
     },
     {
@@ -4564,7 +4564,7 @@
      "name_it": "Nessuno in Città",
      "name_en": "Nobody in Town",
      "difficulty": 1,
-     "rating": 19,
+     "rating": 17,
      "band": "principiante"
     },
     {
@@ -4574,7 +4574,7 @@
      "name_it": "Il Vice Traditore",
      "name_en": "The Turncoat Deputy",
      "difficulty": 1,
-     "rating": 19,
+     "rating": 17,
      "band": "principiante"
     },
     {
@@ -4584,7 +4584,7 @@
      "name_it": "Fumo sulle Colline",
      "name_en": "Smoke on the Hills",
      "difficulty": 1,
-     "rating": 20,
+     "rating": 19,
      "band": "principiante"
     },
     {
@@ -4594,7 +4594,7 @@
      "name_it": "La Miniera Chiusa",
      "name_en": "The Closed Mine",
      "difficulty": 1,
-     "rating": 20,
+     "rating": 19,
      "band": "principiante"
     },
     {
@@ -4604,7 +4604,7 @@
      "name_it": "Il Pozzo di Confine",
      "name_en": "The Border Well",
      "difficulty": 1,
-     "rating": 20,
+     "rating": 19,
      "band": "principiante"
     },
     {
@@ -4614,7 +4614,7 @@
      "name_it": "Sei Colpi",
      "name_en": "Six Shots",
      "difficulty": 2,
-     "rating": 26,
+     "rating": 24,
      "band": "principiante"
     },
     {
@@ -4624,7 +4624,7 @@
      "name_it": "La Stella Storta",
      "name_en": "The Crooked Star",
      "difficulty": 2,
-     "rating": 26,
+     "rating": 24,
      "band": "principiante"
     },
     {
@@ -4634,7 +4634,7 @@
      "name_it": "Il Forestiero",
      "name_en": "The Stranger",
      "difficulty": 2,
-     "rating": 26,
+     "rating": 24,
      "band": "principiante"
     },
     {
@@ -4644,7 +4644,7 @@
      "name_it": "La Firma sul Registro",
      "name_en": "The Name in the Ledger",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -4654,7 +4654,7 @@
      "name_it": "Un Cavallo Zoppo",
      "name_en": "A Lame Horse",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -4664,7 +4664,7 @@
      "name_it": "Speroni Nuovi",
      "name_en": "New Spurs",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -4674,7 +4674,7 @@
      "name_it": "Fuoco al Fienile",
      "name_en": "Barn on Fire",
      "difficulty": 2,
-     "rating": 35,
+     "rating": 34,
      "band": "principiante"
     },
     {
@@ -4694,7 +4694,7 @@
      "name_it": "Whisky e Silenzio",
      "name_en": "Whiskey and Silence",
      "difficulty": 2,
-     "rating": 41,
+     "rating": 40,
      "band": "principiante"
     },
     {
@@ -4704,7 +4704,7 @@
      "name_it": "La Diligenza Scomparsa",
      "name_en": "The Missing Stagecoach",
      "difficulty": 2,
-     "rating": 43,
+     "rating": 42,
      "band": "principiante"
     },
     {
@@ -4714,7 +4714,7 @@
      "name_it": "Il Marchio Falso",
      "name_en": "The False Brand",
      "difficulty": 2,
-     "rating": 1,
+     "rating": 22,
      "band": "medio"
     },
     {
@@ -4724,7 +4724,7 @@
      "name_it": "Debiti di Gioco",
      "name_en": "Gambling Debts",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 28,
      "band": "medio"
     },
     {
@@ -4734,7 +4734,7 @@
      "name_it": "Mezzogiorno di Fuoco",
      "name_en": "High Noon",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 28,
      "band": "medio"
     },
     {
@@ -4744,7 +4744,7 @@
      "name_it": "Oro Sporco",
      "name_en": "Dirty Gold",
      "difficulty": 2,
-     "rating": 36,
+     "rating": 35,
      "band": "medio"
     },
     {
@@ -4754,7 +4754,7 @@
      "name_it": "Il Telegrafo Muto",
      "name_en": "The Silent Telegraph",
      "difficulty": 2,
-     "rating": 36,
+     "rating": 35,
      "band": "medio"
     },
     {
@@ -4764,7 +4764,7 @@
      "name_it": "Cenere nel Canyon",
      "name_en": "Ash in the Canyon",
      "difficulty": 2,
-     "rating": 36,
+     "rating": 35,
      "band": "medio"
     },
     {
@@ -4774,7 +4774,7 @@
      "name_it": "Un Bicchiere di Troppo",
      "name_en": "One Drink Too Many",
      "difficulty": 2,
-     "rating": 36,
+     "rating": 35,
      "band": "medio"
     },
     {
@@ -4784,7 +4784,7 @@
      "name_it": "Serpenti nel Deserto",
      "name_en": "Snakes in the Desert",
      "difficulty": 2,
-     "rating": 36,
+     "rating": 35,
      "band": "medio"
     },
     {
@@ -4794,7 +4794,7 @@
      "name_it": "Corda e Ferro",
      "name_en": "Rope and Iron",
      "difficulty": 2,
-     "rating": 45,
+     "rating": 44,
      "band": "medio"
     },
     {
@@ -4874,7 +4874,7 @@
      "name_it": "Il Fabbro Sa",
      "name_en": "The Blacksmith Knows",
      "difficulty": 2,
-     "rating": 56,
+     "rating": 55,
      "band": "medio"
     },
     {
@@ -4934,7 +4934,7 @@
      "name_it": "Il Barile Vuoto",
      "name_en": "The Empty Barrel",
      "difficulty": 2,
-     "rating": 55,
+     "rating": 54,
      "band": "medio"
     },
     {
@@ -4944,7 +4944,7 @@
      "name_it": "Vento sulle Rotaie",
      "name_en": "Wind on the Rails",
      "difficulty": 3,
-     "rating": 56,
+     "rating": 55,
      "band": "medio"
     },
     {
@@ -4954,7 +4954,7 @@
      "name_it": "Un Colpo alla Banca",
      "name_en": "A Job at the Bank",
      "difficulty": 3,
-     "rating": 61,
+     "rating": 60,
      "band": "medio"
     },
     {
@@ -5347,8 +5347,8 @@
      "id": 1,
      "file": "egitto_001.json",
      "size": 6,
-     "name_it": "Il Braciere Spento",
-     "name_en": "The Dead Brazier",
+     "name_it": "Geroglifici Falsi",
+     "name_en": "False Hieroglyphs",
      "difficulty": 1,
      "rating": 1,
      "band": "principiante"
@@ -5357,18 +5357,18 @@
      "id": 2,
      "file": "egitto_002.json",
      "size": 6,
-     "name_it": "Geroglifici Falsi",
-     "name_en": "False Hieroglyphs",
+     "name_it": "Il Sigillo Rifatto",
+     "name_en": "The Remade Seal",
      "difficulty": 1,
-     "rating": 2,
+     "rating": 1,
      "band": "principiante"
     },
     {
      "id": 3,
      "file": "egitto_003.json",
      "size": 6,
-     "name_it": "Il Sigillo Rifatto",
-     "name_en": "The Remade Seal",
+     "name_it": "La Colonna Incrinata",
+     "name_en": "The Cracked Column",
      "difficulty": 1,
      "rating": 2,
      "band": "principiante"
@@ -5377,48 +5377,48 @@
      "id": 4,
      "file": "egitto_004.json",
      "size": 6,
-     "name_it": "La Colonna Incrinata",
-     "name_en": "The Cracked Column",
+     "name_it": "La Bilancia Truccata",
+     "name_en": "The Rigged Scales",
      "difficulty": 1,
-     "rating": 4,
+     "rating": 2,
      "band": "principiante"
     },
     {
      "id": 5,
      "file": "egitto_005.json",
      "size": 6,
-     "name_it": "La Bilancia Truccata",
-     "name_en": "The Rigged Scales",
+     "name_it": "Sabbia nel Granaio",
+     "name_en": "Sand in the Granary",
      "difficulty": 1,
-     "rating": 4,
+     "rating": 3,
      "band": "principiante"
     },
     {
      "id": 6,
      "file": "egitto_006.json",
      "size": 6,
-     "name_it": "Sabbia nel Granaio",
-     "name_en": "Sand in the Granary",
+     "name_it": "L'Urna Mancante",
+     "name_en": "The Missing Jar",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 7,
      "band": "principiante"
     },
     {
      "id": 7,
      "file": "egitto_007.json",
      "size": 6,
-     "name_it": "L'Urna Mancante",
-     "name_en": "The Missing Jar",
+     "name_it": "Il Custode del Grano",
+     "name_en": "The Grain Keeper",
      "difficulty": 1,
-     "rating": 9,
+     "rating": 7,
      "band": "principiante"
     },
     {
      "id": 8,
      "file": "egitto_008.json",
      "size": 6,
-     "name_it": "Il Custode del Grano",
-     "name_en": "The Grain Keeper",
+     "name_it": "Olio nelle Lampade",
+     "name_en": "Oil in the Lamps",
      "difficulty": 1,
      "rating": 9,
      "band": "principiante"
@@ -5427,8 +5427,8 @@
      "id": 9,
      "file": "egitto_009.json",
      "size": 6,
-     "name_it": "Olio nelle Lampade",
-     "name_en": "Oil in the Lamps",
+     "name_it": "Il Braciere Spento",
+     "name_en": "The Dead Brazier",
      "difficulty": 1,
      "rating": 11,
      "band": "principiante"
@@ -5440,7 +5440,7 @@
      "name_it": "Ombre tra le Colonne",
      "name_en": "Shadows Among the Columns",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -5450,7 +5450,7 @@
      "name_it": "Il Sarcofago Vuoto",
      "name_en": "The Empty Sarcophagus",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -5460,7 +5460,7 @@
      "name_it": "Grano Contato",
      "name_en": "Counted Grain",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -5470,7 +5470,7 @@
      "name_it": "Lo Scarabeo d'Oro",
      "name_en": "The Golden Scarab",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -5480,7 +5480,7 @@
      "name_it": "Il Terzo Corridoio",
      "name_en": "The Third Corridor",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -5490,7 +5490,7 @@
      "name_it": "Acqua nelle Urne",
      "name_en": "Water in the Jars",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -5500,7 +5500,7 @@
      "name_it": "La Camera Sigillata",
      "name_en": "The Sealed Chamber",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -5510,7 +5510,7 @@
      "name_it": "Il Papiro Bruciato",
      "name_en": "The Burned Papyrus",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -5520,7 +5520,7 @@
      "name_it": "Sabbia nella Cripta",
      "name_en": "Sand in the Crypt",
      "difficulty": 1,
-     "rating": 18,
+     "rating": 17,
      "band": "principiante"
     },
     {
@@ -5530,7 +5530,7 @@
      "name_it": "Ombre di Papiro",
      "name_en": "Papyrus Shadows",
      "difficulty": 1,
-     "rating": 27,
+     "rating": 26,
      "band": "principiante"
     },
     {
@@ -5540,7 +5540,7 @@
      "name_it": "Il Sigillo Rotto",
      "name_en": "The Broken Seal",
      "difficulty": 1,
-     "rating": 40,
+     "rating": 39,
      "band": "principiante"
     },
     {
@@ -5550,7 +5550,7 @@
      "name_it": "Il Nome sul Cartiglio",
      "name_en": "The Name on the Cartouche",
      "difficulty": 1,
-     "rating": 40,
+     "rating": 39,
      "band": "principiante"
     },
     {
@@ -5560,7 +5560,7 @@
      "name_it": "La Maledizione del Faraone",
      "name_en": "The Pharaoh's Curse",
      "difficulty": 1,
-     "rating": 61,
+     "rating": 60,
      "band": "principiante"
     },
     {
@@ -5570,7 +5570,7 @@
      "name_it": "Passi nel Corridoio",
      "name_en": "Steps in the Corridor",
      "difficulty": 1,
-     "rating": 9,
+     "rating": 7,
      "band": "principiante"
     },
     {
@@ -5580,7 +5580,7 @@
      "name_it": "Offerte Sbagliate",
      "name_en": "Wrong Offerings",
      "difficulty": 1,
-     "rating": 19,
+     "rating": 17,
      "band": "principiante"
     },
     {
@@ -5590,7 +5590,7 @@
      "name_it": "L'Architetto Scomparso",
      "name_en": "The Vanished Architect",
      "difficulty": 1,
-     "rating": 20,
+     "rating": 19,
      "band": "principiante"
     },
     {
@@ -5600,7 +5600,7 @@
      "name_it": "Il Sarcofago Aperto",
      "name_en": "The Opened Sarcophagus",
      "difficulty": 1,
-     "rating": 24,
+     "rating": 23,
      "band": "principiante"
     },
     {
@@ -5610,7 +5610,7 @@
      "name_it": "Acqua nel Tempio",
      "name_en": "Water in the Temple",
      "difficulty": 1,
-     "rating": 27,
+     "rating": 26,
      "band": "principiante"
     },
     {
@@ -5620,7 +5620,7 @@
      "name_it": "Il Sacerdote Mente",
      "name_en": "The Priest Lies",
      "difficulty": 1,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -5630,7 +5630,7 @@
      "name_it": "Polvere di Secoli",
      "name_en": "Dust of Ages",
      "difficulty": 1,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -5640,7 +5640,7 @@
      "name_it": "La Trappola",
      "name_en": "The Trap",
      "difficulty": 1,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -5650,7 +5650,7 @@
      "name_it": "Il Nome Cancellato",
      "name_en": "The Erased Name",
      "difficulty": 1,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -5660,7 +5660,7 @@
      "name_it": "Il Braciere Rovesciato",
      "name_en": "The Overturned Brazier",
      "difficulty": 1,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -5700,7 +5700,7 @@
      "name_it": "Occhi di Anubi",
      "name_en": "Eyes of Anubis",
      "difficulty": 2,
-     "rating": 43,
+     "rating": 42,
      "band": "principiante"
     },
     {
@@ -5710,7 +5710,7 @@
      "name_it": "Bende Strappate",
      "name_en": "Torn Bandages",
      "difficulty": 2,
-     "rating": 43,
+     "rating": 42,
      "band": "principiante"
     },
     {
@@ -5720,7 +5720,7 @@
      "name_it": "Offerte Contate",
      "name_en": "Counted Offerings",
      "difficulty": 2,
-     "rating": 43,
+     "rating": 42,
      "band": "principiante"
     },
     {
@@ -5730,7 +5730,7 @@
      "name_it": "La Piena Tardiva",
      "name_en": "The Late Flood",
      "difficulty": 2,
-     "rating": 43,
+     "rating": 42,
      "band": "principiante"
     },
     {
@@ -5780,7 +5780,7 @@
      "name_it": "Ombra dell'Obelisco",
      "name_en": "Shadow of the Obelisk",
      "difficulty": 2,
-     "rating": 25,
+     "rating": 24,
      "band": "medio"
     },
     {
@@ -5810,7 +5810,7 @@
      "name_it": "Il Grano del Faraone",
      "name_en": "Pharaoh's Grain",
      "difficulty": 2,
-     "rating": 41,
+     "rating": 40,
      "band": "medio"
     },
     {
@@ -5820,7 +5820,7 @@
      "name_it": "Occhi Dipinti",
      "name_en": "Painted Eyes",
      "difficulty": 2,
-     "rating": 41,
+     "rating": 40,
      "band": "medio"
     },
     {
@@ -5840,7 +5840,7 @@
      "name_it": "Bende e Bugie",
      "name_en": "Bandages and Lies",
      "difficulty": 2,
-     "rating": 45,
+     "rating": 44,
      "band": "medio"
     },
     {
@@ -5850,7 +5850,7 @@
      "name_it": "Il Conto degli Schiavi",
      "name_en": "The Slave Tally",
      "difficulty": 2,
-     "rating": 46,
+     "rating": 45,
      "band": "medio"
     },
     {
@@ -5940,7 +5940,7 @@
      "name_it": "Il Nodo di Corda",
      "name_en": "The Rope Knot",
      "difficulty": 2,
-     "rating": 56,
+     "rating": 55,
      "band": "medio"
     },
     {
@@ -6020,7 +6020,7 @@
      "name_it": "Il Vaso Rotto",
      "name_en": "The Broken Vessel",
      "difficulty": 3,
-     "rating": 55,
+     "rating": 54,
      "band": "medio"
     },
     {
@@ -6030,7 +6030,7 @@
      "name_it": "Sigilli di Fango",
      "name_en": "Mud Seals",
      "difficulty": 3,
-     "rating": 61,
+     "rating": 60,
      "band": "medio"
     },
     {
@@ -6416,7 +6416,7 @@
      "name_it": "Champagne alle Undici",
      "name_en": "Champagne at Eleven",
      "difficulty": 1,
-     "rating": 2,
+     "rating": 1,
      "band": "principiante"
     },
     {
@@ -6426,7 +6426,7 @@
      "name_it": "Il Fattorino Nuovo",
      "name_en": "The New Bellboy",
      "difficulty": 1,
-     "rating": 2,
+     "rating": 1,
      "band": "principiante"
     },
     {
@@ -6436,7 +6436,7 @@
      "name_it": "Un Valzer di Troppo",
      "name_en": "One Waltz Too Many",
      "difficulty": 1,
-     "rating": 4,
+     "rating": 2,
      "band": "principiante"
     },
     {
@@ -6446,7 +6446,7 @@
      "name_it": "Il Baule Pesante",
      "name_en": "The Heavy Trunk",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -6456,7 +6456,7 @@
      "name_it": "Bicchieri Rotti",
      "name_en": "Broken Glasses",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -6466,7 +6466,7 @@
      "name_it": "Il Registro Alterato",
      "name_en": "The Altered Register",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -6476,7 +6476,7 @@
      "name_it": "Silenzio in Sala Ballo",
      "name_en": "Silence in the Ballroom",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -6486,7 +6486,7 @@
      "name_it": "Cognac Versato",
      "name_en": "Spilled Cognac",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -6496,7 +6496,7 @@
      "name_it": "Il Turno delle Sei",
      "name_en": "The Six O'Clock Shift",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -6506,7 +6506,7 @@
      "name_it": "La Mancia Sbagliata",
      "name_en": "The Wrong Tip",
      "difficulty": 1,
-     "rating": 5,
+     "rating": 3,
      "band": "principiante"
     },
     {
@@ -6516,7 +6516,7 @@
      "name_it": "La Chiave della 12",
      "name_en": "The Key to Room 12",
      "difficulty": 1,
-     "rating": 11,
+     "rating": 9,
      "band": "principiante"
     },
     {
@@ -6526,7 +6526,7 @@
      "name_it": "La Perla Scomparsa",
      "name_en": "The Missing Pearl",
      "difficulty": 1,
-     "rating": 11,
+     "rating": 9,
      "band": "principiante"
     },
     {
@@ -6536,7 +6536,7 @@
      "name_it": "Musica dal Salone",
      "name_en": "Music from the Ballroom",
      "difficulty": 1,
-     "rating": 11,
+     "rating": 9,
      "band": "principiante"
     },
     {
@@ -6546,7 +6546,7 @@
      "name_it": "Il Grammofono Acceso",
      "name_en": "The Gramophone Was On",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -6556,7 +6556,7 @@
      "name_it": "Nessuno alla Reception",
      "name_en": "Nobody at Reception",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -6566,7 +6566,7 @@
      "name_it": "La Chiave della 21",
      "name_en": "The Key to Room 21",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -6576,7 +6576,7 @@
      "name_it": "Rose Appassite",
      "name_en": "Wilted Roses",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -6586,7 +6586,7 @@
      "name_it": "Un Baule Troppo Pesante",
      "name_en": "A Trunk Too Heavy",
      "difficulty": 1,
-     "rating": 13,
+     "rating": 11,
      "band": "principiante"
     },
     {
@@ -6596,7 +6596,7 @@
      "name_it": "L'Ospite della 7",
      "name_en": "The Guest in Room 7",
      "difficulty": 1,
-     "rating": 22,
+     "rating": 21,
      "band": "principiante"
     },
     {
@@ -6606,7 +6606,7 @@
      "name_it": "Vetri sul Tappeto",
      "name_en": "Glass on the Rug",
      "difficulty": 1,
-     "rating": 22,
+     "rating": 21,
      "band": "principiante"
     },
     {
@@ -6616,7 +6616,7 @@
      "name_it": "Cappotto Bagnato",
      "name_en": "A Wet Coat",
      "difficulty": 1,
-     "rating": 24,
+     "rating": 23,
      "band": "principiante"
     },
     {
@@ -6636,7 +6636,7 @@
      "name_it": "Il Conto Non Pagato",
      "name_en": "The Unpaid Bill",
      "difficulty": 1,
-     "rating": 19,
+     "rating": 17,
      "band": "principiante"
     },
     {
@@ -6646,7 +6646,7 @@
      "name_it": "Il Direttore Nervoso",
      "name_en": "The Nervous Manager",
      "difficulty": 1,
-     "rating": 20,
+     "rating": 19,
      "band": "principiante"
     },
     {
@@ -6656,7 +6656,7 @@
      "name_it": "Fumo in Corridoio",
      "name_en": "Smoke in the Hallway",
      "difficulty": 1,
-     "rating": 20,
+     "rating": 19,
      "band": "principiante"
     },
     {
@@ -6666,7 +6666,7 @@
      "name_it": "Il Cameriere in Ritardo",
      "name_en": "The Late Waiter",
      "difficulty": 1,
-     "rating": 20,
+     "rating": 19,
      "band": "principiante"
     },
     {
@@ -6676,7 +6676,7 @@
      "name_it": "Specchi e Bugie",
      "name_en": "Mirrors and Lies",
      "difficulty": 1,
-     "rating": 26,
+     "rating": 24,
      "band": "principiante"
     },
     {
@@ -6686,7 +6686,7 @@
      "name_it": "Un Telegramma di Notte",
      "name_en": "A Telegram at Night",
      "difficulty": 1,
-     "rating": 26,
+     "rating": 24,
      "band": "principiante"
     },
     {
@@ -6696,7 +6696,7 @@
      "name_it": "La Stanza Senza Numero",
      "name_en": "The Room With No Number",
      "difficulty": 1,
-     "rating": 27,
+     "rating": 26,
      "band": "principiante"
     },
     {
@@ -6706,7 +6706,7 @@
      "name_it": "La Cameriera Sa",
      "name_en": "The Maid Knows",
      "difficulty": 1,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -6716,7 +6716,7 @@
      "name_it": "Veleno nel Cognac",
      "name_en": "Poison in the Cognac",
      "difficulty": 1,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -6726,7 +6726,7 @@
      "name_it": "Una Perla sotto il Tavolo",
      "name_en": "A Pearl Under the Table",
      "difficulty": 1,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -6736,7 +6736,7 @@
      "name_it": "Champagne Tiepido",
      "name_en": "Warm Champagne",
      "difficulty": 1,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -6746,7 +6746,7 @@
      "name_it": "Un Cappello Dimenticato",
      "name_en": "A Forgotten Hat",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -6756,7 +6756,7 @@
      "name_it": "Il Conto della 9",
      "name_en": "The Bill for Room 9",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -6766,7 +6766,7 @@
      "name_it": "Rose Senza Biglietto",
      "name_en": "Roses Without a Card",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 28,
      "band": "principiante"
     },
     {
@@ -6846,7 +6846,7 @@
      "name_it": "Il Portiere Mente",
      "name_en": "The Porter Lies",
      "difficulty": 2,
-     "rating": 29,
+     "rating": 28,
      "band": "medio"
     },
     {
@@ -6866,7 +6866,7 @@
      "name_it": "Passi nel Corridoio",
      "name_en": "Steps in the Corridor",
      "difficulty": 2,
-     "rating": 36,
+     "rating": 35,
      "band": "medio"
     },
     {
@@ -6876,7 +6876,7 @@
      "name_it": "Champagne e Cianuro",
      "name_en": "Champagne and Cyanide",
      "difficulty": 2,
-     "rating": 36,
+     "rating": 35,
      "band": "medio"
     },
     {
@@ -6886,7 +6886,7 @@
      "name_it": "Lampadario Oscillante",
      "name_en": "The Swaying Chandelier",
      "difficulty": 2,
-     "rating": 36,
+     "rating": 35,
      "band": "medio"
     },
     {
@@ -6956,7 +6956,7 @@
      "name_it": "Il Piano Scordato",
      "name_en": "The Out-of-Tune Piano",
      "difficulty": 2,
-     "rating": 55,
+     "rating": 54,
      "band": "medio"
     },
     {
@@ -6966,7 +6966,7 @@
      "name_it": "La Contessa Mente",
      "name_en": "The Countess Lies",
      "difficulty": 2,
-     "rating": 56,
+     "rating": 55,
      "band": "medio"
     },
     {
@@ -6976,7 +6976,7 @@
      "name_it": "Luci Spente alle Due",
      "name_en": "Lights Out at Two",
      "difficulty": 2,
-     "rating": 56,
+     "rating": 55,
      "band": "medio"
     },
     {
@@ -6986,7 +6986,7 @@
      "name_it": "Il Tavolo Sbagliato",
      "name_en": "The Wrong Table",
      "difficulty": 2,
-     "rating": 61,
+     "rating": 60,
      "band": "medio"
     },
     {
@@ -6996,7 +6996,7 @@
      "name_it": "Il Menu Cambiato",
      "name_en": "The Changed Menu",
      "difficulty": 2,
-     "rating": 61,
+     "rating": 60,
      "band": "medio"
     },
     {
@@ -7056,7 +7056,7 @@
      "name_it": "Il Cuoco Ha Visto",
      "name_en": "The Cook Saw It",
      "difficulty": 2,
-     "rating": 56,
+     "rating": 55,
      "band": "medio"
     },
     {
@@ -7066,7 +7066,7 @@
      "name_it": "Il Tavolo Riservato",
      "name_en": "The Reserved Table",
      "difficulty": 2,
-     "rating": 56,
+     "rating": 55,
      "band": "medio"
     },
     {
@@ -7086,7 +7086,7 @@
      "name_it": "Profumo di Gelsomino",
      "name_en": "Jasmine Perfume",
      "difficulty": 3,
-     "rating": 61,
+     "rating": 60,
      "band": "medio"
     },
     {
@@ -7096,7 +7096,7 @@
      "name_it": "Cenere di Sigaro",
      "name_en": "Cigar Ash",
      "difficulty": 3,
-     "rating": 65,
+     "rating": 64,
      "band": "medio"
     },
     {
