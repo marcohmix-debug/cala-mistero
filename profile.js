@@ -367,6 +367,20 @@ const Cloud = {
     }
   },
 
+  /** Il plugin di login NATIVO, se il gioco gira impacchettato.
+   *
+   * Serve perche' dentro l'app il login web non funziona: il gestore di
+   * Firebase sta su `<progetto>.firebaseapp.com`, l'app su un'altra origine, e
+   * i browser recenti separano lo storage tra origini. Il handler scrive lo
+   * stato in sessionStorage e al ritorno non lo ritrova: e' l'errore
+   * "missing initial state". Il login nativo non passa dal browser e il
+   * problema non esiste. */
+  get nativeAuth() {
+    const cap = window.Capacitor;
+    if (!cap?.isNativePlatform?.()) return null;
+    return cap.Plugins?.FirebaseAuthentication || null;
+  },
+
   provider(which) {
     if (which === "apple") {
       const p = new this.mods.OAuthProvider("apple.com");
@@ -380,8 +394,47 @@ const Cloud = {
     if (!await this.init()) return;
     Profile.status = "signing";
     if (Profile.onChange) Profile.onChange();
-    const p = this.provider(which);
     const cur = this.auth.currentUser;
+
+    // --- app impacchettata: login nativo, poi la credenziale passa al SDK web
+    const nat = this.nativeAuth;
+    if (nat) {
+      try {
+        // `skipNativeAuth` lascia l'accesso al SDK web: e' quello che parla con
+        // Firestore, e due sessioni separate si disallineerebbero
+        const res = which === "apple"
+          ? await nat.signInWithApple({ skipNativeAuth: true })
+          : await nat.signInWithGoogle({ skipNativeAuth: true });
+        const c = res.credential || {};
+        const cred = which === "apple"
+          ? new this.mods.OAuthProvider("apple.com").credential({
+              idToken: c.idToken, rawNonce: c.nonce })
+          : this.mods.GoogleAuthProvider.credential(c.idToken, c.accessToken);
+        if (cur && cur.isAnonymous) {
+          await this.mods.linkWithCredential(cur, cred);
+        } else {
+          await this.mods.signInWithCredential(this.auth, cred);
+        }
+      } catch (e) {
+        if (e.code === "auth/credential-already-in-use") {
+          // l'account esiste gia' altrove: si entra e i progressi li fonde pull()
+          try {
+            const cred = this.mods.GoogleAuthProvider.credential(
+              e.customData?._tokenResponse?.oauthIdToken);
+            await this.mods.signInWithCredential(this.auth, cred);
+          } catch (e2) { console.warn("accesso nativo fallito:", e2); }
+        } else {
+          console.warn("login nativo fallito:", e.code || e);
+        }
+        Profile.status = this.auth.currentUser
+          ? (this.auth.currentUser.isAnonymous ? "anon" : "cloud") : "local";
+        if (Profile.onChange) Profile.onChange();
+      }
+      return;
+    }
+
+    // --- browser: finestra di login classica
+    const p = this.provider(which);
     try {
       if (cur && cur.isAnonymous) {
         // COLLEGA: stesso uid, quindi i progressi restano
