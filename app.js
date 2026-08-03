@@ -30,6 +30,8 @@ const I18N = {
     pSyncNote: "Accedi per ritrovare i tuoi progressi su ogni dispositivo.",
     pCloudOff: "Sincronizzazione cloud non configurata: i progressi restano su questo dispositivo.",
     pRename: "Cambia nome", pNamePrompt: "Come ti chiami, detective?",
+    pAnon: "I progressi sono già al sicuro su questo dispositivo. Collega un account per ritrovarli anche altrove.",
+    pLinkGoogle: "Collega Google", pLinkApple: "Collega Apple",
     pNothing: "Nessun caso risolto. Il primo ti aspetta.",
     winTime: (tm) => `Tempo: ${tm}`, winRecord: "🏅 Nuovo record personale!",
     daily: "Sfida del giorno", dailyDone: "Completata ✓",
@@ -61,6 +63,9 @@ const I18N = {
     againBody: (tm) => `Il tuo tempo è ${tm}. Puoi rigiocarlo: il cronometro riparte, ma il tempo che conta resta il primo.`,
     againOk: "Rigioca", replayNote: "Ripetizione · il record non cambia",
     rules: "Come si gioca", rulesBtn: "📖 Regole",
+    adLoading: "Carico il video…",
+    adSkipTitle: "Video non completato",
+    adSkipBody: "Il premio si sblocca guardando il video fino alla fine.",
     sound: "Suoni", music: "Musica",
     tipTitle: "Novità in questo caso",
     tipDont: "Non mostrare più", gotIt: "Ho capito",
@@ -114,6 +119,8 @@ const I18N = {
     pSyncNote: "Sign in to keep your progress on every device.",
     pCloudOff: "Cloud sync not configured: progress stays on this device.",
     pRename: "Change name", pNamePrompt: "What's your name, detective?",
+    pAnon: "Your progress is already safe on this device. Link an account to find it elsewhere too.",
+    pLinkGoogle: "Link Google", pLinkApple: "Link Apple",
     pNothing: "No cases solved yet. The first one awaits.",
     winTime: (tm) => `Time: ${tm}`, winRecord: "🏅 New personal best!",
     daily: "Daily challenge", dailyDone: "Completed ✓",
@@ -144,6 +151,9 @@ const I18N = {
     againBody: (tm) => `Your time is ${tm}. You can replay it: the clock restarts, but the time that counts stays the first one.`,
     againOk: "Replay", replayNote: "Replay · your record won't change",
     rules: "How to play", rulesBtn: "📖 Rules",
+    adLoading: "Loading the video…",
+    adSkipTitle: "Video not finished",
+    adSkipBody: "The reward unlocks by watching the video to the end.",
     sound: "Sound", music: "Music",
     tipTitle: "New in this case",
     tipDont: "Don't show again", gotIt: "Got it",
@@ -212,7 +222,7 @@ Profile.onChange = () => {
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "40";
+const BUILD = "41";
 
 async function boot() {
   // l'interruttore della musica compare solo se un brano c'e' davvero:
@@ -300,10 +310,13 @@ function renderArchive() {
   document.querySelectorAll(".ar-btn").forEach((el) => el.onclick = () => {
     const day = el.dataset.day;
     if (!el.dataset.lock) return openDaily(day);
-    // qui andra' il video pubblicitario: per ora sblocca subito, cosi' il
-    // flusso e' provabile end-to-end (stessa scelta fatta per gli aiuti)
     modal(t().recoverTitle, t().recoverBody, [
-      [t().archiveRecover, () => { Profile.recover(day); renderArchive(); }],
+      [t().archiveRecover, async () => {
+        const visto = await Ads.rewarded();
+        if (!visto) return modal(t().adSkipTitle, t().adSkipBody, [[t().ok, () => {}]]);
+        Profile.recover(day);
+        renderArchive();
+      }],
       [t().cancel, () => {}],
     ]);
   });
@@ -451,9 +464,17 @@ function renderProfile() {
     account = `<p class="pnote">${t().pCloudOff}</p>`;
   } else if (Profile.status === "signing") {
     account = `<p class="pnote">${t().pSigning}</p>`;
-  } else if (u) {
+  } else if (u && !u.anon) {
     account = `<p class="pnote">${t().pSignedAs(u.name)}</p>
       <div class="pbtns"><button id="signOut" class="alt">${t().pSignOut}</button></div>`;
+  } else if (u && u.anon) {
+    // gia' salvato in cloud, ma senza un account non lo ritrova nessun altro
+    // dispositivo: il collegamento mantiene lo stesso uid e quindi i progressi
+    account = `<p class="pnote">${t().pAnon}</p>
+      <div class="pbtns">
+        <button id="signGoogle">${t().pLinkGoogle}</button>
+        <button id="signApple" class="alt">${t().pLinkApple}</button>
+      </div>`;
   } else {
     account = `<p class="pnote">${t().pSyncNote}</p>
       <div class="pbtns">
@@ -1372,9 +1393,14 @@ function hintShop() {
       <span class="soonlabel">${t().soon}</span>
     </div>`, [[t().ok, () => {}]]);
   const ad = $("#adBtn");
-  if (ad) ad.onclick = () => {
-    // qui andra' la rete pubblicitaria: per ora l'aiuto viene accreditato
-    // subito, cosi' il flusso e' testabile end-to-end
+  if (ad) ad.onclick = async () => {
+    ad.disabled = true;
+    ad.textContent = t().adLoading;
+    const visto = await Ads.rewarded();     // fuori dall'app -> true e basta
+    if (!visto) {                           // saltato: niente premio
+      document.querySelector(".modal-bg")?.remove();
+      return modal(t().adSkipTitle, t().adSkipBody, [[t().ok, () => {}]]);
+    }
     if (Hints.grantFromAd()) {
       document.querySelector(".modal-bg")?.remove();
       renderGame();
@@ -1436,6 +1462,11 @@ function submit() {
 }
 
 function modal(title, body, buttons) {
+  // Un modale alla volta. Senza questo se ne impilano due — capita per davvero
+  // quando un bottone apre un secondo messaggio (recupera sfida -> video non
+  // completato) — e il giocatore finisce per premere quello sotto, che magari
+  // si riferisce a un altro giorno o a un altro caso.
+  document.querySelectorAll(".modal-bg").forEach((m) => m.remove());
   const bg = document.createElement("div");
   bg.className = "modal-bg";
   bg.innerHTML = `<div class="modal"><h2>${title}</h2><p>${body}</p><div></div></div>`;
