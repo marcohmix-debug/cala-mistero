@@ -40,4 +40,8 @@ window.FIREBASE_CONFIG = {
   messagingSenderId: "564874952834",
   appId: "1:564874952834:web:a2caf7062cce8a598d749b",
   // measurementId serve solo ad Analytics, che qui non usiamo
+
+  // Nome del database Firestore. Se non e' "(default)" VA MESSO: il client
+  // altrimenti cerca "(default)", non lo trova, e le richieste restano appese.
+  databaseId: "susoku",
 };

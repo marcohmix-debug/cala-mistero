@@ -318,7 +318,14 @@ const Cloud = {
       this.mods = { ...appMod, ...authMod, ...dbMod };
       this.app = this.mods.initializeApp(window.FIREBASE_CONFIG);
       this.auth = this.mods.getAuth(this.app);
-      this.db = this.mods.getFirestore(this.app);
+      // Il database puo' NON chiamarsi "(default)": in questo progetto si
+      // chiama `susoku`. Senza passarne il nome il client parla con
+      // "(default)", che non esiste: le richieste non tornano piu' indietro e
+      // `getDoc` finisce per rispondere dalla cache locale, dando l'illusione
+      // che il salvataggio funzioni.
+      const dbId = window.FIREBASE_CONFIG.databaseId;
+      this.db = dbId ? this.mods.getFirestore(this.app, dbId)
+                     : this.mods.getFirestore(this.app);
       this.ready = true;
       this.mods.onAuthStateChanged(this.auth, (u) => {
         Profile.user = u ? {
