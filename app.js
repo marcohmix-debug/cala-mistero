@@ -64,6 +64,8 @@ const I18N = {
     againOk: "Rigioca", replayNote: "Ripetizione · il record non cambia",
     rules: "Come si gioca", rulesBtn: "📖 Regole",
     privacy: "Informativa sulla privacy",
+    loginErrTitle: "Accesso non riuscito",
+    loginErrBody: (c) => `Il collegamento dell'account non è andato a buon fine.<br><br><code>${c}</code><br><br>I tuoi progressi non sono stati toccati.`,
     adLoading: "Carico il video…",
     adSkipTitle: "Video non completato",
     adSkipBody: "Il premio si sblocca guardando il video fino alla fine.",
@@ -153,6 +155,8 @@ const I18N = {
     againOk: "Replay", replayNote: "Replay · your record won't change",
     rules: "How to play", rulesBtn: "📖 Rules",
     privacy: "Privacy policy",
+    loginErrTitle: "Sign-in failed",
+    loginErrBody: (c) => `Linking the account didn't work.<br><br><code>${c}</code><br><br>Your progress is untouched.`,
     adLoading: "Loading the video…",
     adSkipTitle: "Video not finished",
     adSkipBody: "The reward unlocks by watching the video to the end.",
@@ -218,13 +222,18 @@ const isDone = (key) => Profile.solved(key);
 const bestOf = (key) => Profile.best(key);
 
 // il cloud puo' rispondere in ritardo: quando arriva, ridisegna la vista
+// gli errori di login vanno mostrati: su un telefono la console non la legge
+// nessuno, e un bottone che "non fa niente" e' il peggior messaggio possibile
+Profile.onAuthError = (code) => modal(t().loginErrTitle, t().loginErrBody(code),
+                                      [[t().ok, () => {}]]);
+
 Profile.onChange = () => {
   if (S.view === "profile") renderProfile();
   else if (S.view === "zones") renderZones();
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "46";
+const BUILD = "47";
 
 async function boot() {
   // l'interruttore della musica compare solo se un brano c'e' davvero:
