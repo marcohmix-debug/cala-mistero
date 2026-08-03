@@ -26,6 +26,7 @@ const Profile = {
   user: null,          // {uid, name, photo, provider} se loggato
   status: "local",     // local | signing | cloud | error
   onChange: null,      // callback per ridisegnare la UI
+  onAuthError: null,   // callback per MOSTRARE un errore di login
 
   load() {
     try {
@@ -375,6 +376,13 @@ const Cloud = {
    * stato in sessionStorage e al ritorno non lo ritrova: e' l'errore
    * "missing initial state". Il login nativo non passa dal browser e il
    * problema non esiste. */
+  /** Fa arrivare l'errore al giocatore, non solo alla console. */
+  report(e) {
+    const code = e?.code || e?.message || String(e);
+    console.warn("login:", code, e);
+    if (Profile.onAuthError) Profile.onAuthError(code);
+  },
+
   get nativeAuth() {
     const cap = window.Capacitor;
     if (!cap?.isNativePlatform?.()) return null;
@@ -416,6 +424,7 @@ const Cloud = {
           await this.mods.signInWithCredential(this.auth, cred);
         }
       } catch (e) {
+        this.report(e);
         if (e.code === "auth/credential-already-in-use") {
           // l'account esiste gia' altrove: si entra e i progressi li fonde pull()
           try {
@@ -430,6 +439,15 @@ const Cloud = {
           ? (this.auth.currentUser.isAnonymous ? "anon" : "cloud") : "local";
         if (Profile.onChange) Profile.onChange();
       }
+      return;
+    }
+
+    if (window.Capacitor?.isNativePlatform?.()) {
+      // dentro l'app la via web non puo' funzionare (origini separate): meglio
+      // dirlo che lasciar fallire una finestra che non si aprira' mai
+      this.report({ code: "plugin-di-login-non-caricato" });
+      Profile.status = "anon";
+      if (Profile.onChange) Profile.onChange();
       return;
     }
 
@@ -448,9 +466,9 @@ const Cloud = {
       if (e.code === "auth/credential-already-in-use" ||
           e.code === "auth/email-already-in-use") {
         try { await this.mods.signInWithPopup(this.auth, p); }
-        catch (e2) { console.warn("login fallito:", e2); }
+        catch (e2) { this.report(e2); }
       } else {
-        console.warn("login fallito:", e);
+        this.report(e);
       }
       Profile.status = this.auth.currentUser ? "cloud" : "local";
       if (Profile.onChange) Profile.onChange();
