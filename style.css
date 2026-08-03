@@ -1775,6 +1775,11 @@ header .hprofile .picon path { fill: none; }
 
 /* ---------- aiuti ---------- */
 .hintleft { display: inline-block; margin-top: 10px; font-size: 13px; color: #b9aee0; }
+/* Le premesse di un aiuto: i passaggi che reggono la conclusione. Staccate e
+   piu' smorte della conclusione, che resta la riga da leggere per prima. */
+.premesse { margin: 0 0 12px; padding: 0 0 0 18px; list-style: none; }
+.premesse li { position: relative; margin-bottom: 6px; font-size: 14px; color: #b9aee0; }
+.premesse li::before { content: "·"; position: absolute; left: -12px; }
 .shop { margin-top: 14px; }
 .shop #adBtn {
   font: inherit; font-size: 14px; font-weight: 700; width: 100%;

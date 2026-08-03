@@ -18,8 +18,10 @@ const PROFILE_KEY = "cm_profile";
 // Versione del formato dati. Alzandola i progressi per livello vengono
 // buttati UNA volta: serve quando gli id dei casi cambiano, perche' la chiave
 // e' `zona:id` e progressi vecchi punterebbero a casi diversi. Alzata a 2 in
-// v39, quando le zone sono state rinumerate in ordine di difficolta'.
-const DATA_V = 2;
+// v39, quando le zone sono state rinumerate in ordine di difficolta'. Alzata a
+// 3 in v51: la difficolta' ora tiene conto del costo d'apertura di un caso, e
+// il riordino ha cambiato di nuovo gli id.
+const DATA_V = 3;
 
 const Profile = {
   data: { v: DATA_V, name: "", levels: {}, runs: {}, recovered: [], updated: 0 },
@@ -185,9 +187,20 @@ const Profile = {
     };
   },
 
-  /** Unione di due profili: per ogni livello vince il tempo migliore. */
+  /** Unione di due profili: per ogni livello vince il tempo migliore.
+   *
+   *  I progressi del cloud vanno scartati se sono di una generazione di id
+   *  precedente. Senza questo controllo `DATA_V` non serve a niente: `load()`
+   *  azzera in locale, `pull()` riscarica il documento vecchio e lo rimette
+   *  dentro, con le chiavi `zona:id` che ora puntano a casi diversi. Il nome
+   *  del giocatore si tiene: quello non dipende dagli id. */
   merge(remote) {
     if (!remote || !remote.levels) return false;
+    if ((remote.dataV || 1) < DATA_V) {
+      if (!this.data.name && remote.name) { this.data.name = remote.name; this.save(); }
+      Cloud.push();          // riscrive il cloud con i progressi ripartiti da zero
+      return false;
+    }
     let changed = false;
     for (const [k, r] of Object.entries(remote.levels)) {
       const l = this.data.levels[k];
@@ -541,6 +554,9 @@ const Cloud = {
     try {
       await this.mods.setDoc(this.ref(), {
         v: 1,
+        // generazione degli id dei casi a cui si riferiscono `levels`: senza,
+        // dopo una rinumerazione il cloud rimetterebbe dentro chiavi vecchie
+        dataV: DATA_V,
         name: Profile.data.name || Profile.user.name,
         levels: Profile.data.levels,
         updated: Date.now(),
