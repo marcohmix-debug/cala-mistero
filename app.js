@@ -222,7 +222,7 @@ Profile.onChange = () => {
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "41";
+const BUILD = "42";
 
 async function boot() {
   // l'interruttore della musica compare solo se un brano c'e' davvero:
