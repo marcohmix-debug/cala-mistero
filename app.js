@@ -233,7 +233,7 @@ Profile.onChange = () => {
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "49";
+const BUILD = "54";
 
 async function boot() {
   // l'interruttore della musica compare solo se un brano c'e' davvero:
@@ -1350,15 +1350,24 @@ function undo() {
 /** Il prossimo passo della catena deduttiva non ancora eseguito dal giocatore.
  *  Non e' "un sospettato a caso": e' quello che ORA si può dedurre, con la
  *  sua spiegazione. Se il livello non ha catena (o è finita) si ripiega sul
- *  primo sospettato fuori posto, senza spiegazione. */
+ *  primo sospettato fuori posto, senza spiegazione.
+ *
+ *  La catena contiene anche PREMESSE (`premise: true`, senza `cell`): sono i
+ *  restringimenti che non piazzano nessuno ma senza cui il passo dopo non è
+ *  verificabile ("Fabio può stare solo nella 1ª colonna"). Non sono passi a
+ *  sé: viaggiano insieme al piazzamento che sbloccano, dentro lo stesso
+ *  aiuto, così il costo in aiuti non cambia. */
 function nextStep() {
   const L = S.level;
   const done = (i, cell) => {
     const p = S.placements[i];
     return p && p[0] === cell[0] && p[1] === cell[1];
   };
+  let premises = [];
   for (const st of L.steps || []) {
-    if (!done(st.suspect, st.cell)) return st;
+    if (st.premise) { premises.push(st); continue; }
+    if (!done(st.suspect, st.cell)) return { ...st, premises };
+    premises = [];            // consumate insieme al passo che sbloccavano
   }
   for (let i = 0; i < L.suspects.length; i++) {
     if (!done(i, L.solution[i]))
@@ -1386,10 +1395,13 @@ function hint() {
   applyStep(st);
   renderGame();
   const nm = S.level.suspects[st.suspect].name;
-  const why = st.fallback
-    ? t().hintNoWhy
-    : (S.lang === "it" ? st.it : st.en);
-  modal(t().hintTitle(nm), why + `<br><span class="hintleft">${
+  const txt = (s) => (S.lang === "it" ? s.it : s.en);
+  const why = st.fallback ? t().hintNoWhy : txt(st);
+  // le premesse vanno PRIMA della conclusione: sono quello che la regge
+  const pre = (st.premises || [])
+    .map((p) => `<li>${txt(p)}</li>`).join("");
+  const body = (pre ? `<ul class="premesse">${pre}</ul>` : "") + why;
+  modal(t().hintTitle(nm), body + `<br><span class="hintleft">${
     t().hintLeft(Hints.balance(S.zones))}</span>`, [[t().ok, () => {}]]);
 }
 
