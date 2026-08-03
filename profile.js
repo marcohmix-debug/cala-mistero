@@ -352,6 +352,12 @@ const Cloud = {
    * anonimo, l'accesso creerebbe un utente nuovo e vuoto. */
   async signInAnon() {
     if (!await this.init()) return;
+    // ASPETTARE che il SDK abbia finito di ripristinare la sessione salvata.
+    // `currentUser` e' null finche' quel ripristino non e' finito: chiedendolo
+    // subito si crede che non ci sia nessuno e si crea un anonimo NUOVO a ogni
+    // avvio. Da li' l'account Google, gia' legato al primo, dava
+    // "credential-already-in-use" e i progressi in cloud ripartivano da zero.
+    try { await this.auth.authStateReady(); } catch { /* SDK piu' vecchio */ }
     if (this.auth.currentUser) return;
     try {
       await this.mods.signInAnonymously(this.auth);
@@ -424,6 +430,7 @@ const Cloud = {
     // --- app impacchettata: login nativo, poi la credenziale passa al SDK web
     const nat = this.nativeAuth;
     if (nat) {
+      let cred = null;
       try {
         // `skipNativeAuth` lascia l'accesso al SDK web: e' quello che parla con
         // Firestore, e due sessioni separate si disallineerebbero
@@ -431,7 +438,7 @@ const Cloud = {
           ? await nat.signInWithApple({ skipNativeAuth: true })
           : await nat.signInWithGoogle({ skipNativeAuth: true });
         const c = res.credential || {};
-        const cred = which === "apple"
+        cred = which === "apple"
           ? new this.mods.OAuthProvider("apple.com").credential({
               idToken: c.idToken, rawNonce: c.nonce })
           : this.mods.GoogleAuthProvider.credential(c.idToken, c.accessToken);
@@ -443,16 +450,19 @@ const Cloud = {
         this.applyUser(this.auth.currentUser);
         return;
       } catch (e) {
-        this.report(e);
-        if (e.code === "auth/credential-already-in-use") {
-          // l'account esiste gia' altrove: si entra e i progressi li fonde pull()
+        if (e.code === "auth/credential-already-in-use" ||
+            e.code === "auth/email-already-in-use") {
+          // quell'account Google e' gia' legato a un utente Firebase: si entra
+          // con lo stesso `cred` che abbiamo appena costruito, senza frugare
+          // nei dettagli interni dell'errore. I progressi locali li fonde
+          // `pull()`, che tiene il tempo migliore di ogni caso.
           try {
-            const cred = this.mods.GoogleAuthProvider.credential(
-              e.customData?._tokenResponse?.oauthIdToken);
             await this.mods.signInWithCredential(this.auth, cred);
-          } catch (e2) { console.warn("accesso nativo fallito:", e2); }
+            this.applyUser(this.auth.currentUser);
+            return;
+          } catch (e2) { this.report(e2); }
         } else {
-          console.warn("login nativo fallito:", e.code || e);
+          this.report(e);
         }
         Profile.status = this.auth.currentUser
           ? (this.auth.currentUser.isAnonymous ? "anon" : "cloud") : "local";
