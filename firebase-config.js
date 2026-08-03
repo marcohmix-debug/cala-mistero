@@ -33,8 +33,11 @@
  * autorizza nulla). La sicurezza sta nelle regole qui sopra.
  */
 window.FIREBASE_CONFIG = {
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  appId: "",
+  apiKey: "AIzaSyDE3IzDO6Mbic6XlmthKw5233kIe0hrz74",
+  authDomain: "susoku-504409.firebaseapp.com",
+  projectId: "susoku-504409",
+  storageBucket: "susoku-504409.firebasestorage.app",
+  messagingSenderId: "564874952834",
+  appId: "1:564874952834:web:a2caf7062cce8a598d749b",
+  // measurementId serve solo ad Analytics, che qui non usiamo
 };
