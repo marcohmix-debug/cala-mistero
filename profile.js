@@ -328,18 +328,12 @@ const Cloud = {
       this.db = dbId ? this.mods.getFirestore(this.app, dbId)
                      : this.mods.getFirestore(this.app);
       this.ready = true;
-      this.mods.onAuthStateChanged(this.auth, (u) => {
-        Profile.user = u ? {
-          uid: u.uid,
-          anon: u.isAnonymous,
-          name: u.displayName || u.email || "Detective",
-          photo: u.photoURL || "",
-          provider: u.providerData[0]?.providerId || "",
-        } : null;
-        Profile.status = u ? (u.isAnonymous ? "anon" : "cloud") : "local";
-        if (u) this.pull();
-        else if (Profile.onChange) Profile.onChange();
-      });
+      // `onAuthStateChanged` NON basta: collegando un account anonimo a Google
+      // l'uid resta lo stesso, quindi per Firebase lo "stato" non e' cambiato e
+      // l'evento non arriva. La schermata restava su "Accesso in corso...".
+      // `onIdTokenChanged` invece scatta anche sul collegamento.
+      this.mods.onAuthStateChanged(this.auth, (u) => this.applyUser(u));
+      this.mods.onIdTokenChanged(this.auth, (u) => this.applyUser(u));
     } catch (e) {
       console.warn("cloud non disponibile:", e);
       Profile.status = "error";
@@ -376,6 +370,23 @@ const Cloud = {
    * stato in sessionStorage e al ritorno non lo ritrova: e' l'errore
    * "missing initial state". Il login nativo non passa dal browser e il
    * problema non esiste. */
+  /** Porta l'utente corrente dentro Profile e ridisegna. Chiamata sia dagli
+   *  eventi sia SUBITO DOPO un accesso riuscito: non ci si affida solo agli
+   *  eventi, perche' sul collegamento di un anonimo possono non arrivare. */
+  applyUser(u) {
+    clearTimeout(this._signTimer);
+    Profile.user = u ? {
+      uid: u.uid,
+      anon: u.isAnonymous,
+      name: u.displayName || u.email || "Detective",
+      photo: u.photoURL || "",
+      provider: u.providerData?.[0]?.providerId || "",
+    } : null;
+    Profile.status = u ? (u.isAnonymous ? "anon" : "cloud") : "local";
+    if (u) this.pull();
+    else if (Profile.onChange) Profile.onChange();
+  },
+
   /** Fa arrivare l'errore al giocatore, non solo alla console. */
   report(e) {
     const code = e?.code || e?.message || String(e);
@@ -402,6 +413,12 @@ const Cloud = {
     if (!await this.init()) return;
     Profile.status = "signing";
     if (Profile.onChange) Profile.onChange();
+    clearTimeout(this._signTimer);
+    this._signTimer = setTimeout(() => {
+      if (Profile.status !== "signing") return;
+      this.applyUser(this.auth.currentUser);       // sblocca comunque
+      this.report({ code: "accesso-senza-risposta" });
+    }, 20000);
     const cur = this.auth.currentUser;
 
     // --- app impacchettata: login nativo, poi la credenziale passa al SDK web
@@ -423,6 +440,8 @@ const Cloud = {
         } else {
           await this.mods.signInWithCredential(this.auth, cred);
         }
+        this.applyUser(this.auth.currentUser);
+        return;
       } catch (e) {
         this.report(e);
         if (e.code === "auth/credential-already-in-use") {
@@ -460,6 +479,8 @@ const Cloud = {
       } else {
         await this.mods.signInWithPopup(this.auth, p);
       }
+      this.applyUser(this.auth.currentUser);
+      return;
     } catch (e) {
       // l'account esisteva gia' su un altro dispositivo: allora si entra
       // normalmente e il merge dei progressi lo fa `pull()`
