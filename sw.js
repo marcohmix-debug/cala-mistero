@@ -8,6 +8,7 @@ const CACHE = "susoku-v" + V;
 const APP_SHELL = [
   "./",
   "./index.html",
+  "./privacy.html",
   `./style.css?v=${V}`,
   `./app.js?v=${V}`,
   `./assets.js?v=${V}`,
