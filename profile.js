@@ -323,11 +323,12 @@ const Cloud = {
       this.mods.onAuthStateChanged(this.auth, (u) => {
         Profile.user = u ? {
           uid: u.uid,
+          anon: u.isAnonymous,
           name: u.displayName || u.email || "Detective",
           photo: u.photoURL || "",
           provider: u.providerData[0]?.providerId || "",
         } : null;
-        Profile.status = u ? "cloud" : "local";
+        Profile.status = u ? (u.isAnonymous ? "anon" : "cloud") : "local";
         if (u) this.pull();
         else if (Profile.onChange) Profile.onChange();
       });
@@ -338,19 +339,60 @@ const Cloud = {
     return this.ready;
   },
 
+  /** Accesso ANONIMO, subito e senza chiedere niente.
+   *
+   * Il salvataggio in cloud parte dal primo avvio: chi non fara' mai il login
+   * non perde comunque i progressi cambiando telefono... a patto di collegare
+   * l'account, ed e' per questo che il login vero resta offerto. Il punto
+   * dell'anonimo e' un altro: quando poi il giocatore sceglie Google o Apple,
+   * l'account si COLLEGA a quello anonimo (`linkWithCredential`) e l'uid non
+   * cambia — quindi i progressi fatti prima del login non si perdono. Senza
+   * anonimo, l'accesso creerebbe un utente nuovo e vuoto. */
+  async signInAnon() {
+    if (!await this.init()) return;
+    if (this.auth.currentUser) return;
+    try {
+      await this.mods.signInAnonymously(this.auth);
+    } catch (e) {
+      // se l'accesso anonimo non e' abilitato in console il gioco continua
+      // in locale: non e' un errore da mostrare al giocatore
+      console.warn("anonimo non disponibile:", e.code || e);
+    }
+  },
+
+  provider(which) {
+    if (which === "apple") {
+      const p = new this.mods.OAuthProvider("apple.com");
+      p.addScope("email"); p.addScope("name");
+      return p;
+    }
+    return new this.mods.GoogleAuthProvider();
+  },
+
   async signIn(which = "google") {
     if (!await this.init()) return;
     Profile.status = "signing";
     if (Profile.onChange) Profile.onChange();
+    const p = this.provider(which);
+    const cur = this.auth.currentUser;
     try {
-      const p = which === "apple"
-        ? new this.mods.OAuthProvider("apple.com")
-        : new this.mods.GoogleAuthProvider();
-      if (which === "apple") { p.addScope("email"); p.addScope("name"); }
-      await this.mods.signInWithPopup(this.auth, p);
+      if (cur && cur.isAnonymous) {
+        // COLLEGA: stesso uid, quindi i progressi restano
+        await this.mods.linkWithPopup(cur, p);
+      } else {
+        await this.mods.signInWithPopup(this.auth, p);
+      }
     } catch (e) {
-      console.warn("login fallito:", e);
-      Profile.status = "local";
+      // l'account esisteva gia' su un altro dispositivo: allora si entra
+      // normalmente e il merge dei progressi lo fa `pull()`
+      if (e.code === "auth/credential-already-in-use" ||
+          e.code === "auth/email-already-in-use") {
+        try { await this.mods.signInWithPopup(this.auth, p); }
+        catch (e2) { console.warn("login fallito:", e2); }
+      } else {
+        console.warn("login fallito:", e);
+      }
+      Profile.status = this.auth.currentUser ? "cloud" : "local";
       if (Profile.onChange) Profile.onChange();
     }
   },
@@ -431,7 +473,7 @@ function fmtTime(ms) {
 }
 
 Profile.load();
-if (Cloud.enabled) Cloud.init();
+if (Cloud.enabled) Cloud.init().then(() => Cloud.signInAnon());
 
 /* ---------------- distintivi ----------------
  * Solo cosmetici: non danno aiuti, non sbloccano niente. Si RICALCOLANO dai
