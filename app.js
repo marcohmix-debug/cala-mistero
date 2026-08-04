@@ -233,12 +233,14 @@ Profile.onChange = () => {
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "55";
+const BUILD = "57";
 
 async function boot() {
   // l'interruttore della musica compare solo se un brano c'e' davvero:
   // un bottone che non fa niente e' peggio di nessun bottone
-  Audio.has(S.zones?.[0]?.theme || "marino").then((v) => { S.musicAvail = v; });
+  // si controlla il tema del menu: e' il primo che suona, e se manca quello
+  // manca tutto
+  Audio.has("menu").then((v) => { S.musicAvail = v; });
   S.index = await (await fetch("levels/index.json?v=" + BUILD)).json();
   S.zones = S.index.zones || [];
   // pool della sfida quotidiana: opzionale, se manca la sezione sparisce
@@ -556,7 +558,7 @@ function renderProfile() {
   const mus = $("#musSw");
   if (mus) mus.onchange = () => {
     Audio.musicOn = mus.checked;
-    if (mus.checked) Audio.start(S.zone?.theme || S.zones[0]?.theme);
+    if (mus.checked) Audio.start(S.zone?.theme || "menu");
     else Audio.stop();
   };
   $("#renameBtn").onclick = () => {
@@ -571,7 +573,9 @@ function renderProfile() {
 
 /* ---------------- zone select ---------------- */
 function renderZones() {
-  Audio.stop();
+  // fuori dalle zone suona il tema del menu, non il silenzio: `menu` e' un
+  // tema finto, un file come gli altri in assets/audio/
+  Audio.start("menu");
   S.view = "zones";
   stopTimer();
   const cards = S.zones.map((z) => {
