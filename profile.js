@@ -19,9 +19,11 @@ const PROFILE_KEY = "cm_profile";
 // buttati UNA volta: serve quando gli id dei casi cambiano, perche' la chiave
 // e' `zona:id` e progressi vecchi punterebbero a casi diversi. Alzata a 2 in
 // v39, quando le zone sono state rinumerate in ordine di difficolta'. Alzata a
-// 3 in v51 e a 4 in v55: la difficolta' tiene ora conto del costo d'apertura
-// di un caso, e i due riordini hanno cambiato di nuovo gli id.
-const DATA_V = 4;
+// 3 in v51, a 4 in v55 e a 5 in v59: la difficolta' tiene ora conto del costo
+// d'apertura di un caso, e i riordini hanno cambiato di nuovo gli id. L'ultimo
+// e' il piu' grosso: 848 casi sono stati proprio SOSTITUITI, perche' non si
+// risolvevano senza sapere dov'e' la vittima.
+const DATA_V = 5;
 
 const Profile = {
   data: { v: DATA_V, name: "", levels: {}, runs: {}, recovered: [], updated: 0 },
