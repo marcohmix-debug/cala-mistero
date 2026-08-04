@@ -94,7 +94,12 @@ const Audio = {
    * I punti di giro non si scelgono a occhio: `loopPoints` scandisce il buffer
    * e trova il primo e l'ultimo campione sopra la soglia di silenzio, cosi' il
    * riempimento del codec resta FUORI dal giro qualunque file gli si dia. */
-  src(theme) { return `assets/audio/${theme}.m4a`; },
+  src(theme) {
+    // la versione serve anche qui: senza, chi ha gia' scaricato un brano si
+    // tiene quello vecchio anche dopo che l'abbiamo ricodificato
+    const v = typeof BUILD === "string" ? BUILD : "0";
+    return `assets/audio/${theme}.m4a?v=${v}`;
+  },
 
   /** -> true se il brano di quel tema esiste. Il risultato resta in memoria,
    *  cosi' non si ritenta a ogni schermata. */
