@@ -18,6 +18,14 @@ const I18N = {
     mCross: "Croci", mPlace: "Piazza", mPencil: "Ipotesi", mErase: "Cancella", mUndo: "Annulla", mHint: "Aiuto",
     pencilOn: "✏️ Ipotesi attive", pencilOff: "✏️ Fai ipotesi",
     mSubmit: "Invia soluzione", mPick: "Scegli un sospettato qui sopra.",
+    lbOptIn: "Compari in classifica",
+    lbOptNote: "Della sfida del giorno si pubblicano solo il nome che hai scelto e il tempo. Spegnendolo non vieni piu' inviato, nemmeno per i giorni gia' fatti.",
+    lbTitle: "Classifica del giorno", lbBtn: "🏆 Classifica",
+    lbEmpty: "Nessun tempo per oggi. Il primo puoi essere tu.",
+    lbOff: "Serve il collegamento al cloud per vedere la classifica.",
+    lbYou: "tu", lbMine: "Il tuo tempo",
+    lbOptedOut: "Sei fuori dalla classifica: accendi l'interruttore nel profilo.",
+    lbLoading: "Carico…",
     zonesTitle: "Scegli una zona", zonesSub: "Ogni zona è un caso a tema",
     zonesHow: "Ogni zona ha i suoi 100 casi, da <b>Principiante</b> a <b>Maestro</b>, e puoi affrontarle <b>nell'ordine che preferisci</b>. I <b>5 casi bonus</b> di una zona — i più grandi — si aprono chiudendo Esperto e Maestro di <i>quella</i> zona.",
     zoneBack: "← Zone", zoneLevels: (n) => `${n} casi`,
@@ -114,6 +122,14 @@ const I18N = {
     mCross: "Crosses", mPlace: "Place", mPencil: "Notes", mErase: "Erase", mUndo: "Undo", mHint: "Hint",
     pencilOn: "✏️ Notes active", pencilOff: "✏️ Add notes",
     mSubmit: "Submit solution", mPick: "Pick a suspect above.",
+    lbOptIn: "Appear on the leaderboard",
+    lbOptNote: "Only the name you chose and your time are published, for the daily challenge. Turning it off stops any further submission, past days included.",
+    lbTitle: "Daily leaderboard", lbBtn: "🏆 Leaderboard",
+    lbEmpty: "No times yet today. You could be the first.",
+    lbOff: "Cloud sign-in is needed to see the leaderboard.",
+    lbYou: "you", lbMine: "Your time",
+    lbOptedOut: "You are off the leaderboard: turn the switch on in your profile.",
+    lbLoading: "Loading…",
     zonesTitle: "Choose a zone", zonesSub: "Each zone is a themed case",
     zonesHow: "Every zone has its own 100 cases, from <b>Beginner</b> to <b>Master</b>, and you can play them <b>in any order you like</b>. A zone's <b>5 bonus cases</b> — the largest ones — open up by clearing Expert and Master in <i>that</i> zone.",
     zoneBack: "← Zones", zoneLevels: (n) => `${n} cases`,
@@ -241,7 +257,7 @@ Profile.onChange = () => {
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "64";
+const BUILD = "65";
 
 async function boot() {
   // l'interruttore della musica compare solo se un brano c'e' davvero:
@@ -381,6 +397,7 @@ function dailyCardHTML() {
   </div>
   <div class="home-links">
     <button class="archive-link" id="archiveBtn">${t().archiveOpen}</button>
+    <button class="archive-link" id="lbBtn">${t().lbBtn}</button>
     <button class="archive-link" id="rulesBtn">${t().rulesBtn}</button>
   </div>`;
 }
@@ -524,6 +541,11 @@ function renderProfile() {
               ${S.musicAvail ? "" : "disabled"}>
             <span>${t().music}${S.musicAvail ? "" : " —"}</span></label>
         </div>
+        <div class="sw-row">
+          <label class="sw"><input type="checkbox" id="lbSw" ${Profile.lbOptIn ? "checked" : ""}>
+            <span>${t().lbOptIn}</span></label>
+        </div>
+        <p class="sw-note">${t().lbOptNote}</p>
       </div>
       ${badgeBlock}
       <div class="pstats">
@@ -532,19 +554,7 @@ function renderProfile() {
         ${stat(t().pAvg, tot.timed ? fmtTime(tot.avgMs) : "—")}
       </div>
       ${dl.solved || dl.streak ? `<div class="pcard"><h2>${t().pDaily}</h2>
-        <div class="pcard">
-        <h2>${t().sound}</h2>
-        <div class="sw-row">
-          <label class="sw"><input type="checkbox" id="sfxSw" ${Audio.sfxOn ? "checked" : ""}>
-            <span>${t().sound}</span></label>
-          <label class="sw ${S.musicAvail ? "" : "off"}">
-            <input type="checkbox" id="musSw" ${Audio.musicOn ? "checked" : ""}
-              ${S.musicAvail ? "" : "disabled"}>
-            <span>${t().music}${S.musicAvail ? "" : " —"}</span></label>
-        </div>
-      </div>
-      ${badgeBlock}
-      <div class="pstats">
+        <div class="pstats">
           ${stat(t().pDaily, dl.solved)}
           ${stat(t().pStreak, dl.streak ? "🔥 " + dl.streak : "—")}
           ${stat(t().pBestStreak, dl.bestStreak || "—")}
@@ -569,6 +579,8 @@ function renderProfile() {
     if (mus.checked) Audio.start(S.zone?.theme || "menu");
     else Audio.stop();
   };
+  const lb = $("#lbSw");
+  if (lb) lb.onchange = () => { Profile.lbOptIn = lb.checked; Audio.play("pick"); };
   $("#renameBtn").onclick = () => {
     const v = prompt(t().pNamePrompt, Profile.data.name || "");
     if (v !== null) { Profile.data.name = v.trim(); Profile.save(); Cloud.push(); renderProfile(); }
@@ -616,6 +628,8 @@ function renderZones() {
   if (ab) ab.onclick = renderArchive;
   const rb = $("#rulesBtn");
   if (rb) rb.onclick = renderRules;
+  const lbb = $("#lbBtn");
+  if (lbb) lbb.onclick = renderLeaderboard;
   const dc = $("#dailyCard");
   if (dc) dc.onclick = () => openDaily();
   document.querySelectorAll(".zone-card[data-zone]").forEach((el) =>
@@ -636,6 +650,52 @@ function offriTutorial() {
     [t().tutAskSkip, () => {}],
     [t().tutAskGo, () => openLevel(zt, 0)],
   ]);
+}
+
+/* ---------------- classifica ----------------
+ * Solo la sfida del giorno: e' l'unica cosa che tutti giocano UGUALE, stesso
+ * caso e stesso giorno, quindi i tempi si confrontano senza normalizzare
+ * niente. Vedi il commento in profile.js per il perche' non c'e' una
+ * classifica generale. */
+async function renderLeaderboard() {
+  S.view = "leaderboard";
+  stopTimer();
+  const dd = dailyToday();
+  const day = dd ? dd.day : todayString();
+  app.innerHTML = headerHTML(t().lbTitle, true) + `
+    <div class="home">
+      <h1>${t().lbTitle}</h1>
+      <p class="subtitle">${dailyLabel(day)}</p>
+      <div id="lbBody"><p class="pnote">${t().lbLoading}</p></div>
+    </div>`;
+  wireHeader();
+  const hb = $("#hback");
+  if (hb) hb.onclick = renderZones;
+
+  const box = $("#lbBody");
+  const righe = Cloud.enabled ? await Cloud.topDaily(day) : null;
+  if (!righe) { box.innerHTML = `<p class="pnote">${t().lbOff}</p>`; return; }
+  if (!righe.length) { box.innerHTML = `<p class="pnote">${t().lbEmpty}</p>`; return; }
+
+  const mio = Profile.user?.uid;
+  const lista = righe.map((r, i) => `
+    <li class="lb-row ${r.uid === mio ? "me" : ""}">
+      <span class="lb-pos">${i + 1}</span>
+      <span class="lb-name">${escapeHtml(r.name || "?")}${
+        r.uid === mio ? ` <em>(${t().lbYou})</em>` : ""}</span>
+      <span class="lb-ms">${fmtTime(r.ms)}</span>
+    </li>`).join("");
+  box.innerHTML = `<ul class="lb">${lista}</ul>` +
+    (Profile.lbOptIn ? "" : `<p class="pnote">${t().lbOptedOut}</p>`);
+}
+
+/** Un nome scelto dal giocatore finisce in una pagina pubblica: va scritto
+ *  come TESTO, non come HTML, o il primo che ci mette un tag lo esegue sul
+ *  telefono di tutti gli altri. */
+function escapeHtml(x) {
+  const d = document.createElement("div");
+  d.textContent = String(x);
+  return d.innerHTML;
 }
 
 /* ---------------- level select ---------------- */
@@ -1508,6 +1568,9 @@ function submit() {
       // la sfida del giorno premia la costanza: mostra la serie aggiornata
       const st = Profile.dailyStats(todayString());
       timeLine += `<br><span class="winrec">${t().dailyStreak(st.streak)}</span>`;
+      // in classifica va il PRIMO tempo, non quello di una ripetizione: se no
+      // basterebbe rifare un caso che si sa gia' risolvere per salire
+      if (!S.replay && ms) Cloud.pushDaily(L.id, ms, L.size);
     }
     modal(t().winTitle, t().winBody(m) + timeLine, [
       [S.zone.daily ? t().homeZones : t().home, leaveGame],
