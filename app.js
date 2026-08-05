@@ -19,6 +19,7 @@ const I18N = {
     pencilOn: "✏️ Ipotesi attive", pencilOff: "✏️ Fai ipotesi",
     mSubmit: "Invia soluzione", mPick: "Scegli un sospettato qui sopra.",
     zonesTitle: "Scegli una zona", zonesSub: "Ogni zona è un caso a tema",
+    zonesHow: "Ogni zona ha i suoi 100 casi, da <b>Principiante</b> a <b>Maestro</b>, e puoi affrontarle <b>nell'ordine che preferisci</b>. I <b>5 casi bonus</b> di una zona — i più grandi — si aprono chiudendo Esperto e Maestro di <i>quella</i> zona.",
     zoneBack: "← Zone", zoneLevels: (n) => `${n} casi`,
     diff: ["", "Facile", "Medio", "Difficile"], soon: "Prossimamente",
     tutCard: "Tutorial — La Prima Indagine",
@@ -114,6 +115,7 @@ const I18N = {
     pencilOn: "✏️ Notes active", pencilOff: "✏️ Add notes",
     mSubmit: "Submit solution", mPick: "Pick a suspect above.",
     zonesTitle: "Choose a zone", zonesSub: "Each zone is a themed case",
+    zonesHow: "Every zone has its own 100 cases, from <b>Beginner</b> to <b>Master</b>, and you can play them <b>in any order you like</b>. A zone's <b>5 bonus cases</b> — the largest ones — open up by clearing Expert and Master in <i>that</i> zone.",
     zoneBack: "← Zones", zoneLevels: (n) => `${n} cases`,
     diff: ["", "Easy", "Medium", "Hard"], soon: "Coming soon",
     tutCard: "Tutorial — Your First Case",
@@ -239,7 +241,7 @@ Profile.onChange = () => {
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "63";
+const BUILD = "64";
 
 async function boot() {
   // l'interruttore della musica compare solo se un brano c'e' davvero:
@@ -606,6 +608,7 @@ function renderZones() {
       ${dailyCardHTML()}
       <h1>${t().zonesTitle}</h1>
       <p class="subtitle">${t().zonesSub}</p>
+      <p class="zones-how">${t().zonesHow}</p>
       <div class="zone-grid">${cards}${soon}</div>
     </div>`;
   wireHeader();

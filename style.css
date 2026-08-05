@@ -65,6 +65,17 @@ header select {
 .zones-wrap { max-width: 940px; margin: 30px auto; padding: 0 16px; }
 .zones-wrap h1 { font-size: 30px; margin-bottom: 4px; color: #fff; }
 .zones-wrap .subtitle { color: #b9aee0; margin-bottom: 22px; }
+/* Le due regole che non si capiscono da sole guardando le schede: che le zone
+   si possono fare in qualunque ordine, e che i bonus di una zona dipendono da
+   QUELLA zona. Sta qui e non nelle Regole perche' li' ci arriva chi ha gia'
+   un dubbio, e questa e' roba da sapere prima di scegliere. */
+.zones-wrap .zones-how {
+  color: #cfc4ee; font-size: 14px; line-height: 1.5;
+  margin: -14px 0 22px; padding: 11px 13px;
+  border-radius: 12px; border: 1px solid rgba(166,97,226,.28);
+  background: rgba(36,28,73,.55);
+}
+.zones-wrap .zones-how b { color: #ece7fa; }
 .zone-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
