@@ -134,10 +134,6 @@ header select {
 .level-card.tut { border-left-color: var(--purple-l); background: #2b2152; }
 .level-card .lc-top { display: flex; align-items: center; justify-content: space-between; }
 .level-card .num { font-size: 12px; color: #a99cd0; font-weight: 700; }
-.level-card .diff { font-size: 10px; letter-spacing: 1px; }
-.level-card .diff1 { color: var(--easy); }
-.level-card .diff2 { color: var(--med); }
-.level-card .diff3 { color: var(--hard); }
 .level-card .nm { font-weight: 700; margin: 6px 0; flex: 1; line-height: 1.25; }
 .level-card .lc-bot { display: flex; align-items: center; justify-content: space-between;
   font-size: 11px; color: #a99cd0; }
@@ -2068,11 +2064,8 @@ header .hinstall[hidden] { display: none; }
 .level-card.d1 { border-left-color: #58ddb3; }
 .level-card.d2 { border-left-color: #ffd166; }
 .level-card.d3 { border-left-color: #ff786d; }
-.level-card .diff1,
 .level-card.d1 .difftext { color: #72f0c2; }
-.level-card .diff2,
 .level-card.d2 .difftext { color: #ffd166; }
-.level-card .diff3,
 .level-card.d3 .difftext { color: #ff8c82; }
 
 .level-card.tut {
@@ -2393,19 +2386,11 @@ header .hinstall[hidden] { display: none; }
   .pg-dot { min-width: 34px; min-height: 34px; }
 }
 
-/* punteggio 1-100 del caso: percentile della durezza su tutto il catalogo.
-   Sta in un angolo e non ruba spazio al nome, che resta la cosa da leggere. */
+/* Il punteggio 1-100 e i pallini di difficolta' sono stati tolti: sulla stessa
+   scheda dicevano la stessa cosa tre volte (numero, pallini, parola in basso),
+   e il nome del caso — la cosa da leggere — ci finiva in mezzo. Resta la
+   parola, con lo stesso vocabolario delle schede in cima. */
 .level-card { position: relative; }
-.level-card .rating {
-  position: absolute; top: 6px; right: 8px;
-  font-size: 11px; font-weight: 800; line-height: 1;
-  padding: 3px 5px; border-radius: 7px;
-  color: #d7fff5; background: rgba(7,21,35,.55);
-  border: 1px solid rgba(99,239,208,.30);
-  pointer-events: none;
-}
-.level-card.d3 .rating { color: #ffe9a8; border-color: rgba(255,214,110,.4); }
-.level-card.locked .rating { display: none; }
 
 /* ---------- v39 ---------- */
 
@@ -2537,7 +2522,10 @@ header .hinstall[hidden] { display: none; }
 }
 
 /* regole, interruttori audio, link in home */
-.home-links { display: flex; gap: 8px; margin-top: 10px; }
+/* lo stacco sotto e' generoso di proposito: sopra finisce il blocco della
+   sfida del giorno, sotto comincia la scelta della zona, e sono due cose
+   diverse — appiccicate sembravano un elenco solo */
+.home-links { display: flex; gap: 8px; margin-top: 10px; margin-bottom: 34px; }
 .home-links .archive-link { margin: 0; flex: 1; }
 .rules { display: flex; flex-direction: column; gap: 12px; }
 .rule {

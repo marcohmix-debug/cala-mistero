@@ -12,6 +12,9 @@ const I18N = {
     next: "Prossimo caso", home: "Livelli", retry: "Riprova",
     victim: "LA VITTIMA",
     tutorial: "TUTORIAL", tutSkip: "Salta il tutorial →",
+    tutAskTitle: "Prima indagine?",
+    tutAskBody: "Un caso guidato che insegna le regole in due minuti. Si fa una volta sola, e puoi saltarlo.",
+    tutAskGo: "Fai il tutorial", tutAskSkip: "Salta",
     mCross: "Croci", mPlace: "Piazza", mPencil: "Ipotesi", mErase: "Cancella", mUndo: "Annulla", mHint: "Aiuto",
     pencilOn: "✏️ Ipotesi attive", pencilOff: "✏️ Fai ipotesi",
     mSubmit: "Invia soluzione", mPick: "Scegli un sospettato qui sopra.",
@@ -104,6 +107,9 @@ const I18N = {
     next: "Next case", home: "Levels", retry: "Retry",
     victim: "THE VICTIM",
     tutorial: "TUTORIAL", tutSkip: "Skip tutorial →",
+    tutAskTitle: "First case?",
+    tutAskBody: "A guided case that teaches the rules in two minutes. You only do it once, and you can skip it.",
+    tutAskGo: "Take the tutorial", tutAskSkip: "Skip",
     mCross: "Crosses", mPlace: "Place", mPencil: "Notes", mErase: "Erase", mUndo: "Undo", mHint: "Hint",
     pencilOn: "✏️ Notes active", pencilOff: "✏️ Add notes",
     mSubmit: "Submit solution", mPick: "Pick a suspect above.",
@@ -233,7 +239,7 @@ Profile.onChange = () => {
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "62";
+const BUILD = "63";
 
 async function boot() {
   // l'interruttore della musica compare solo se un brano c'e' davvero:
@@ -611,6 +617,22 @@ function renderZones() {
   if (dc) dc.onclick = () => openDaily();
   document.querySelectorAll(".zone-card[data-zone]").forEach((el) =>
     el.onclick = () => renderLevels(S.zones.find((z) => z.id === el.dataset.zone)));
+  offriTutorial();
+}
+
+/** Il tutorial si propone QUI, prima della scelta della zona. Stava dentro la
+ *  prima zona, e chi ne apriva un'altra non lo vedeva mai — cioe' quasi
+ *  nessuno, visto che le zone si scelgono a gusto e non in ordine. Si chiede
+ *  una volta sola: chi salta non se lo ritrova a ogni avvio. */
+function offriTutorial() {
+  if (Profile.tutAsked()) return;
+  const zt = S.zones.find((z) => z.tutorial);
+  if (!zt || isDone(zt.id + ":0")) return;
+  Profile.markTutAsked();
+  modal(t().tutAskTitle, t().tutAskBody, [
+    [t().tutAskSkip, () => {}],
+    [t().tutAskGo, () => openLevel(zt, 0)],
+  ]);
 }
 
 /* ---------------- level select ---------------- */
@@ -633,17 +655,19 @@ function renderLevels(zone) {
   const cardFor = (l, locked) => {
     const df = l.difficulty || 2;
     const bt = bestOf(key(l.id));
+    // in basso la fascia, con le stesse parole delle schede in cima
+    // (Principiante/Medio/Esperto/Maestro): due vocabolari per la stessa cosa
+    // costringevano a tradurre a mente
+    const fascia = t().bands[l.band] || t().diff[df];
     return `<div class="level-card d${df} ${isDone(key(l.id)) ? "done" : ""}
       ${l.bonus ? "bonus" : ""} ${locked ? "locked" : ""}" data-id="${l.id}">
       <div class="lc-top">
         <span class="num">${l.bonus ? "★" : "#" + String(l.id).padStart(2, "0")}</span>
-        <span class="diff diff${df}">${"●".repeat(df)}${"○".repeat(3 - df)}</span>
       </div>
       <div class="nm">${locked ? t().bonusLocked
                                : (S.lang === "it" ? l.name_it : l.name_en)}</div>
       <div class="lc-bot"><span class="sz">${l.size}×${l.size}</span>
-        <span class="difftext">${bt != null ? "⏱ " + fmtTime(bt) : t().diff[df]}</span></div>
-      ${l.rating ? `<span class="rating" title="${t().ratingTip}">${l.rating}</span>` : ""}
+        <span class="difftext">${bt != null ? "⏱ " + fmtTime(bt) : fascia}</span></div>
     </div>`;
   };
 
