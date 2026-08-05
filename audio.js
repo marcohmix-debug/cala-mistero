@@ -26,7 +26,8 @@ const Audio = {
   ctx: null,
   VOL: .35,             // la musica sta sotto: e' un tappeto, non un brano
   music: null,          // {src, g} in riproduzione
-  musicTheme: null,
+  musicTheme: null,     // quello che suona davvero
+  voluto: null,         // quello che l'app vorrebbe far suonare adesso
   known: {},            // tema -> true/false: il brano esiste?
   buffers: {},          // UN tema alla volta: il PCM decodificato pesa ~38 MB
 
@@ -152,11 +153,43 @@ const Audio = {
     }
   },
 
+  /** I browser non lasciano partire l'audio prima di un gesto: al primo avvio
+   *  il contesto e' SOSPESO e il brano resta muto anche se e' stato messo in
+   *  coda. Il tema del menu non si sentiva mai per questo -- il primo tocco e'
+   *  quasi sempre su una zona, e da li' in poi suona il brano della zona.
+   *  Qui si riprova al primo tocco, e si riparte da `voluto`, cioe' dal tema
+   *  che l'app vuole ADESSO: il gestore in bolla lascia girare prima quello
+   *  della vista, se no si sentirebbe un istante di menu prima della zona. */
+  attendiGesto() {
+    if (this._inAttesa) return;
+    this._inAttesa = true;
+    const via = () => {
+      document.removeEventListener("pointerdown", via);
+      document.removeEventListener("keydown", via);
+      this._inAttesa = false;
+      // il resume va chiesto DENTRO il gesto: Safari non lo concede a un
+      // callback differito, e il primo tentativo cadeva proprio qui
+      this.ensure();
+      setTimeout(() => {
+        if (this.musicOn && this.voluto) this.start(this.voluto);
+      }, 0);
+    };
+    document.addEventListener("pointerdown", via);
+    document.addEventListener("keydown", via);
+  },
+
   async start(theme) {
     if (!this.musicOn || !theme) return;
+    this.voluto = theme;
     if (this.musicTheme === theme && this.music) return;
     const ctx = this.ensure();
     if (!ctx) return;
+    if (ctx.state !== "running") {
+      // `resume()` e' asincrono: senza aspettarlo lo stato qui e' ancora
+      // "suspended" e si finiva ad aspettare un gesto che era gia' arrivato
+      try { await ctx.resume(); } catch { /* niente da fare */ }
+    }
+    if (ctx.state !== "running") return this.attendiGesto();
     const dati = await this.buffer(theme);
     if (!dati) return;
     // il brano puo' essere cambiato mentre si decodificava
