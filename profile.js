@@ -77,6 +77,19 @@ const Profile = {
   solved(key) { return !!this.data.levels[key]; },
   best(key) { return this.data.levels[key]?.best ?? null; },
 
+  /* ---- tutorial ----
+   * Si propone UNA volta sola, appena aperto il gioco, prima ancora di
+   * scegliere una zona: legarlo alla prima zona voleva dire che chi ne apriva
+   * un'altra non lo vedeva mai. Il flag registra che la domanda e' stata
+   * fatta, non che il tutorial sia stato fatto: chi lo salta non deve
+   * ritrovarselo davanti a ogni avvio. */
+  tutAsked() { return !!this.data.tutAsked; },
+  markTutAsked() {
+    if (this.data.tutAsked) return;
+    this.data.tutAsked = true;
+    this.save();
+  },
+
   /* ---- cronometro in pausa ----
    * Uscendo da un caso il tempo non si azzera e non continua a correre: si
    * mette da parte qui e riparte da li' quando il caso viene riaperto. Sta
