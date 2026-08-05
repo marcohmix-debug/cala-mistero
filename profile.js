@@ -90,6 +90,26 @@ const Profile = {
     this.save();
   },
 
+  /* ---- classifica ----
+   * Acceso di default: una classifica vuota non invoglia nessuno. Chi non
+   * vuole comparire lo spegne dal profilo e sparisce anche da quelle dei
+   * giorni passati, perche' senza il consenso non si scrive piu' niente. */
+  get lbOptIn() { return this.data.lbOptIn !== false; },
+  set lbOptIn(v) { this.data.lbOptIn = !!v; this.save(); },
+
+  /** Il nome che si vede in classifica. Chi non ne ha scelto uno compare come
+   *  "Anonimo" piu' cinque cifre ricavate dall'uid: sempre le stesse per la
+   *  stessa persona, cosi' due anonimi restano distinguibili di giorno in
+   *  giorno, ma dal numero non si risale a niente. */
+  publicName() {
+    const n = (this.data.name || "").trim();
+    if (n) return n.slice(0, 24);
+    const uid = this.user?.uid || "";
+    let h = 0;
+    for (let i = 0; i < uid.length; i++) h = (h * 31 + uid.charCodeAt(i)) >>> 0;
+    return "Anonimo" + String(h % 100000).padStart(5, "0");
+  },
+
   /* ---- cronometro in pausa ----
    * Uscendo da un caso il tempo non si azzera e non continua a correre: si
    * mette da parte qui e riparte da li' quando il caso viene riaperto. Sta
@@ -581,6 +601,55 @@ const Cloud = {
       }, { merge: true });
     } catch (e) {
       console.warn("push fallito:", e);
+    }
+  },
+
+  /* ---- classifica della sfida del giorno ----
+   *
+   * Si classifica SOLO la sfida quotidiana, ed e' una scelta, non una
+   * scorciatoia: e' l'unica cosa che tutti giocano uguale — stesso caso,
+   * stesso giorno — quindi i tempi si confrontano senza normalizzare niente.
+   * Una classifica sul totale premierebbe chi ha risolto meno casi, e una sul
+   * numero di casi premierebbe chi macina invece di chi e' bravo.
+   *
+   * Sta in `leaderboard/{giorno}/scores/{uid}`, fuori da `users`, che resta
+   * privato. Il pavimento anti-cheat vero e' in firestore.rules: qui lo si
+   * ripete solo per non mandare al server una riga che verrebbe rifiutata. */
+  MS_PER_CELLA: 400,
+  minMs(size) { return this.MS_PER_CELLA * (size || 6); },
+
+  async pushDaily(day, ms, size) {
+    if (!this.ready || !Profile.user || !Profile.lbOptIn) return false;
+    if (!(ms >= this.minMs(size))) return false;
+    try {
+      await this.mods.setDoc(
+        this.mods.doc(this.db, "leaderboard", day, "scores", Profile.user.uid),
+        { name: Profile.publicName(), ms: Math.round(ms),
+          size: size, at: Date.now() });
+      return true;
+    } catch (e) {
+      console.warn("classifica, invio fallito:", e);
+      return false;
+    }
+  },
+
+  /** I migliori di un giorno. -> [{uid, name, ms, size}] oppure null se il
+   *  cloud non e' disponibile. Il pavimento si riapplica anche in lettura:
+   *  una riga scritta prima che le regole fossero in vigore non deve
+   *  comparire solo perche' e' vecchia. */
+  async topDaily(day, n = 50) {
+    if (!this.ready) return null;
+    try {
+      const q = this.mods.query(
+        this.mods.collection(this.db, "leaderboard", day, "scores"),
+        this.mods.orderBy("ms"), this.mods.limit(n));
+      const snap = await this.mods.getDocs(q);
+      const out = [];
+      snap.forEach((d) => out.push({ uid: d.id, ...d.data() }));
+      return out.filter((r) => typeof r.ms === "number" && r.ms >= this.minMs(r.size));
+    } catch (e) {
+      console.warn("classifica, lettura fallita:", e);
+      return null;
     }
   },
 };

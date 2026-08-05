@@ -75,6 +75,16 @@ all'indirizzo <a href="mailto:susoku@mixdigital.it">susoku@mixdigital.it</a>.</p
     <td>Sul dispositivo e, se la sincronizzazione è attiva, su Firestore</td>
   </tr>
   <tr>
+    <td>Nome e tempo nella <strong>classifica della sfida del giorno</strong></td>
+    <td>Mostrare la classifica giornaliera. <strong>Sono gli unici dati
+      pubblici</strong>: li vede chiunque apra il gioco. Se non hai scelto un
+      nome compari come «Anonimo» seguito da cinque cifre. Puoi restare fuori
+      dalla classifica con l'interruttore nel profilo: da quel momento non
+      viene più inviato niente</td>
+    <td>Firestore, in una raccolta separata dai tuoi progressi, che restano
+      privati</td>
+  </tr>
+  <tr>
     <td>Identificativo pubblicitario, indirizzo IP, tipo di dispositivo</td>
     <td>Mostrare i video pubblicitari facoltativi (Google AdMob)</td>
     <td>Google</td>
@@ -105,6 +115,11 @@ vengono copiati anche su <strong>Google Cloud Firestore</strong> per ritrovarli
 se cambi telefono. Ogni giocatore può leggere e scrivere <em>soltanto</em> i
 propri dati: è imposto dalle regole di sicurezza del database, non dalla buona
 volontà dell'app.</p>
+<p>Fa eccezione la <strong>classifica della sfida del giorno</strong>, che è
+pubblica per definizione. Ci finiscono soltanto il nome che hai scelto e il
+tempo impiegato, in una raccolta separata: i progressi, le statistiche e
+l'eventuale email dell'account non ne fanno parte e restano leggibili solo da
+te. L'interruttore «Compari in classifica», nel profilo, ferma ogni invio.</p>
 
 <h2>Dove finiscono i dati</h2>
 <p>I fornitori sono <strong>Google Ireland Limited</strong> e le società del
