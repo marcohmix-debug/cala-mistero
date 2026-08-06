@@ -29,6 +29,7 @@ const Ads = {
   plugin: null,
   ready: false,
   consentDone: false,
+  consentOk: false,
 
   /** true quando il video vero e' disponibile; se no si ripiega sul premio. */
   get available() { return this.ready; },
@@ -47,8 +48,10 @@ const Ads = {
         initializeForTesting: this.testing,
         tagForChildDirectedTreatment: false,
       });
-      await this.consent();
-      this.ready = true;
+      // se il consenso serve e non arriva, l'SDK resta inizializzato ma noi
+      // non mostriamo niente: il premio viene dato lo stesso (vedi sotto), il
+      // giocatore non ci rimette
+      this.ready = await this.consent();
     } catch (e) {
       console.warn("AdMob non inizializzato:", e);
     }
@@ -56,18 +59,34 @@ const Ads = {
   },
 
   /** Modulo di consenso di Google (UMP). Obbligatorio in Europa: senza, si
-   *  possono mostrare solo annunci non personalizzati, e Play lo controlla. */
+   *  possono mostrare solo annunci non personalizzati, e Play lo controlla.
+   *
+   *  LA LINGUA DEL MODULO NON SI IMPOSTA DA QUI. `requestConsentInfo` accetta
+   *  solo `debugGeography`, `testDeviceIdentifiers` e `tagForUnderAgeOfConsent`
+   *  — controllato nei tipi del plugin, non c'e' nessuna opzione di lingua. Il
+   *  modulo segue la lingua del telefono e usa le traduzioni pubblicate nella
+   *  **console AdMob** (Privacy e messaggi > messaggio GDPR > Aggiungi lingua).
+   *  Se l'italiano non e' pubblicato li', un telefono italiano vede l'inglese:
+   *  e' una cosa da fare in console, non nel codice.
+   *
+   *  -> true se si puo' procedere. Se il consenso serve e non c'e', NON si
+   *  finge che sia andata bene: prima lo si dava per buono comunque, e gli
+   *  annunci partivano lo stesso. */
   async consent() {
-    if (this.consentDone) return;
+    if (this.consentDone) return this.consentOk;
+    this.consentOk = false;
     try {
-      const info = await this.plugin.requestConsentInfo();
+      let info = await this.plugin.requestConsentInfo();
       if (info.isConsentFormAvailable && info.status === "REQUIRED") {
         await this.plugin.showConsentForm();
+        info = await this.plugin.requestConsentInfo();   // rileggo l'esito
       }
+      this.consentOk = info.status === "OBTAINED" || info.status === "NOT_REQUIRED";
     } catch (e) {
-      console.warn("consenso non richiesto:", e);
+      console.warn("consenso non ottenuto:", e);
     }
     this.consentDone = true;
+    return this.consentOk;
   },
 
   /** true finche' si devono mostrare annunci finti. */

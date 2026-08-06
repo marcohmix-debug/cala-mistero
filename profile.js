@@ -38,10 +38,28 @@ const Profile = {
       if (raw && raw.levels) this.data = raw;
     } catch { /* profilo illeggibile: si riparte da zero */ }
     if ((this.data.v || 1) < DATA_V) {
-      // gli id dei casi sono cambiati: tenere i progressi vecchi sarebbe
-      // peggio che perderli, perche' sbloccherebbero casi a caso
+      // Gli id dei casi sono cambiati: tenere i progressi vecchi sarebbe
+      // peggio che perderli, perche' sbloccherebbero casi a caso.
+      //
+      // Ma si butta SOLO cio' che e' legato agli id. Il saldo degli aiuti no:
+      // dentro ci sono `bought` (pagati) e `ads` (guadagnati guardando un
+      // video), e cancellarli significa prendersi roba che il giocatore ha
+      // comprato o guadagnato. Oggi `bought` e' sempre zero perche' non si
+      // vende niente, ma il giorno che si vende una rinumerazione
+      // cancellerebbe acquisti veri -- e di rinumerazioni ne abbiamo gia'
+      // fatte tre. Anche le preferenze restano: non c'entrano con gli id.
+      // `spent` invece va azzerato INSIEME ai progressi, e non e' un
+      // dettaglio: il saldo e' `earned(progressi) + bought + ads - spent`.
+      // Tenendo `spent` mentre `earned` torna a 5, un giocatore che ne aveva
+      // spesi venti si ritroverebbe a zero -- perderebbe anche i cinque
+      // iniziali. Si conserva quello che ha pagato o guadagnato, si azzera il
+      // conto di quello che ha speso su casi che non esistono piu'.
+      const h = this.data.hints;
       this.data = { v: DATA_V, name: this.data.name || "", levels: {},
-                    runs: {}, recovered: [], updated: 0 };
+                    runs: {}, recovered: [], updated: 0,
+                    hints: h ? { ...h, spent: 0 } : undefined,
+                    tutAsked: this.data.tutAsked,
+                    lbOptIn: this.data.lbOptIn };
       localStorage.removeItem("cm_done");
       this.save();
     }
@@ -278,11 +296,10 @@ const HINT_RULES = {
   adReward: 1,       // un annuncio guardato
   adDailyCap: 3,     // ...ma non piu' di 3 al giorno
   cost: 1,           // costo di un aiuto
-  packs: [           // acquisti (i prezzi li decidera' lo store)
-    { id: "small", hints: 5 },
-    { id: "medium", hints: 15, badge: "+3" },
-    { id: "large", hints: 50, badge: "+15" },
-  ],
+  // I pacchetti a pagamento sono stati tolti: dietro non c'era nessun negozio.
+  // `bought` resta nel saldo, azzerato, perche' e' il posto dove finirebbero
+  // gli acquisti se un domani ci sara' Play Billing -- e perche' un reset di
+  // DATA_V non lo deve piu' cancellare.
 };
 
 const Hints = {
@@ -335,11 +352,13 @@ const Hints = {
     return true;
   },
 
-  /** Acquisto andato a buon fine (lo store vero arriva dopo). */
-  grantFromPurchase(packId) {
-    const pack = HINT_RULES.packs.find((p) => p.id === packId);
-    if (!pack) return false;
-    this.state.bought += pack.hints;
+  /** Aiuti accreditati da un acquisto. Non c'e' ancora nessun negozio che la
+   *  chiami -- Play Billing non e' integrato -- ma il punto di ingresso resta
+   *  qui, ed e' l'unico posto che deve toccare `bought`. */
+  grantFromPurchase(quante) {
+    const n = Math.floor(Number(quante) || 0);
+    if (n <= 0) return false;
+    this.state.bought += n;
     Profile.save();
     Cloud.push();
     return true;
@@ -633,6 +652,20 @@ const Cloud = {
     }
   },
 
+  /** Somma i contatori anonimi di un caso. Non blocca niente: se fallisce,
+   *  si perde un dato statistico, non una partita. */
+  async bumpStats(chiave, campi) {
+    if (!this.ready || !Profile.user) return;
+    try {
+      const inc = {};
+      for (const [k, v] of Object.entries(campi)) inc[k] = this.mods.increment(v);
+      await this.mods.setDoc(this.mods.doc(this.db, "stats", chiave), inc,
+                             { merge: true });
+    } catch (e) {
+      console.warn("telemetria non inviata:", e);
+    }
+  },
+
   /** I migliori di un giorno. -> [{uid, name, ms, size}] oppure null se il
    *  cloud non e' disponibile. Il pavimento si riapplica anche in lettura:
    *  una riga scritta prima che le regole fossero in vigore non deve
@@ -768,5 +801,44 @@ const Badges = {
   list(zones) {
     const s = this.stats(zones);
     return this.defs.map((d) => ({ def: d, ok: !!d.test(s) }));
+  },
+};
+
+/* ---------------- telemetria ----------------
+ *
+ * Serve a rispondere a UNA domanda: dove si bloccano i giocatori. Senza, la
+ * difficolta' resta tarata su una formula invece che sui tempi veri.
+ *
+ * NON si usa Google Analytics, e non per pigrizia: avrebbe voluto dire
+ * abilitarlo in console, aggiungere un `measurementId`, un altro SDK, un altro
+ * consenso da raccogliere e una riga in piu' nei questionari sui dati. Qui
+ * bastano dei CONTATORI AGGREGATI: un documento per caso, con quante volte e'
+ * stato aperto, risolto, abbandonato, e la somma dei tempi.
+ *
+ * Non c'e' nessun dato personale e nemmeno un identificativo: i contatori si
+ * sommano e basta, quindi da qui non si risale a nessuno. Il rovescio e' che
+ * chiunque sia autenticato puo' gonfiarli: il danno sarebbero dati sballati,
+ * non una fuga di informazioni.
+ *
+ * Si accumula in memoria e si scrive UNA volta a fine caso: un aggiornamento
+ * per partita, non uno per tocco. */
+const Telemetry = {
+  corrente: null,
+
+  apri(chiave, size) {
+    this.corrente = { chiave, size, aiuti: 0, aperto: true };
+  },
+
+  aiuto() { if (this.corrente) this.corrente.aiuti++; },
+
+  /** Fine partita. `ms` solo se risolto; se no e' un abbandono. */
+  chiudi(ms) {
+    const c = this.corrente;
+    this.corrente = null;
+    if (!c || !c.aperto) return;
+    const d = { aperti: 1, aiuti: c.aiuti };
+    if (ms) { d.risolti = 1; d.msTot = Math.round(ms); }
+    else { d.lasciati = 1; }
+    Cloud.bumpStats(c.chiave, d);
   },
 };
