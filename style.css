@@ -1795,15 +1795,6 @@ header .hprofile .picon path { fill: none; }
   background: linear-gradient(145deg, #a86be5, #7d43bb);
 }
 .shop #adBtn:disabled { opacity: .45; cursor: not-allowed; }
-.packs { list-style: none; padding: 0; margin: 12px 0 6px; display: flex; gap: 8px; }
-.packs li {
-  flex: 1; text-align: center; padding: 10px 4px; font-size: 13px;
-  border-radius: 10px; border: 1px dashed rgba(166,97,226,.45);
-  color: #cdbff0;
-}
-.packs li b { display: block; font-size: 18px; color: #fff; }
-.packs li em { font-style: normal; font-size: 11px; color: #8fdcae; }
-.soonlabel { display: block; text-align: center; font-size: 12px; color: #9d8fc9; }
 
 /* pavimenti dei temi west / egitto / hotel (stessi gruppi per materiale) */
 .cell.floor-saloon, .cell.floor-emporio, .cell.floor-sceriffo,

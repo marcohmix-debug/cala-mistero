@@ -84,7 +84,7 @@ const I18N = {
     sound: "Suoni", music: "Musica",
     tipTitle: "Novità in questo caso",
     tipDont: "Non mostrare più", gotIt: "Ho capito",
-    tip9: "Da 9×9 in su cambiano due cose. Ogni sospettato può avere <b>più di un indizio</b>, uniti in una frase sola. E compaiono gli <b>indizi generali</b>: non parlano di una persona ma contano quante ne sono in una stanza, in una metà della mappa, sedute o accanto a un oggetto. Servono eccome: spesso è da lì che riparte la deduzione quando sembri bloccato.",
+    tip9: "Da 9×9 in su cambiano due cose. Ogni sospettato può avere <b>più di un indizio</b>, uniti in una frase sola. E compaiono gli <b>indizi generali</b>: non parlano di una persona ma contano quante ne sono in una stanza, quante sono sedute, o quante stanno accanto a un certo oggetto. Servono eccome: spesso è da lì che riparte la deduzione quando sembri bloccato.",
     tip12: "Da 12×12 la griglia non ci sta più tutta comoda: si scorre, e la barra in basso resta sempre raggiungibile. Consiglio pratico: usa le <b>ipotesi</b> (✏️) invece di piazzare e togliere. Con un sospettato selezionato, le celle dove l'hai ipotizzato si accendono di verde.",
     tip15: "I casi bonus sono 15×15 e 16×16, le griglie più grandi del gioco. Nessuna regola nuova, solo molto più da tenere insieme: prenditi il tempo e appoggiati alle ipotesi.",
     bands: { principiante: "Principiante", medio: "Medio",
@@ -187,7 +187,7 @@ const I18N = {
     sound: "Sound", music: "Music",
     tipTitle: "New in this case",
     tipDont: "Don't show again", gotIt: "Got it",
-    tip9: "From 9×9 on, two things change. A suspect can have <b>more than one clue</b>, merged into a single sentence. And <b>general clues</b> appear: they don't name anyone, they count how many people are in a room, in half the map, seated, or beside an object. They matter — that's often where the deduction restarts when you feel stuck.",
+    tip9: "From 9×9 on, two things change. A suspect can have <b>more than one clue</b>, merged into a single sentence. And <b>general clues</b> appear: they don't name anyone, they count how many people are in a room, how many are seated, or how many stand beside a given object. They matter — that's often where the deduction restarts when you feel stuck.",
     tip12: "From 12×12 the grid no longer fits comfortably: it scrolls, and the bottom bar stays reachable. Practical tip: use <b>notes</b> (✏️) instead of placing and removing. With a suspect selected, the squares where you noted them light up green.",
     tip15: "Bonus cases are 15×15 and 16×16, the biggest grids in the game. No new rules, just much more to hold together: take your time and lean on notes.",
     bands: { principiante: "Beginner", medio: "Medium",
@@ -257,7 +257,7 @@ Profile.onChange = () => {
   else if (S.view === "levels") renderLevels(S.zone);
 };
 
-const BUILD = "65";
+const BUILD = "66";
 
 async function boot() {
   // l'interruttore della musica compare solo se un brano c'e' davvero:
@@ -373,6 +373,7 @@ async function openDaily(day) {
   S.base = Profile.run("daily:" + S.level.id);
   restoreDraft("daily:" + S.level.id);
   S.t0 = Date.now();
+  Telemetry.apri("daily:" + S.level.id, S.level.size);
   renderGame();
   startTimer();
 }
@@ -864,6 +865,7 @@ async function openLevel(zone, id, replay) {
   S.base = Profile.run(zone.id + ":" + S.level.id);
   restoreDraft(zone.id + ":" + S.level.id);
   S.t0 = Date.now();
+  Telemetry.apri(zone.id + ":" + S.level.id, S.level.size);
   renderGame();
   startTimer();
 }
@@ -904,22 +906,22 @@ function rulesHTML() {
     ["La griglia", "La mappa è divisa in <b>stanze</b> colorate. Ogni sospettato occupa una casella, e vale una regola ferrea: <b>uno per riga e uno per colonna</b>, come in un sudoku. Le caselle occupate da un ingombro (un armadio, una statua) non sono calpestabili."],
     ["La vittima", "La vittima era <b>sola con l'assassino</b>: nella sua stanza c'è lei e una persona sola, ed è il colpevole. La sua carta è marcata e il suo indizio lo dice."],
     ["Gli indizi", "Ogni sospettato ha almeno un indizio, che parla di righe, colonne, stanze, oggetti vicini, o della posizione rispetto a un altro (\"due righe a nord di Bruno\"). Sono <b>tutti veri</b> e insieme bastano: la soluzione è sempre una sola e si trova per deduzione, mai tirando a indovinare."],
-    ["Indizi generali", "Dal 9×9 in su compaiono indizi che non nominano nessuno ma <b>contano</b>: quante persone in una stanza, in una metà della mappa, sedute, o accanto a un certo oggetto. Sono nel pannello a parte."],
+    ["Indizi generali", "Dal 9×9 in su compaiono indizi che non nominano nessuno ma <b>contano</b>: quante persone in una stanza, quante sedute, quante accanto a un certo oggetto. Sono nel pannello a parte."],
     ["Gli strumenti", "<b>Piazza</b> mette il sospettato selezionato. <b>Croci</b> segna le caselle che hai escluso. <b>Ipotesi</b> (✏️) appunta un sospettato in più caselle senza deciderlo: selezionandolo, le sue ipotesi si accendono. <b>Cancella</b>, <b>Annulla</b> e <b>Ricomincia</b> tornano indietro — Ricomincia svuota la griglia ma non il cronometro."],
     ["Gli aiuti", "Un aiuto <b>piazza il prossimo sospettato deducibile e spiega perché</b>: non è una risposta a caso, è il passo che avresti dovuto fare. Se ne guadagnano risolvendo la sfida del giorno e completando le zone."],
     ["Fasce e bonus", "I 100 casi di una zona sono divisi in Principiante, Medio, Esperto e Maestro, per dimensione crescente. Chiudendo Esperto e Maestro si aprono i <b>5 casi bonus</b>, i più grandi."],
-    ["Il punteggio 1-100", "Il numero sull'angolo della card dice quanto è tosto quel caso <b>rispetto a tutti gli altri del gioco</b>: lo calcola il solver contando quanto è lunga la catena di deduzioni. Non è il tempo che ci metterai, è quanto ragionamento serve."],
+    ["Quando la griglia cresce", "Dal <b>9×9</b> un sospettato può avere più indizi, uniti in una frase sola, e compaiono gli indizi generali. Dal <b>12×12</b> la griglia si scorre: conviene usare le <b>ipotesi</b> (✏️) invece di piazzare e togliere. I <b>bonus 15×15 e 16×16</b> non aggiungono regole nuove, solo molto più da tenere insieme."],
     ["Sfida del giorno", "Una mappa uguale per tutti, che cambia ogni giorno. Le sfide passate restano nell'archivio e si possono recuperare."],
   ] : [
     ["The goal", "Every case has a victim and a murderer. You must work out <b>where each suspect was</b> when it happened: once the arrangement is right, the murderer falls out by itself."],
     ["The grid", "The map is split into coloured <b>rooms</b>. Each suspect takes one square, with one iron rule: <b>one per row and one per column</b>, like a sudoku. Squares taken by a bulky object aren't walkable."],
     ["The victim", "The victim was <b>alone with the murderer</b>: their room holds them and exactly one other person, and that's the culprit. Their card is marked and their clue says so."],
     ["The clues", "Every suspect has at least one clue about rows, columns, rooms, nearby objects, or their position relative to someone else (\"two rows north of Bruno\"). They are <b>all true</b> and together they're enough: there is always exactly one solution, reachable by deduction and never by guessing."],
-    ["General clues", "From 9×9 on, clues appear that name nobody but <b>count</b>: how many people are in a room, in half the map, seated, or beside a given object. They live in their own panel."],
+    ["General clues", "From 9×9 on, clues appear that name nobody but <b>count</b>: how many people are in a room, how many are seated, how many stand beside a given object. They live in their own panel."],
     ["The tools", "<b>Place</b> puts down the selected suspect. <b>Crosses</b> marks squares you've ruled out. <b>Notes</b> (✏️) pencils a suspect into several squares without committing: select them and their notes light up. <b>Erase</b>, <b>Undo</b> and <b>Restart</b> walk it back — Restart empties the grid but not the clock."],
     ["Hints", "A hint <b>places the next deducible suspect and explains why</b>: it's not a random answer, it's the step you were meant to take. You earn them by solving the daily challenge and completing zones."],
     ["Tiers and bonus", "A zone's 100 cases are split into Beginner, Medium, Expert and Master by grid size. Clear Expert and Master to open the <b>5 bonus cases</b>, the largest ones."],
-    ["The 1-100 score", "The number in the corner of a card says how tough that case is <b>compared with every other case in the game</b>: the solver works it out from how long the chain of deductions runs. It isn't how long you'll take, it's how much reasoning it needs."],
+    ["When the grid grows", "From <b>9×9</b> a suspect can carry several clues merged into one sentence, and general clues appear. From <b>12×12</b> the grid scrolls: lean on <b>notes</b> (✏️) instead of placing and removing. The <b>15×15 and 16×16 bonus</b> cases add no new rules, just much more to hold together."],
     ["Daily challenge", "One map, the same for everyone, changing every day. Past challenges stay in the archive and can be recovered."],
   ];
   return R.map(([h, b]) => `<div class="rule"><h3>${h}</h3><p>${b}</p></div>`).join("");
@@ -1292,6 +1294,9 @@ function renderGame() {
  *  esattamente quello che il messaggio promette, quindi va detto. */
 function leaveGame(skipAsk) {
   const esci = () => {
+    // se non l'ha risolto, per la statistica e' un abbandono: e' il dato che
+    // dice DOVE la gente si ferma, ed e' il motivo per cui esiste la telemetria
+    if (!S.done) Telemetry.chiudi(null);
     pauseRun();
     if (S.zone?.daily) renderZones();
     else renderLevels(S.zone);
@@ -1483,6 +1488,7 @@ function hint() {
   const st = nextStep();
   if (!st) return;
   if (!Hints.spend(S.zones)) return hintShop();   // saldo a zero
+  Telemetry.aiuto();
   applyStep(st);
   renderGame();
   const nm = S.level.suspects[st.suspect].name;
@@ -1499,15 +1505,15 @@ function hint() {
 /** Finiti gli aiuti: annuncio (in arrivo) o acquisto. */
 function hintShop() {
   const left = Hints.adsLeftToday();
-  const packs = HINT_RULES.packs.map((p) =>
-    `<li><b>${p.hints}</b> ${t().hintsWord}${p.badge ? ` <em>${p.badge}</em>` : ""}</li>`
-  ).join("");
+  // Niente listino di pacchetti a pagamento: dietro non c'e' nessun negozio,
+  // e mostrare prezzi che non si possono pagare e' un problema in review --
+  // oltre che una promessa non mantenuta al giocatore. Gli aiuti si guadagnano
+  // con la sfida del giorno, le zone completate e i video, che esistono
+  // davvero. Se un domani ci sara' Play Billing, il listino torna qui.
   modal(t().hintShopTitle, `${t().hintShopBody}
     <div class="shop">
       <button id="adBtn" ${left > 0 ? "" : "disabled"}>${
         left > 0 ? t().hintAd(left) : t().hintAdOut}</button>
-      <ul class="packs">${packs}</ul>
-      <span class="soonlabel">${t().soon}</span>
     </div>`, [[t().ok, () => {}]]);
   const ad = $("#adBtn");
   if (ad) ad.onclick = async () => {
@@ -1553,6 +1559,7 @@ function submit() {
     S.t0 = null;
     S.done = true;
     Audio.play("win");
+    Telemetry.chiudi(ms);
     // ripetizione: il cronometro e' solo estetico, il record non si tocca
     const rec = S.replay
       ? { best: Profile.best(S.zone.id + ":" + L.id), isRecord: false, first: false }
